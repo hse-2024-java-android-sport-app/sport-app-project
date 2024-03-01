@@ -11,8 +11,10 @@ public class UserRegistrationDto {
     @SerializedName("login")
     private String login;
     @SerializedName("password")
-    private char[] password;
+    private String password;
+
     public enum Kind {sportsman, coach}
+
     @SerializedName("type")
     private Kind type;
     @SerializedName("dateOfBirth")
@@ -30,6 +32,7 @@ public class UserRegistrationDto {
     public Kind getType() {
         return type;
     }
+
     public void setType(Kind type) {
         this.type = type;
     }
@@ -50,15 +53,15 @@ public class UserRegistrationDto {
         this.login = login;
     }
 
-    public char[] getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(char[] password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public UserRegistrationDto(String name, String login, char[] password, Kind type, Date dateOfBirth) {
+    public UserRegistrationDto(String name, String login, String password, Kind type, Date dateOfBirth) {
         this.name = name;
         this.login = login;
         this.password = password;
