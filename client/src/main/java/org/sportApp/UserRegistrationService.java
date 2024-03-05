@@ -1,4 +1,4 @@
-package ru.sport.app.project;
+package org.sportApp;
 
 import com.google.gson.Gson;
 import okhttp3.*;

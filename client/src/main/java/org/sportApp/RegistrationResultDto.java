@@ -1,4 +1,4 @@
-package ru.sport.app.project;
+package org.sportApp;
 
 public class RegistrationResultDto {
     RegistrationResultDto() {
