@@ -1,24 +1,3 @@
-<<<<<<< HEAD
-plugins {
-    id("java")
-}
-
-group = "org.sportApp"
-version = "1.0-SNAPSHOT"
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.9.1"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-}
-
-tasks.test {
-    useJUnitPlatform()
-}
-=======
 plugins {
     id("java")
     id("org.springframework.boot") version "3.2.2"
@@ -49,4 +28,3 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
->>>>>>> The structure of the client module has changed
