@@ -28,8 +28,7 @@ public class RegistrationTest {
 
     @Test
     public void whenPostJson_thenCorrect() throws IOException {
-
-        UserRegistrationDto userDto = new UserRegistrationDto("Diana", "mediana105", new char[]{'1', '2', '3', '4'}, UserRegistrationDto.Kind.sportsman, new Date(2002, Calendar.MAY, 10));
+        UserRegistrationDto userDto = new UserRegistrationDto("Diana", "mediana105", "12345", UserRegistrationDto.Kind.sportsman, new Date(2002, Calendar.MAY, 10));
         String json = new Gson().toJson(userDto);
 
         RequestBody body = RequestBody.create(json,

@@ -6,18 +6,13 @@ import com.google.gson.annotations.SerializedName;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class UserRegistrationDto {
-    @SerializedName("name")
     private String name;
-    @SerializedName("login")
     private String login;
-    @SerializedName("password")
     private String password;
 
     public enum Kind {sportsman, coach}
 
-    @SerializedName("type")
     private Kind type;
-    @SerializedName("dateOfBirth")
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateOfBirth;
 
