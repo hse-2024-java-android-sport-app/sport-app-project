@@ -15,15 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.sportApp.model.User;
 import org.sportApp.userInterface.coach.databinding.FragmentCoachListOfSportsmenBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CoachListOfSportsmenFragment extends Fragment {
 
     private FragmentCoachListOfSportsmenBinding binding;
-
-    private RecyclerView userRecyclerView;
-    private UserAdapter userAdapter;
-    private List<User> userList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -32,11 +29,10 @@ public class CoachListOfSportsmenFragment extends Fragment {
 
         binding = FragmentCoachListOfSportsmenBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        //UserAdapter = new UserAdapter(this, userList);
-        //binding.userRecyclerView.setLayoutManager(new LinearLayoutManager());
-        //LinearLayoutManager manager = new LinearLayoutManager();
-        //final TextView textView = binding.textCoachListOfSportsmen;
-        //coachListOfSportsmenViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        binding.userRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        binding.userRecyclerView.setAdapter(
+                //new UserAdapter(this.getContext(), coachListOfSportsmenViewModel.getUserList()));
+                new UserAdapter(this.getContext(), new ArrayList<>()));
         return root;
     }
 
