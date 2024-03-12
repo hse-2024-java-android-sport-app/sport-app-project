@@ -26,13 +26,17 @@ public class CoachListOfSportsmenFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         CoachListOfSportsmenViewModel coachListOfSportsmenViewModel =
                 new ViewModelProvider(this).get(CoachListOfSportsmenViewModel.class);
+        coachListOfSportsmenViewModel.setUserAdapterWithContext(this.getContext());
 
         binding = FragmentCoachListOfSportsmenBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        binding.userRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        binding.userRecyclerView.setAdapter(
+        final RecyclerView recyclerView = binding.userRecyclerView;
+        coachListOfSportsmenViewModel.getUserAdapter().observe(getViewLifecycleOwner(),
+                recyclerView::setAdapter);
+        //binding.userRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        //binding.userRecyclerView.setAdapter(
                 //new UserAdapter(this.getContext(), coachListOfSportsmenViewModel.getUserList()));
-                new UserAdapter(this.getContext(), new ArrayList<>()));
+                //new UserAdapter(this.getContext(), new ArrayList<>()));
         return root;
     }
 
