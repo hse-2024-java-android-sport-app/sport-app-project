@@ -1,20 +1,4 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    id("java")
-}
-
-group = "org.sportApp"
-version = "1.0-SNAPSHOT"
-
-repositories {
-    google()
-    mavenCentral()
-}
-
-dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.9.1"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-}
-
-tasks.test {
-    useJUnitPlatform()
+    alias(libs.plugins.androidApplication) apply false
 }
