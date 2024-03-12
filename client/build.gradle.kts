@@ -2,14 +2,12 @@ plugins {
     id("java")
     id("org.springframework.boot") version "3.2.2"
     id("io.spring.dependency-management") version "1.1.4"
+    alias(libs.plugins.androidApplication) apply false
 }
 
 group = "org.sportApp"
 version = "1.0-SNAPSHOT"
 
-repositories {
-    mavenCentral()
-}
 
 dependencies {
     implementation(enforcedPlatform("org.junit:junit-bom:5.9.1"))

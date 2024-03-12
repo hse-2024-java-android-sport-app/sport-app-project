@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".Registration">
+
+    <!--text view for heading-->
+    <TextView
+        android:id="@+id/idHeader"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:padding="5dp"
+        android:text="@string/registration"
+        android:textAlignment="center"
+        android:textColor="@color/violet"
+        android:textSize="20sp" />
+
+    <!--edit text for user name-->
+
+    <EditText
+        android:id="@+id/idUserName"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/idHeader"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        android:autofillHints=""
+        android:background="@drawable/frame"
+        android:hint="@string/enter_username"
+        android:inputType="textEmailAddress"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp" />
+
+    <!--edit text for user email-->
+
+    <EditText
+        android:id="@+id/idPassword"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/idUserName"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        android:hint="@string/enter_password"
+        android:inputType="textPassword"
+        android:autofillHints=""
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/frame"/>
+
+    <!--button to register our new user-->
+    <Button
+        android:id="@+id/idRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/idPassword"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/sign_in"
+        android:textAllCaps="false" />
+
+
+</RelativeLayout>

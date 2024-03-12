@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="registration">Registration</string>
+    <string name="enter_username">Enter User Name</string>
+    <string name="enter_email_address">Enter Email Address</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Home</string>
+    <string name="title_notifications">Home</string>
+
+
+</resources>
