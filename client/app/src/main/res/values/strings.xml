@@ -8,6 +8,12 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Home</string>
     <string name="title_notifications">Home</string>
+    <string name="cancel">CANCEL</string>
+    <string name="enter_firstname">Enter First Name</string>
+    <string name="enter_secondname">Enter Second Name</string>
+    <string name="sportsman">Sportsman</string>
+    <string name="coach">Coach</string>
+    <string name="type">Choose your type</string>
 
 
 </resources>

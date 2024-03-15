@@ -1,16 +1,18 @@
 plugins {
-    id("com.android.application")
+    alias(libs.plugins.androidApplication)
 }
 
 android {
-    compileSdkVersion(34)
+    namespace = "org.sportapp.registration"
+    compileSdk = 34
 
     defaultConfig {
-        applicationId = "org.sportApp.registration"
-        namespace = "org.sportApp.registration"
+        applicationId = "org.sportapp.registration"
+        minSdk = 24
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-        minSdk = 24
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -23,25 +25,27 @@ android {
             )
         }
     }
-    buildFeatures {
-        dataBinding = true
-    }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
+
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
-    implementation(libs.navigation.runtime)
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
-    implementation(libs.databinding.runtime)
-    implementation(project(":"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation(libs.gson)
+    implementation(libs.okhttp)
 }

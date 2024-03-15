@@ -10,17 +10,20 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+        android:theme="@style/Theme.Registrationwindow"
         tools:targetApi="31">
         <activity
-            android:name=".Registration"
-            android:exported="true">
+            android:name=".RegistrationWindow"
+            android:exported="true"
+            android:theme="@style/Theme.Registrationwindow.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".TypeSelectionWindow" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
