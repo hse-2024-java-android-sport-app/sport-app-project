@@ -1,8 +1,9 @@
-package org.sportApp.controller;
+package org.sportApp.entities;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.Month;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -21,20 +22,29 @@ public class User {
     private String name;
     private String login;
     private String password;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dateOfBirth;
+
     public enum Kind {sportsman, coach}
     @Enumerated(EnumType.STRING)
     private Kind type;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date dateOfBirth;
 
     protected User() {}
 
-    public User(String name, String login, String password, Kind type, Date dateOfBirth) {
+    public User(String login, String password) {
+        this.name = "";
+        this.login = login;
+        this.password = password;
+        this.dateOfBirth = LocalDate.of(2000, Month.JANUARY, 1);
+        this.type = Kind.sportsman;
+    }
+
+    public User(String name, String login, String password, LocalDate dateOfBirth, Kind type) {
         this.name = name;
         this.login = login;
         this.password = password;
-        this.type = type;
         this.dateOfBirth = dateOfBirth;
+        this.type = type;
     }
 
     @Override
@@ -44,11 +54,15 @@ public class User {
                 this.id, this.login, this.name, this.type, this.dateOfBirth);
     }
 
-    public Date getDateOfBirth() {
+    public Long getId() {
+        return id;
+    }
+
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
