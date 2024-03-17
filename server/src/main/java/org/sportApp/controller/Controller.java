@@ -1,27 +1,31 @@
 package org.sportApp.controller;
 
+import org.sportApp.repo.UserRepository;
+import org.sportApp.entities.User;
+
 import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
-import java.util.List;
+
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping(path="/sport_app")
 public class Controller {
-    private final List<String> users = new ArrayList<>();
-    @GetMapping
-    public List<String> getAllUsers() {
-        return users;
+    private final UserRepository userRepository;
+    public Controller(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
-    @PostMapping
-    public String createUser(@RequestBody String user) {
-        users.add(user);
-        return "User created: " + user;
+
+    @GetMapping(path="/all")
+    public @ResponseBody Iterable<User> getAllUsers() {
+        return userRepository.findAll();
     }
-    @DeleteMapping("/{user}")
-    public String deleteUser(@PathVariable String user) {
-        if (users.contains(user)) {
-            users.remove(user);
-            return "User deleted: " + user;
-        }
-        return "User not found";
+
+    @RequestMapping (value = "/{id}")
+    public User findById(@PathVariable("id") long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    @PostMapping(path="/create") // Map ONLY POST Requests
+    public @ResponseBody String createUser (@RequestBody User user) {
+        userRepository.save(user);
+        return "Saved";
     }
 }
