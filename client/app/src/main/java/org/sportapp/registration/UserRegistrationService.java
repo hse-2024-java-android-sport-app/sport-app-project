@@ -64,4 +64,31 @@ public class UserRegistrationService {
         });
         return future;
     }
+
+    public CompletableFuture<Boolean> checkLogin(String login) {
+        CompletableFuture<Boolean> future = new CompletableFuture<>();
+        MediaType JSON = MediaType.get("application/json; charset=utf-8");
+        String json = "{\"login\": \"" + login + "\"}";
+        RequestBody body = RequestBody.create(json, JSON);
+        Request request = new Request.Builder()
+                .url(BASE_URL + "/check-login")
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    future.completeExceptionally(new IOException("The request to the server was not successful: " +
+                            response.code() + " " + response.message()));
+                    return;
+                }
+                String responseBodyString = response.body().string();
+                boolean exists = gson.fromJson(responseBodyString, Boolean.class);
+                future.complete(exists);
+            }
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(e);
+            }
+        });
+        return future;
+    }
 }
