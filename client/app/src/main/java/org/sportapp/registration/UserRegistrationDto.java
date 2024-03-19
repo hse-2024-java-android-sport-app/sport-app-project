@@ -9,12 +9,16 @@ public class UserRegistrationDto implements Serializable {
     private String secondName;
     private String login;
     private String password;
+
     public enum Kind {sportsman, coach}
+
     private Kind type;
+    private Date date;
 
     public Kind getType() {
         return type;
     }
+
     public void setType(Kind type) {
         this.type = type;
     }
@@ -51,5 +55,14 @@ public class UserRegistrationDto implements Serializable {
         this.password = password;
     }
 
-    public UserRegistrationDto() {}
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public UserRegistrationDto() {
+    }
 }

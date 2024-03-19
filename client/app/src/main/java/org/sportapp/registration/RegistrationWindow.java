@@ -49,7 +49,7 @@ public class RegistrationWindow extends AppCompatActivity {
         userDto.setLogin(uName);
         userDto.setPassword(pass);
 
-        Intent intent = new Intent(RegistrationWindow.this, TypeSelectionWindow.class);
+        Intent intent = new Intent(RegistrationWindow.this, BirthDateWindow.class);
         intent.putExtra("userDto", userDto);
         startActivity(intent);
     }
@@ -77,6 +77,6 @@ public class RegistrationWindow extends AppCompatActivity {
             password.setError("Password must be minimum 8 characters");
             return false;
         }
-        return true;
+        return password.toString().matches("[a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{};':\"|,.<>/?]+");
     }
 }

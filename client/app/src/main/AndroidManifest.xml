@@ -23,7 +23,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".TypeSelectionWindow" />
+        <activity android:name=".BirthDateWindow" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"
+        tools:ignore="ManifestOrder" />
 
 </manifest>
