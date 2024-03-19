@@ -1,31 +1,42 @@
 package org.sportApp.controller;
 
-import org.sportApp.repo.UserRepository;
 import org.sportApp.entities.User;
+import org.sportApp.services.UserService;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path="/sport_app")
+@RequestMapping("/sport_app")
 public class Controller {
-    private final UserRepository userRepository;
-    public Controller(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    private final UserService userService;
+
+    @Autowired
+    public Controller(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping(path="/all")
+    @GetMapping("getAllUsers")
     public @ResponseBody Iterable<User> getAllUsers() {
-        return userRepository.findAll();
+        return userService.findAll();
     }
 
-    @RequestMapping (value = "/{id}")
-    public User findById(@PathVariable("id") long id) {
-        return userRepository.findById(id).orElse(null);
+    @GetMapping("isLoginExist/{login}")
+    public boolean isLoginExist(@PathVariable(value = "login") String login) {
+        return userService.existsByLogin(login);
     }
 
-    @PostMapping(path="/create") // Map ONLY POST Requests
-    public @ResponseBody String createUser (@RequestBody User user) {
-        userRepository.save(user);
-        return "Saved";
+    @PostMapping("register")
+    public @ResponseBody ResponseEntity<?> registerUser(@RequestBody User user) {
+        if (userService.existsByLogin(user.getLogin())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("User with this login already exists");
+        }
+        User registeredUser = userService.registerUser(user);
+        if (!registeredUser.equals(user)) {
+            return ResponseEntity.status(HttpStatus.VARIANT_ALSO_NEGOTIATES).body("Registered user is different from required");
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(registeredUser);
     }
 }

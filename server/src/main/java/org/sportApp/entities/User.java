@@ -2,8 +2,8 @@ package org.sportApp.entities;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
 import java.time.Month;
+import java.util.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -19,11 +19,12 @@ public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-    private String name;
+    private String firstName;
+    private String secondName;
     private String login;
     private String password;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDate dateOfBirth;
+    private Date dateOfBirth;
 
     public enum Kind {sportsman, coach}
     @Enumerated(EnumType.STRING)
@@ -31,16 +32,18 @@ public class User {
 
     protected User() {}
 
-    public User(String login, String password) {
-        this.name = "";
-        this.login = login;
-        this.password = password;
-        this.dateOfBirth = LocalDate.of(2000, Month.JANUARY, 1);
-        this.type = Kind.sportsman;
-    }
+//    public User(String login, String password) {
+//        this.firstName = "";
+//        this.secondName = "";
+//        this.login = login;
+//        this.password = password;
+//        this.dateOfBirth = Date.of(2000, Month.JANUARY, 1);
+//        this.type = Kind.sportsman;
+//    }
 
-    public User(String name, String login, String password, LocalDate dateOfBirth, Kind type) {
-        this.name = name;
+    public User(String fName, String sName, String login, String password, Date dateOfBirth, Kind type) {
+        this.firstName = fName;
+        this.secondName = sName;
         this.login = login;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
@@ -50,40 +53,48 @@ public class User {
     @Override
     public String toString() {
         return String.format(
-                "Customer[id=%d, login='%s', name='%s', type='%s', dateOfBirth='%s']",
-                this.id, this.login, this.name, this.type, this.dateOfBirth);
+                "Customer[id=%d, firstName='%s', secondName='%s', login='%s', dateOfBirth='%s', type='%s']",
+                this.id, this.firstName, this.secondName, this.login, this.dateOfBirth, this.type);
     }
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
+    public Date getDateOfBirth() {
+        return this.dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
     public Kind getType() {
-        return type;
+        return this.type;
     }
 
     public void setType(Kind type) {
         this.type = type;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return this.firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String fName) {
+        this.firstName = fName;
+    }
+
+    public String getSecondName() {
+        return this.secondName;
+    }
+
+    public void setSecondName(String sName) {
+        this.secondName = sName;
     }
 
     public String getLogin() {
-        return login;
+        return this.login;
     }
 
     public void setLogin(String login) {
@@ -91,7 +102,7 @@ public class User {
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public void setPassword(String password) {
