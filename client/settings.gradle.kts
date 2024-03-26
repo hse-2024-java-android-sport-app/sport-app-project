@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "registration-window"
+rootProject.name = "registration"
 include(":app")

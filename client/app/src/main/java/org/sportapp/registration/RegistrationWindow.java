@@ -77,6 +77,6 @@ public class RegistrationWindow extends AppCompatActivity {
             password.setError("Password must be minimum 8 characters");
             return false;
         }
-        return password.toString().matches("[a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{};':\"|,.<>/?]+");
+        return true;
     }
 }
