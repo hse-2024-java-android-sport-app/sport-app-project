@@ -21,7 +21,8 @@
         android:layout_below="@id/datePicker"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="@string/next" />
+        android:text="@string/next"
+        android:background="@drawable/button_background"/>
 
     <TextView
         android:id="@+id/selectedDateTextView"
