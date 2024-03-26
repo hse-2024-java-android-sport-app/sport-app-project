@@ -1,4 +1,4 @@
-package org.sportapp.registration.ui.home;
+package org.sportapp.ui.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import org.sportapp.registration.databinding.FragmentHomeBinding;
+import org.sportapp.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
 

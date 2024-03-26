@@ -1,4 +1,4 @@
-package org.sportapp.registration;
+package org.sportapp;
 
 import java.io.Serializable;
 import java.util.Date;

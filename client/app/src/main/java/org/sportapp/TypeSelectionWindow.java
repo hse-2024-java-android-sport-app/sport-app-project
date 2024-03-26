@@ -1,4 +1,4 @@
-package org.sportapp.registration;
+package org.sportapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
@@ -13,7 +13,7 @@ public class TypeSelectionWindow extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_type);
         Intent intent = getIntent();
         UserRegistrationDto userDto = (UserRegistrationDto) intent.getSerializableExtra("userDto");
         bSportsman = findViewById(R.id.sportsmanButton);
@@ -23,8 +23,11 @@ public class TypeSelectionWindow extends AppCompatActivity {
             Toast.makeText(TypeSelectionWindow.this, "You are sportsman!", Toast.LENGTH_SHORT).show();
             assert userDto != null;
             userDto.setType(UserRegistrationDto.Kind.sportsman);
-            registerUser(userDto);
+            Intent sportsmanIntent = new Intent(TypeSelectionWindow.this, SportsmanWindow.class);
+            sportsmanIntent.putExtra("userDto", userDto);
+            startActivity(sportsmanIntent);
         });
+
 
         bCoach.setOnClickListener(v -> {
             Toast.makeText(TypeSelectionWindow.this, "You are coach!", Toast.LENGTH_SHORT).show();

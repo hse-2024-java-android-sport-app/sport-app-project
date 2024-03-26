@@ -1,4 +1,4 @@
-package org.sportapp.registration.ui.home;
+package org.sportapp.ui.home;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

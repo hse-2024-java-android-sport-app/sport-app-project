@@ -1,4 +1,4 @@
-package org.sportapp.training;
+package org.sportapp;
 
 import java.time.Duration;
 

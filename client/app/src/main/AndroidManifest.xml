@@ -24,6 +24,7 @@
         </activity>
         <activity android:name=".TypeSelectionWindow" />
         <activity android:name=".BirthDateWindow" />
+        <activity android:name=".SportsmanWindow" />
     </application>
     <uses-permission android:name="android.permission.INTERNET"
         tools:ignore="ManifestOrder" />

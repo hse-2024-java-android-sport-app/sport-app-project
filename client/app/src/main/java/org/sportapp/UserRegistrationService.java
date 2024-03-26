@@ -1,8 +1,10 @@
-package org.sportapp.registration;
+package org.sportapp;
 
 import com.google.gson.Gson;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
+import org.sportapp.RegistrationResultDto;
+import org.sportapp.UserRegistrationDto;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;

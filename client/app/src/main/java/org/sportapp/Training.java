@@ -1,4 +1,6 @@
-package org.sportapp.training;
+package org.sportapp;
+
+import org.sportapp.Exercise;
 
 import java.util.List;
 

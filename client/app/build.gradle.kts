@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "org.sportapp.registration"
+    namespace = "org.sportapp"
     compileSdk = 34
 
     defaultConfig {

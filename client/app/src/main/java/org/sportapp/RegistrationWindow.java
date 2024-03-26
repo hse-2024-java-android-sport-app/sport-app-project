@@ -1,4 +1,4 @@
-package org.sportapp.registration;
+package org.sportapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
@@ -14,7 +14,7 @@ public class RegistrationWindow extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_registration);
 
         bRegister = findViewById(R.id.registrationButton);
         bCancel = findViewById(R.id.cancelButton);
