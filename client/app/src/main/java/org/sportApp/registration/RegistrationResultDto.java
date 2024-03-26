@@ -1,4 +1,4 @@
-package org.sportapp;
+package org.sportApp.registration;
 
 public class RegistrationResultDto {
     RegistrationResultDto() {

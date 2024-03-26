@@ -1,7 +1,9 @@
-package org.sportapp;
+package org.sportApp.userInterface.sportsman;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+
+import org.sportApp.userInterface.R;
 
 public class SportsmanWindow extends AppCompatActivity {
 

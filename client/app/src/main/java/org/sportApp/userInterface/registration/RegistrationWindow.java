@@ -1,10 +1,13 @@
-package org.sportapp;
+package org.sportApp.userInterface.registration;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+
+import org.sportApp.registration.UserRegistrationDto;
+import org.sportApp.userInterface.R;
 
 public class RegistrationWindow extends AppCompatActivity {
     Button bCancel, bRegister;

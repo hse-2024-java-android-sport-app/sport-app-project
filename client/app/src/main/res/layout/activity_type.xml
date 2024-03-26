@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".RegistrationWindow">
+    tools:context=".userInterface.registration.RegistrationWindow">
 
     <TextView
         android:id="@+id/idHeader"

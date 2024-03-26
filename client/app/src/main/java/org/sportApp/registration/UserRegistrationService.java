@@ -1,10 +1,8 @@
-package org.sportapp;
+package org.sportApp.registration;
 
 import com.google.gson.Gson;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
-import org.sportapp.RegistrationResultDto;
-import org.sportapp.UserRegistrationDto;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
@@ -42,7 +40,7 @@ public class UserRegistrationService {
 
     }
 
-    CompletableFuture<RegistrationResultDto> registerUser(UserRegistrationDto userDto) {
+    public CompletableFuture<RegistrationResultDto> registerUser(UserRegistrationDto userDto) {
         CompletableFuture<RegistrationResultDto> future = new CompletableFuture<>();
         MediaType JSON = MediaType.get("application/json; charset=utf-8");
         String json = new Gson().toJson(userDto);

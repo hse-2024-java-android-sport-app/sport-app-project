@@ -1,6 +1,6 @@
-package org.sportapp;
+package org.sportApp.training;
 
-import org.sportapp.Training;
+import org.sportApp.training.Training;
 
 import java.time.LocalDate;
 

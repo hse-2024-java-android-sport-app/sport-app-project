@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "org.sportapp"
+    namespace = "org.sportApp.userInterface"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "org.sportapp.registration"
+        applicationId = "org.sportApp.userInterface"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

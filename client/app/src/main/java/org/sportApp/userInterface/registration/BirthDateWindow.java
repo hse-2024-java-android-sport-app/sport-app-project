@@ -1,10 +1,13 @@
-package org.sportapp;
+package org.sportApp.userInterface.registration;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.DatePicker;
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.sportApp.registration.UserRegistrationDto;
+import org.sportApp.userInterface.R;;
 
 import java.util.Calendar;
 import java.util.Date;

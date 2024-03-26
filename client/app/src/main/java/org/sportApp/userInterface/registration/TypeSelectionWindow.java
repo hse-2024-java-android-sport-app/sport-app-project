@@ -1,10 +1,15 @@
-package org.sportapp;
+package org.sportApp.userInterface.registration;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import org.sportApp.registration.UserRegistrationDto;
+import org.sportApp.registration.UserRegistrationService;
+import org.sportApp.userInterface.R;
+import org.sportApp.userInterface.sportsman.SportsmanWindow;
 
 public class TypeSelectionWindow extends AppCompatActivity {
 
