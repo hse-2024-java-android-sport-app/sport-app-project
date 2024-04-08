@@ -1,16 +1,11 @@
 package org.sportApp.userInterface.sportsman;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.content.Intent;
 import android.os.Bundle;
-
+import android.view.View;
+import android.widget.Button;
+import androidx.appcompat.app.AppCompatActivity;
 import org.sportApp.userInterface.R;
-import org.sportApp.training.TrainingEventDto;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SportsmanWindow extends AppCompatActivity {
 
@@ -19,11 +14,14 @@ public class SportsmanWindow extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sportsman_window);
 
-        List<TrainingEventDto> trainingEvents = new ArrayList<>();
+        Button addTrainingButton = findViewById(R.id.addTrainingButton);
 
-        PlanAdapter planAdapter = new PlanAdapter(trainingEvents);
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(planAdapter);
+        addTrainingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SportsmanWindow.this, AddTrainingActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

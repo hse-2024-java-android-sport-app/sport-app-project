@@ -19,6 +19,11 @@
     <string name="title_profile">profile</string>
     <string name="add_plan">Add plan</string>
     <string name="my_plans">My plans</string>
+    <string name="add_exercise">Add new exercise</string>
+    <string name="save_training">Save training</string>
+    <string name="date_hint">Enter the training date</string>
+    <string name="select_existing_exercise">Select existing exercise</string>
+    <string name="select_date">Select training date</string>
 
 
 </resources>
