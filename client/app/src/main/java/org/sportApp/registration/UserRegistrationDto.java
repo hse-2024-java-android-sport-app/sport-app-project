@@ -27,7 +27,7 @@ public class UserRegistrationDto implements Serializable {
         return firstName;
     }
 
-    public void setFirstName(String name) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
@@ -35,7 +35,7 @@ public class UserRegistrationDto implements Serializable {
         return secondName;
     }
 
-    public void setSecondName(String name) {
+    public void setSecondName(String secondName) {
         this.secondName = secondName;
     }
 

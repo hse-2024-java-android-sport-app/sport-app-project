@@ -16,6 +16,9 @@
     <string name="type">Choose your type</string>
     <string name="next">Continue</string>
     <string name="add_training">Add training</string>
+    <string name="title_profile">profile</string>
+    <string name="add_plan">Add plan</string>
+    <string name="my_plans">My plans</string>
 
 
 </resources>

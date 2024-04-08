@@ -2,14 +2,14 @@ package org.sportApp.training;
 
 import java.time.Duration;
 
-public class Exercise {
+public class ExerciseDto {
     private String description;
     private int repetitions;
     private Duration duration;
     private int sets;
     private String videoUrl;
 
-    public Exercise(){}
+    public ExerciseDto(){}
 
     public void setDescription(String description) {
         this.description = description;
