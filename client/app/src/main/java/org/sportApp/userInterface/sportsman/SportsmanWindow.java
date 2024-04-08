@@ -19,7 +19,7 @@ public class SportsmanWindow extends AppCompatActivity {
         addTrainingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SportsmanWindow.this, AddTrainingActivity.class);
+                Intent intent = new Intent(SportsmanWindow.this, AddTrainingWindow.class);
                 startActivity(intent);
             }
         });

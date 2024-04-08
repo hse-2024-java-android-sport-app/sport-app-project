@@ -24,6 +24,7 @@
     <string name="date_hint">Enter the training date</string>
     <string name="select_existing_exercise">Select existing exercise</string>
     <string name="select_date">Select training date</string>
+    <string name="date_of_birth">Select the date of birth</string>
 
 
 </resources>
