@@ -10,46 +10,44 @@
         android:id="@+id/idHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
         android:text="@string/type"
         android:textAlignment="center"
         android:textColor="@color/violet"
         android:textSize="20sp" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:gravity="center"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="2"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
 
-        <ImageButton
+        <Button
             android:id="@+id/sportsmanButton"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginEnd="20dp"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
             android:layout_weight="1"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/button_background"
-            android:contentDescription="@string/sportsman"
-            android:padding="10dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/sportsman_icon" />
+            android:text="@string/sportsman"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
 
-        <ImageButton
+        <Button
             android:id="@+id/coachButton"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="20dp"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
             android:layout_weight="1"
+            android:layout_marginStart="8dp"
             android:background="@drawable/button_background"
-            android:contentDescription="@string/coach"
-            android:padding="10dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/coach_icon" />
+            android:text="@string/coach"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
     </LinearLayout>
+
 </LinearLayout>
