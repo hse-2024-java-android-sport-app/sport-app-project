@@ -1,5 +1,6 @@
 package org.sportApp.userInterface.sportsman;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,10 +27,11 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         return new PlanViewHolder(itemView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull PlanAdapter.PlanViewHolder holder, int position) {
         TrainingEventDto event = trainingEvents.get(position);
-        holder.eventTextView.setText(String.valueOf("Plan " + event.getId()));
+        holder.eventTextView.setText("Plan " + event.getId());
     }
 
     @Override

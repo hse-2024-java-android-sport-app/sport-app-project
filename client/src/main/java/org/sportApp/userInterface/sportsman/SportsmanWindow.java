@@ -14,6 +14,9 @@ import java.util.List;
 
 public class SportsmanWindow extends AppCompatActivity {
 
+    private List<TrainingEventDto> trainingEvents;
+    private PlanAdapter planAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,21 +28,21 @@ public class SportsmanWindow extends AppCompatActivity {
             startActivity(intent);
         });
 
-        List<TrainingEventDto> trainingEvents = fakeTrainingEvents();
+        Button addPlanButton = findViewById(R.id.addPlanButton);
+        addPlanButton.setOnClickListener(view -> addPlan(new TrainingEventDto()));
+
+        trainingEvents = new ArrayList<>();
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        PlanAdapter planViewer = new PlanAdapter(trainingEvents);
-        recyclerView.setAdapter(planViewer);
+        planAdapter = new PlanAdapter(trainingEvents);
+        recyclerView.setAdapter(planAdapter);
     }
 
-    private List<TrainingEventDto> fakeTrainingEvents() {
-        List<TrainingEventDto> trainingEvents = new ArrayList<>();
-        for (int i = 1; i <= 10; i++) {
-            TrainingEventDto event = new TrainingEventDto();
-            event.setId(i);
-            trainingEvents.add(event);
-        }
-        return trainingEvents;
+    public void addPlan(TrainingEventDto event) {
+        trainingEvents.add(event);
+        int pos = trainingEvents.size();
+        event.setId(pos);
+        planAdapter.notifyItemInserted(pos);
     }
 }
