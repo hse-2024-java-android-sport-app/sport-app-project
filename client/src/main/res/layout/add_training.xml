@@ -33,20 +33,11 @@
         android:layout_marginTop="16dp" />
 
     <Button
-        android:id="@+id/selectExistingExerciseButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/select_existing_exercise"
-        android:layout_below="@id/addExerciseButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
-
-    <Button
         android:id="@+id/saveTrainingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/save_training"
-        android:layout_below="@id/selectExistingExerciseButton"
+        android:layout_below="@id/addExerciseButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp" />
 
