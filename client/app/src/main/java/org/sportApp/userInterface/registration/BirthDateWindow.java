@@ -32,7 +32,7 @@ public class BirthDateWindow extends AppCompatActivity {
             calendar.set(year, month, day);
             Date selectedDate = calendar.getTime();
             assert userDto != null;
-            userDto.setDate(selectedDate);
+            userDto.setDateOfBirth(selectedDate);
             Intent nextIntent = new Intent(BirthDateWindow.this, TypeSelectionWindow.class);
             nextIntent.putExtra("userDto", userDto);
             startActivity(nextIntent);

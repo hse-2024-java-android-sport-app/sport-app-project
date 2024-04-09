@@ -13,7 +13,7 @@ public class UserRegistrationDto implements Serializable {
     public enum Kind {sportsman, coach}
 
     private Kind type;
-    private Date date;
+    private Date dateOfBirth;
 
     public Kind getType() {
         return type;
@@ -55,12 +55,12 @@ public class UserRegistrationDto implements Serializable {
         this.password = password;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDateOfBirth(Date date) {
+        this.dateOfBirth = date;
     }
 
     public UserRegistrationDto() {

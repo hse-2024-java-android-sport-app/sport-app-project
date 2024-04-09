@@ -26,6 +26,7 @@ public class UserRegistrationService {
                         throw new IOException("The request to the server was not successful: " +
                                 response.code() + " " + response.message());
                     }
+                    assert responseBody != null;
                     String json = responseBody.string();
                     UserRegistrationDto[] userDto = gson.fromJson(json, UserRegistrationDto[].class);
                     for (UserRegistrationDto user : userDto) {
@@ -81,6 +82,7 @@ public class UserRegistrationService {
                             response.code() + " " + response.message()));
                     return;
                 }
+                assert response.body() != null;
                 String responseBodyString = response.body().string();
                 boolean exists = gson.fromJson(responseBodyString, Boolean.class);
                 future.complete(exists);
