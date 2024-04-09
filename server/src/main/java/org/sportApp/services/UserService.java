@@ -11,15 +11,23 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final long notExist = -1;
 
     @Autowired
-    public UserService (UserRepository catRepository) {
-        this.userRepository = catRepository;
+    public UserService (UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public User registerUser(User user) {
         //FUTURE add password encoding
         return userRepository.save(user);
+    }
+
+    public long authorizeUser(String login, String password) {
+        if (userRepository.existsByLoginAndPassword(login, password)) {
+            return userRepository.getByLogin(login).getId();
+        }
+        return notExist;
     }
 
     public boolean existsByLogin(String login) {
