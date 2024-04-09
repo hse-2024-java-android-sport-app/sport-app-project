@@ -13,4 +13,5 @@ public class TrainingDto {
     public List<ExerciseDto> getExercises() {
         return exercises;
     }
+
 }
