@@ -3,7 +3,6 @@ package org.sportApp.registration;
 import java.io.Serializable;
 import java.util.Date;
 
-
 public class UserRegistrationDto implements Serializable {
     private String firstName;
     private String secondName;

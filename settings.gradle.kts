@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "registration"
-include(":app")
+rootProject.name = "sport-app-project"
+include("client", "server")
