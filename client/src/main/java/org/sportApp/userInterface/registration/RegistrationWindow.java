@@ -9,6 +9,9 @@ import android.widget.EditText;
 import org.sportApp.registration.UserRegistrationDto;
 import org.sportApp.userInterface.R;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class RegistrationWindow extends AppCompatActivity {
     Button bCancel, bRegister;
     EditText firstName, lastName, userName, password;
@@ -80,6 +83,18 @@ public class RegistrationWindow extends AppCompatActivity {
             password.setError("Password must be minimum 8 characters");
             return false;
         }
+        else if (!isValid(password)) {
+            password.setError("Password must contain only Latin letters and digits, and should not contain \\");
+            return false;
+        }
         return true;
+    }
+
+    public static boolean isValid(EditText password) {
+        String regex = "[a-zA-Z0-9]+";
+        String passwordString = password.getText().toString();
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(passwordString);
+        return matcher.matches() && !passwordString.contains("\\");
     }
 }
