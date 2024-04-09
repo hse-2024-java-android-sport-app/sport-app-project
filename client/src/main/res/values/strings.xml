@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="registration">Registration</string>
+    <string name="enter_username">Enter User Name</string>
+    <string name="enter_email_address">Enter Email Address</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Home</string>
+    <string name="title_notifications">Home</string>
+    <string name="cancel">CANCEL</string>
+    <string name="enter_firstname">Enter First Name</string>
+    <string name="enter_secondname">Enter Second Name</string>
+    <string name="sportsman">Sportsman</string>
+    <string name="coach">Coach</string>
+    <string name="type">Choose your type</string>
+    <string name="next">Continue</string>
+    <string name="add_training">Add training</string>
+    <string name="title_profile">profile</string>
+    <string name="add_plan">Add plan</string>
+    <string name="my_plans">My plans</string>
+    <string name="add_exercise">Add new exercise</string>
+    <string name="save_training">Save training</string>
+    <string name="date_hint">Enter the training date</string>
+    <string name="select_existing_exercise">Select existing exercise</string>
+    <string name="select_date">Select training date</string>
+    <string name="date_of_birth">Select the date of birth</string>
+
+
+</resources>

@@ -2,13 +2,7 @@ plugins {
     id("java")
     id("org.springframework.boot") version("3.2.2")
     id("io.spring.dependency-management") version("1.1.4")
-}
-
-group = "org.sportApp"
-version = "1.0-SNAPSHOT"
-
-repositories {
-    mavenCentral()
+    alias(libs.plugins.androidApplication) apply false
 }
 
 dependencies {
@@ -18,15 +12,14 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
 
-    implementation("org.projectlombok:lombok:1.18.28")
-    implementation("com.squareup.okhttp3:okhttp:4.12.0")
-    implementation("com.google.code.gson:gson:2.9.1")
-    implementation("com.google.guava:guava:33.0.0-jre")
+    implementation("org.modelmapper:modelmapper:3.2.0")
+    runtimeOnly("org.postgresql:postgresql")
+    implementation(libs.gson)
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    runtimeOnly("com.h2database:h2")
-}
 
-tasks.test {
-    useJUnitPlatform()
+    implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    testImplementation("org.springframework.security:spring-security-test")
 }
