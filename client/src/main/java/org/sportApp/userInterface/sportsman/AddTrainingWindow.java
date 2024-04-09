@@ -75,5 +75,6 @@ public class AddTrainingWindow extends AppCompatActivity {
 
         TrainingEventDto trainingEventDto = new TrainingEventDto();
         trainingEventDto.setDate(selectedDate);
+        Toast.makeText(this, "Your training saved!", Toast.LENGTH_SHORT).show();
     }
 }

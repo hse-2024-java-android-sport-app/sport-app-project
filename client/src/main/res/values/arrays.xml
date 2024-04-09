@@ -1,0 +1,6 @@
+<resources>
+    <string-array name="exercise_options">
+        <item>Add New Exercise</item>
+        <item>Choose Existing Exercise</item>
+    </string-array>
+</resources>
