@@ -1,5 +1,4 @@
-package org.sportApp.registration;
-
+package org.sportApp.requests;
 import com.google.gson.Gson;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
@@ -7,7 +6,9 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
-public class UserRegistrationService {
+import org.sportApp.registration.*;
+
+public class BackendService {
     OkHttpClient client = new OkHttpClient();
     Gson gson = new Gson();
     String BASE_URL = "http://localhost:8080";
@@ -21,24 +22,12 @@ public class UserRegistrationService {
         call.enqueue(new Callback() {
             public void onResponse(@NotNull Call call, @NotNull Response response)
                     throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (!response.isSuccessful()) {
-                        throw new IOException("The request to the server was not successful: " +
-                                response.code() + " " + response.message());
-                    }
-                    assert responseBody != null;
-                    String json = responseBody.string();
-                    UserRegistrationDto[] userDto = gson.fromJson(json, UserRegistrationDto[].class);
-                    for (UserRegistrationDto user : userDto) {
-                        System.out.println(user.getLogin()); // for testing
-                    }
-                }
+                handleResponse(response, null, null);
             }
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 System.out.println(e.getMessage());
             }
         });
-
     }
 
     public CompletableFuture<RegistrationResultDto> registerUser(UserRegistrationDto userDto) {
@@ -47,22 +36,7 @@ public class UserRegistrationService {
         String json = new Gson().toJson(userDto);
         RequestBody body = RequestBody.create(json, JSON);
         Request.Builder requestBuilder = new Request.Builder().url(BASE_URL + "/register").post(body);
-        Request request = requestBuilder.build();
-        Call call = client.newCall(request);
-        call.enqueue(new Callback() {
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    throw new IOException("The request to the server was not successful: " +
-                            response.code() + " " + response.message());
-                }
-                RegistrationResultDto registrationResultDto = new RegistrationResultDto();
-                future.complete(registrationResultDto);
-            }
-
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(e);
-            }
-        });
+        performRequest(requestBuilder, future, RegistrationResultDto.class);
         return future;
     }
 
@@ -75,22 +49,36 @@ public class UserRegistrationService {
                 .url(BASE_URL + "/check-login")
                 .post(body)
                 .build();
+        performRequest(new Request.Builder().url(BASE_URL + "/check-login").post(body), future, Boolean.class);
+        return future;
+    }
+
+    private <T> void performRequest(Request.Builder requestBuilder, CompletableFuture<T> future, Class<T> responseType) {
+        Request request = requestBuilder.build();
         client.newCall(request).enqueue(new Callback() {
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    future.completeExceptionally(new IOException("The request to the server was not successful: " +
-                            response.code() + " " + response.message()));
-                    return;
-                }
-                assert response.body() != null;
-                String responseBodyString = response.body().string();
-                boolean exists = gson.fromJson(responseBodyString, Boolean.class);
-                future.complete(exists);
+                handleResponse(response, future, responseType);
             }
+
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 future.completeExceptionally(e);
             }
         });
-        return future;
+    }
+
+    private <T> void handleResponse(Response response, CompletableFuture<T> future, Class<T> responseType) throws IOException {
+        if (!response.isSuccessful()) {
+            if (future != null) {
+                future.completeExceptionally(new IOException("The request to the server was not successful: " +
+                        response.code() + " " + response.message()));
+            }
+            return;
+        }
+        assert response.body() != null;
+        String responseBodyString = response.body().string();
+        if (future != null) {
+            T result = gson.fromJson(responseBodyString, responseType);
+            future.complete(result);
+        }
     }
 }
