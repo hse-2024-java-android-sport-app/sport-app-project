@@ -3,9 +3,9 @@ package org.sportApp.training;
 import java.util.List;
 
 public class TrainingDto {
-    private int trainId;
+    private long trainId;
     private List<ExerciseDto> exercises;
-    private int userId;
+    private long userId;
 
     public TrainingDto() {
     }
