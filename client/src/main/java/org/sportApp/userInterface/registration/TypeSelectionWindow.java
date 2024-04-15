@@ -1,6 +1,7 @@
 package org.sportApp.userInterface.registration;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -10,6 +11,7 @@ import org.sportApp.registration.UserRegistrationDto;
 import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.sportsman.SportsmanWindow;
+import org.sportApp.utils.SessionManager;
 
 public class TypeSelectionWindow extends AppCompatActivity {
 
@@ -43,9 +45,13 @@ public class TypeSelectionWindow extends AppCompatActivity {
     }
 
     private void registerUser(UserRegistrationDto userDto) {
-        BackendService registrationService = new BackendService();
-        registrationService.registerUser(userDto)
-                .thenAccept(resultDto -> Toast.makeText(TypeSelectionWindow.this, "User registered successfully!", Toast.LENGTH_SHORT).show())
+        BackendService backendService = new BackendService();
+        backendService.registerUser(userDto)
+                .thenAccept(resultDto -> {
+                    SessionManager sessionManager = new SessionManager(getApplicationContext());
+                    sessionManager.saveUserId(resultDto.getUserId());
+                    Toast.makeText(TypeSelectionWindow.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
+                })
                 .exceptionally(e -> {
                     Toast.makeText(TypeSelectionWindow.this, "Registration failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     return null;

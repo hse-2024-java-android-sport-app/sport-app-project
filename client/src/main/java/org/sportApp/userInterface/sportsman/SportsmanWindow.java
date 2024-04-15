@@ -3,24 +3,23 @@ package org.sportApp.userInterface.sportsman;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.sportApp.requests.BackendService;
 import org.sportApp.training.PlanDto;
 import org.sportApp.userInterface.R;
+import org.sportApp.utils.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SportsmanWindow extends AppCompatActivity implements PlanAdapter.OnItemClickListener {
+public class SportsmanWindow extends AppCompatActivity {
 
-    private int curPosition = -1;
     private PlanAdapter planAdapter;
     private List<PlanDto> planDtoList;
 
@@ -35,49 +34,47 @@ public class SportsmanWindow extends AppCompatActivity implements PlanAdapter.On
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         planDtoList = new ArrayList<>();
-        planAdapter = new PlanAdapter(planDtoList, this);
-        recyclerView.setAdapter(planAdapter);
-    }
-
-    @Override
-    public void onItemLongClick(int position) {
-        Toast.makeText(this, "Long click on item at position: " + position, Toast.LENGTH_SHORT).show();
-        curPosition = position;
-    }
-
-    @SuppressLint("NonConstantResourceId")
-    public void showPopupMenu(View view) {
-        PopupMenu popupMenu = new PopupMenu(this, view);
-        popupMenu.getMenuInflater().inflate(R.menu.plan_item_menu, popupMenu.getMenu());
-        popupMenu.setOnMenuItemClickListener(item -> {
-            if (item.getItemId() == R.id.edit_plan) {
-                editPlan(curPosition);
-                return true;
-            } else if (item.getItemId() == R.id.delete_plan) {
-                deletePlan(curPosition);
-                return true;
+        planAdapter = new PlanAdapter(planDtoList, new PlanAdapter.OnItemClickListener() {
+            @Override
+            public void onItemLongClick(int position) {
+                Toast.makeText(SportsmanWindow.this, "Long click on item at position: " + position, Toast.LENGTH_SHORT).show();
             }
-            return false;
+
+            @Override
+            public void onItemClick(int position) {
+                editPlan(position);
+            }
         });
-        popupMenu.show();
+        recyclerView.setAdapter(planAdapter);
+
+        Button addTrainingButton = findViewById(R.id.addTrainingButton);
+        addTrainingButton.setOnClickListener(v -> {
+            Intent intent = new Intent(SportsmanWindow.this, AddTrainingWindow.class);
+            startActivity(intent);
+        });
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private void addPlan() {
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        long userId = sessionManager.getUserId();
+
         PlanDto newPlan = new PlanDto();
+        newPlan.setUserId(userId);
+
         planDtoList.add(newPlan);
         planAdapter.notifyDataSetChanged();
+
+        BackendService backendService = new BackendService();
+        backendService.createPlan(newPlan);
     }
 
     private void editPlan(int position) {
-        PlanDto planDto = planDtoList.get(position);
-        Intent intent = new Intent(this, EditPlanWindow.class);
-        intent.putExtra("planDto", planDto);
-        startActivity(intent);
-    }
-
-    private void deletePlan(int position) {
-        planDtoList.remove(position);
-        planAdapter.notifyItemRemoved(position);
+        if (position != RecyclerView.NO_POSITION) {
+            PlanDto planDto = planDtoList.get(position);
+            Intent intent = new Intent(this, EditPlanWindow.class);
+            intent.putExtra("planDto", planDto);
+            startActivity(intent);
+        }
     }
 }

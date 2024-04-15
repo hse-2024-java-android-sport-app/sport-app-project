@@ -29,6 +29,11 @@
     <string name="menu">Menu</string>
     <string name="edit">Edit plan</string>
     <string name="delete">Delete plan</string>
+    <string name="completed">Completed</string>
+    <string name="select_plan_date">Select plan date</string>
+    <string name="save_plan">Save plan</string>
+    <string name="save_changes">Save changes</string>
+    <string name="delete_plan">Delete plan</string>
 
 
 </resources>

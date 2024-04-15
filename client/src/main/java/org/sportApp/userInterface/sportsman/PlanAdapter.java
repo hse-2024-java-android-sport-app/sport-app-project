@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.sportApp.training.PlanDto;
 import org.sportApp.userInterface.R;
+
 import java.util.List;
 
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> {
@@ -41,6 +42,12 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             }
             return true;
         });
+
+        holder.itemView.setOnClickListener(view -> {
+            if (listener != null) {
+                listener.onItemClick(position);
+            }
+        });
     }
 
     @Override
@@ -56,6 +63,8 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
 
     public interface OnItemClickListener {
         void onItemLongClick(int position);
+
+        void onItemClick(int position);
     }
 
     public static class PlanViewHolder extends RecyclerView.ViewHolder {
