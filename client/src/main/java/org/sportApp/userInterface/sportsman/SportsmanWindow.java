@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.sportApp.requests.BackendService;
 import org.sportApp.training.PlanDto;
 import org.sportApp.userInterface.R;
+import org.sportApp.userInterface.trainings.AddTrainingWindow;
 import org.sportApp.utils.SessionManager;
 
 import java.util.ArrayList;

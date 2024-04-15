@@ -5,7 +5,7 @@ import java.time.Duration;
 public class ExerciseDto {
     private String description;
     private int repetitions;
-    private Duration duration;
+    private int duration;
     private int sets;
     private String videoUrl;
 
@@ -27,12 +27,12 @@ public class ExerciseDto {
         return repetitions;
     }
 
-    public void setDuration(Duration duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
 
-    public Duration getDuration() {
+    public int getDuration() {
         return duration;
     }
 
@@ -51,4 +51,5 @@ public class ExerciseDto {
     public String getVideoUrl() {
         return videoUrl;
     }
+
 }
