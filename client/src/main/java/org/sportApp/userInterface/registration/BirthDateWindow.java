@@ -9,7 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.sportApp.registration.UserRegistrationDto;
-import org.sportApp.userInterface.R;;
+import org.sportApp.userInterface.R;
 
 import java.util.Calendar;
 import java.util.Date;

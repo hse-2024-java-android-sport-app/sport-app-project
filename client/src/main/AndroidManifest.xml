@@ -26,6 +26,7 @@
         <activity android:name=".registration.BirthDateWindow" />
         <activity android:name=".sportsman.SportsmanWindow" />
         <activity android:name=".sportsman.AddTrainingWindow" />
+        <activity android:name=".sportsman.EditPlanWindow" />
     </application>
     <uses-permission android:name="android.permission.INTERNET"
         tools:ignore="ManifestOrder" />

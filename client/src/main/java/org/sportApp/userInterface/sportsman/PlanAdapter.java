@@ -8,35 +8,54 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.sportApp.training.TrainingEventDto;
+import org.sportApp.training.PlanDto;
 import org.sportApp.userInterface.R;
 import java.util.List;
 
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> {
 
-    private final List<TrainingEventDto> trainingEvents;
+    private List<PlanDto> trainingEvents;
+    private final OnItemClickListener listener;
 
-    public PlanAdapter(List<TrainingEventDto> trainingEvents) {
+    public PlanAdapter(List<PlanDto> trainingEvents, OnItemClickListener listener) {
         this.trainingEvents = trainingEvents;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
-    public PlanAdapter.PlanViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PlanViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_plan, parent, false);
         return new PlanViewHolder(itemView);
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull PlanAdapter.PlanViewHolder holder, int position) {
-        TrainingEventDto event = trainingEvents.get(position);
+    public void onBindViewHolder(@NonNull PlanViewHolder holder, int position) {
+        PlanDto event = trainingEvents.get(position);
         holder.eventTextView.setText("Plan " + event.getId());
+
+        holder.itemView.setOnLongClickListener(view -> {
+            if (listener != null) {
+                listener.onItemLongClick(position);
+            }
+            return true;
+        });
     }
 
     @Override
     public int getItemCount() {
         return trainingEvents.size();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void setTrainingEvents(List<PlanDto> trainingEvents) {
+        this.trainingEvents = trainingEvents;
+        notifyDataSetChanged();
+    }
+
+    public interface OnItemClickListener {
+        void onItemLongClick(int position);
     }
 
     public static class PlanViewHolder extends RecyclerView.ViewHolder {

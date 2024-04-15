@@ -26,6 +26,9 @@
     <string name="select_date">Select training date</string>
     <string name="date_of_birth">Select the date of birth</string>
     <string name="plan_date">Plan Date</string>
+    <string name="menu">Menu</string>
+    <string name="edit">Edit plan</string>
+    <string name="delete">Delete plan</string>
 
 
 </resources>
