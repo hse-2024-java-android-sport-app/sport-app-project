@@ -13,5 +13,8 @@ public class TrainingDto {
     public List<ExerciseDto> getExercises() {
         return exercises;
     }
+    public void setExercises(List<ExerciseDto> exercises) {
+        this.exercises = exercises;
+    }
 
 }

@@ -1,8 +1,9 @@
 package org.sportApp.training;
 
+import java.io.Serializable;
 import java.time.Duration;
 
-public class ExerciseDto {
+public class ExerciseDto implements Serializable {
     private String description;
     private int repetitions;
     private int duration;

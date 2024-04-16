@@ -1,5 +1,6 @@
 package org.sportApp.userInterface.trainings;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.sportApp.requests.BackendService;
 import org.sportApp.training.ExerciseDto;
 import org.sportApp.userInterface.R;
+import org.sportApp.utils.SessionManager;
 
 import java.time.Duration;
 
@@ -52,16 +54,16 @@ public class AddExerciseWindow extends AppCompatActivity {
         int duration = Integer.parseInt(durationText);
         int sets = Integer.parseInt(setsText);
 
-        ExerciseDto exercise = new ExerciseDto();
-        exercise.setDescription(description);
-        exercise.setRepetitions(repetitions);
-        exercise.setDuration(duration);
-        exercise.setSets(sets);
-        exercise.setVideoUrl(videoUrl);
+        ExerciseDto exerciseDto = new ExerciseDto();
+        exerciseDto.setDescription(description);
+        exerciseDto.setRepetitions(repetitions);
+        exerciseDto.setDuration(duration);
+        exerciseDto.setSets(sets);
+        exerciseDto.setVideoUrl(videoUrl);
 
-        BackendService backendService = new BackendService();
-        //backendService.saveExercise(exercise);
-
+        Intent intent = new Intent();
+        intent.putExtra("exerciseDto", exerciseDto);
+        setResult(AddTrainingWindow.RESULT_OK, intent);
         finish();
     }
 }

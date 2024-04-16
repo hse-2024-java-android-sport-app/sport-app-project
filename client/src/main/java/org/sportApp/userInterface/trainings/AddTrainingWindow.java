@@ -1,6 +1,7 @@
 package org.sportApp.userInterface.trainings;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
@@ -8,15 +9,20 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.sportApp.training.ExerciseDto;
+import org.sportApp.training.TrainingDto;
 import org.sportApp.training.TrainingEventDto;
 import org.sportApp.userInterface.R;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AddTrainingWindow extends AppCompatActivity {
 
     private LocalDate selectedDate;
+    private ArrayList<ExerciseDto> exercises = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +63,10 @@ public class AddTrainingWindow extends AppCompatActivity {
                 .setItems(R.array.exercise_options, (dialog, which) -> {
                     switch (which) {
                         case 0:
-                            Toast.makeText(AddTrainingWindow.this, "New Exercise", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(AddTrainingWindow.this, AddExerciseWindow.class);
+                            startActivity(intent);
+                            ExerciseDto exerciseDto = getExerciseDto();
+                            exercises.add(exerciseDto);
                             break;
                         case 1:
                             Toast.makeText(AddTrainingWindow.this, "Existing Exercise", Toast.LENGTH_SHORT).show();
@@ -73,8 +82,13 @@ public class AddTrainingWindow extends AppCompatActivity {
             return;
         }
 
-        TrainingEventDto trainingEventDto = new TrainingEventDto();
-        trainingEventDto.setDate(selectedDate);
+        TrainingDto trainingDto = new TrainingDto();
+        trainingDto.setExercises(exercises);
         Toast.makeText(this, "Your training saved!", Toast.LENGTH_SHORT).show();
+    }
+
+    private ExerciseDto getExerciseDto() {
+        Intent intent = getIntent();
+        return intent.getParcelableExtra("exerciseDto");
     }
 }
