@@ -1,4 +1,4 @@
-package org.sportApp.training;
+package org.sportApp.requests;
 
 public class PlanResultDto {
     PlanResultDto(){}

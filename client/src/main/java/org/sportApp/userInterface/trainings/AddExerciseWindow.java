@@ -8,12 +8,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.sportApp.requests.BackendService;
 import org.sportApp.training.ExerciseDto;
 import org.sportApp.userInterface.R;
-import org.sportApp.utils.SessionManager;
-
-import java.time.Duration;
 
 public class AddExerciseWindow extends AppCompatActivity {
 

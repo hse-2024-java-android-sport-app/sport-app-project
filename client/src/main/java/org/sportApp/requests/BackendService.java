@@ -1,13 +1,15 @@
 package org.sportApp.requests;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
-import org.sportApp.registration.RegistrationResultDto;
 import org.sportApp.registration.UserRegistrationDto;
+import org.sportApp.training.ExerciseDto;
 import org.sportApp.training.PlanDto;
-import org.sportApp.training.PlanResultDto;
+import org.sportApp.training.TrainingDto;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
@@ -60,7 +62,7 @@ public class BackendService {
         return future;
     }
 
-    public void createPlan(PlanDto planDto) {
+    public void createPlan(@NonNull PlanDto planDto) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("userId", planDto.getUserId());
         String json = jsonObject.toString();
@@ -79,6 +81,42 @@ public class BackendService {
                 future.completeExceptionally(new IOException("Plan creating failed: no response from server"));
             }
         });
+    }
+
+    public CompletableFuture<Boolean> addTrainingToPlan(long planId, TrainingDto trainingDto) {
+        CompletableFuture<Boolean> future = new CompletableFuture<>();
+        String json = gson.toJson(trainingDto);
+        Request request = createPostRequest(BASE_URL + "/plans/" + planId + "/add-training", json);
+        sendRequest(request, future, Boolean.class, (response, result) -> {
+            if (response != null) {
+                if (result) {
+                    future.complete(true);
+                } else {
+                    future.completeExceptionally(new IOException("Failed to add training to plan"));
+                }
+            } else {
+                future.completeExceptionally(new IOException("No response from server"));
+            }
+        });
+        return future;
+    }
+
+    public CompletableFuture<Boolean> addTraining(TrainingDto trainingDto) {
+        CompletableFuture<Boolean> future = new CompletableFuture<>();
+        String json = gson.toJson(trainingDto);
+        Request request = createPostRequest(BASE_URL + "/add-training", json);
+        sendRequest(request, future, Boolean.class, (response, result) -> {
+            if (response != null) {
+                if (result) {
+                    future.complete(true);
+                } else {
+                    future.completeExceptionally(new IOException("Failed to save training"));
+                }
+            } else {
+                future.completeExceptionally(new IOException("No response from server"));
+            }
+        });
+        return future;
     }
 
     private <T> void sendRequest(@NotNull Request request, CompletableFuture<T> future, Class<T> responseClass, ResponseHandler<T> responseHandler) {

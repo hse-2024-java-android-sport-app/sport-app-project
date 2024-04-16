@@ -10,14 +10,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.sportApp.requests.BackendService;
 import org.sportApp.training.ExerciseDto;
 import org.sportApp.training.TrainingDto;
 import org.sportApp.training.TrainingEventDto;
 import org.sportApp.userInterface.R;
+import org.sportApp.utils.SessionManager;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import okhttp3.internal.concurrent.TaskRunner;
 
 public class AddTrainingWindow extends AppCompatActivity {
 
@@ -84,6 +88,11 @@ public class AddTrainingWindow extends AppCompatActivity {
 
         TrainingDto trainingDto = new TrainingDto();
         trainingDto.setExercises(exercises);
+        BackendService backendService = new BackendService();
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        long userId = sessionManager.getUserId();
+        trainingDto.setUserId(userId);
+        backendService.addTraining(trainingDto);
         Toast.makeText(this, "Your training saved!", Toast.LENGTH_SHORT).show();
     }
 
