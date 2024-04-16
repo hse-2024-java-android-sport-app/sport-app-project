@@ -3,6 +3,7 @@ package org.sportApp.userInterface.sportsman;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -47,12 +48,6 @@ public class SportsmanWindow extends AppCompatActivity {
             }
         });
         recyclerView.setAdapter(planAdapter);
-
-        Button addTrainingButton = findViewById(R.id.addTrainingButton);
-        addTrainingButton.setOnClickListener(v -> {
-            Intent intent = new Intent(SportsmanWindow.this, AddTrainingWindow.class);
-            startActivity(intent);
-        });
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -77,5 +72,10 @@ public class SportsmanWindow extends AppCompatActivity {
             intent.putExtra("planDto", planDto);
             startActivity(intent);
         }
+    }
+
+    public void openTrainingWindow(View view) {
+        Intent intent = new Intent(this, AddTrainingWindow.class);
+        startActivity(intent);
     }
 }

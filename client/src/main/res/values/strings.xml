@@ -41,6 +41,11 @@
     <string name="video_url">Video URL (optionally)</string>
     <string name="number_of_sets">Number of sets</string>
     <string name="duration">Duration (in seconds)</string>
+    <string name="string_trainings">Trainings</string>
+    <string name="chronicle">Chronicle</string>
+    <string name="trainings">Trainings</string>
+    <string name="main">Main</string>
+    <string name="profile">Profile</string>
 
 
 </resources>
