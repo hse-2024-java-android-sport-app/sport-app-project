@@ -34,6 +34,10 @@ public class UserService {
         return userRepository.existsByLogin(login);
     }
 
+    public boolean existsById(long userId) {
+        return userRepository.existsById(userId);
+    }
+
     public Iterable<User> findAll() {
         return userRepository.findAll();
     }

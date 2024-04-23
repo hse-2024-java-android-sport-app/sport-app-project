@@ -30,10 +30,10 @@ public class TypeSelectionWindow extends AppCompatActivity {
             Toast.makeText(TypeSelectionWindow.this, "You are sportsman!", Toast.LENGTH_SHORT).show();
             assert userDto != null;
             userDto.setType(UserRegistrationDto.Kind.sportsman);
+            registerUser(userDto);
             Intent sportsmanIntent = new Intent(TypeSelectionWindow.this, SportsmanWindow.class);
             sportsmanIntent.putExtra("userDto", userDto);
             startActivity(sportsmanIntent);
-            registerUser(userDto);
         });
 
 
