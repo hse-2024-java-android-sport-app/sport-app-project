@@ -33,6 +33,7 @@ public class TypeSelectionWindow extends AppCompatActivity {
             Intent sportsmanIntent = new Intent(TypeSelectionWindow.this, SportsmanWindow.class);
             sportsmanIntent.putExtra("userDto", userDto);
             startActivity(sportsmanIntent);
+            registerUser(userDto);
         });
 
 
