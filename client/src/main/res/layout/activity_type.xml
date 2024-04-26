@@ -14,7 +14,7 @@
         android:layout_marginTop="32dp"
         android:text="@string/type"
         android:textAlignment="center"
-        android:textColor="@color/violet"
+        android:textColor="@color/white"
         android:textSize="20sp" />
 
     <LinearLayout

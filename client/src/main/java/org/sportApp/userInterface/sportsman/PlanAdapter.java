@@ -8,18 +8,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.sportApp.training.PlanDto;
 import org.sportApp.userInterface.R;
-import org.sportApp.training.TrainingEventDto;
-import org.sportApp.training.TrainingDto;
 
 import java.util.List;
 
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> {
 
-    private final List<TrainingEventDto> trainingEvents;
+    private List<PlanDto> trainingEvents;
+    private final OnItemClickListener listener;
 
-    public PlanAdapter(List<TrainingEventDto> trainingEvents) {
+    public PlanAdapter(List<PlanDto> trainingEvents, OnItemClickListener listener) {
         this.trainingEvents = trainingEvents;
+        this.listener = listener;
     }
 
     @NonNull
@@ -32,14 +33,21 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull PlanViewHolder holder, int position) {
-        TrainingEventDto event = trainingEvents.get(position);
-        TrainingDto trainingDto = event.getTrainingDto();
-        if (trainingDto != null && !trainingDto.getExercises().isEmpty()) {
-            String firstExerciseDescription = trainingDto.getExercises().get(0).getDescription();
-            holder.planNameTextView.setText(firstExerciseDescription);
-        } else {
-            holder.planNameTextView.setText("No exercises");
-        }
+        PlanDto event = trainingEvents.get(position);
+        holder.eventTextView.setText("Plan " + event.getId());
+
+        holder.itemView.setOnLongClickListener(view -> {
+            if (listener != null) {
+                listener.onItemLongClick(position);
+            }
+            return true;
+        });
+
+        holder.itemView.setOnClickListener(view -> {
+            if (listener != null) {
+                listener.onItemClick(position);
+            }
+        });
     }
 
     @Override
@@ -47,12 +55,24 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         return trainingEvents.size();
     }
 
-    static class PlanViewHolder extends RecyclerView.ViewHolder {
-        TextView planNameTextView;
+    @SuppressLint("NotifyDataSetChanged")
+    public void setTrainingEvents(List<PlanDto> trainingEvents) {
+        this.trainingEvents = trainingEvents;
+        notifyDataSetChanged();
+    }
+
+    public interface OnItemClickListener {
+        void onItemLongClick(int position);
+
+        void onItemClick(int position);
+    }
+
+    public static class PlanViewHolder extends RecyclerView.ViewHolder {
+        TextView eventTextView;
 
         PlanViewHolder(View itemView) {
             super(itemView);
-            planNameTextView = itemView.findViewById(R.id.planNameTextView);
+            eventTextView = itemView.findViewById(R.id.eventTextView);
         }
     }
 }

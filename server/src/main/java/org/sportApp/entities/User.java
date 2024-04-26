@@ -2,8 +2,8 @@ package org.sportApp.entities;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.Month;
 import java.util.Date;
+import java.util.Locale;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -18,7 +18,7 @@ import jakarta.persistence.Table;
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
+    private long id;
     private String firstName;
     private String secondName;
     private String login;
@@ -52,12 +52,12 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format(
-                "Customer[id=%d, firstName='%s', secondName='%s', login='%s', dateOfBirth='%s', type='%s']",
+        return String.format(Locale.GERMANY,
+                "Customer[id=%d, firstName='%s', secondName='%s', login='%s', dateOfBirth='%', type='%s']",
                 this.id, this.firstName, this.secondName, this.login, this.dateOfBirth, this.type);
     }
 
-    public Long getId() {
+    public long getId() {
         return this.id;
     }
 

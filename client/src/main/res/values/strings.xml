@@ -25,6 +25,27 @@
     <string name="select_existing_exercise">Select existing exercise</string>
     <string name="select_date">Select training date</string>
     <string name="date_of_birth">Select the date of birth</string>
+    <string name="plan_date">Plan Date</string>
+    <string name="menu">Menu</string>
+    <string name="edit">Edit plan</string>
+    <string name="delete">Delete plan</string>
+    <string name="completed">Completed</string>
+    <string name="select_plan_date">Select plan date</string>
+    <string name="save_plan">Save plan</string>
+    <string name="save_changes">Save changes</string>
+    <string name="delete_plan">Delete plan</string>
+    <string name="add_new_exercise">Add new exercise</string>
+    <string name="description">Write description</string>
+    <string name="number_of_repeats">Number of repetitions</string>
+    <string name="save">Save</string>
+    <string name="video_url">Video URL (optionally)</string>
+    <string name="number_of_sets">Number of sets</string>
+    <string name="duration">Duration (in seconds)</string>
+    <string name="string_trainings">Trainings</string>
+    <string name="chronicle">Chronicle</string>
+    <string name="trainings">Trainings</string>
+    <string name="main">Main</string>
+    <string name="profile">Profile</string>
 
 
 </resources>

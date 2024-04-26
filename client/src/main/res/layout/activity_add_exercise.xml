@@ -1,0 +1,65 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_new_exercise"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp" />
+
+    <EditText
+        android:id="@+id/descriptionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/description"
+        android:layout_below="@id/titleTextView"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/repetitionsEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/number_of_repeats"
+        android:layout_below="@id/descriptionEditText"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/durationEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/duration"
+        android:layout_below="@id/repetitionsEditText"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/setsEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/number_of_sets"
+        android:layout_below="@id/durationEditText"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/videoUrlEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/video_url"
+        android:layout_below="@id/setsEditText"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:layout_below="@id/videoUrlEditText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+</RelativeLayout>

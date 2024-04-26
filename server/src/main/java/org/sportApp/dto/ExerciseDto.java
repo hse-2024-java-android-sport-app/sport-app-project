@@ -8,6 +8,7 @@ public class ExerciseDto {
     private Duration duration;
     private int sets;
     private String videoUrl;
+    private long trainId;
 
     public ExerciseDto(){}
 

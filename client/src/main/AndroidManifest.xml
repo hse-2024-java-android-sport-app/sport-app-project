@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Registrationwindow"
+        android:networkSecurityConfig="@xml/network_security_config"
         tools:targetApi="31">
         <activity
             android:name=".registration.RegistrationWindow"
@@ -25,9 +26,13 @@
         <activity android:name=".registration.TypeSelectionWindow" />
         <activity android:name=".registration.BirthDateWindow" />
         <activity android:name=".sportsman.SportsmanWindow" />
-        <activity android:name=".sportsman.AddTrainingWindow" />
+        <activity android:name=".trainings.AddTrainingWindow" />
+        <activity android:name=".sportsman.EditPlanWindow" />
+        <activity android:name=".trainings.AddExerciseWindow" />
     </application>
     <uses-permission android:name="android.permission.INTERNET"
         tools:ignore="ManifestOrder" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>

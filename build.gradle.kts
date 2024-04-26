@@ -18,8 +18,8 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
-    implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE")
-    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    testImplementation("org.springframework.security:spring-security-test")
+//    implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE")
+//    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+//    implementation("org.springframework.boot:spring-boot-starter-security")
+//    testImplementation("org.springframework.security:spring-security-test")
 }
