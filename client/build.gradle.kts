@@ -35,8 +35,6 @@ android {
 }
 
 dependencies {
-
-    implementation(project(":server"))
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
