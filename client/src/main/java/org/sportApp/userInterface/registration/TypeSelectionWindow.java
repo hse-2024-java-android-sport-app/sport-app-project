@@ -50,7 +50,7 @@ public class TypeSelectionWindow extends AppCompatActivity {
         backendService.registerUser(userDto)
                 .thenAccept(resultDto -> {
                     SessionManager sessionManager = new SessionManager(getApplicationContext());
-                    sessionManager.saveUserId(resultDto.getUserId());
+                    sessionManager.saveUserId(resultDto);
                     Toast.makeText(TypeSelectionWindow.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
                 })
                 .exceptionally(e -> {
