@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.sportApp.model.User;
-import org.sportApp.userInterface.coach.databinding.FragmentCoachListOfSportsmenBinding;
+import org.sportApp.userInterface.databinding.FragmentCoachListOfSportsmenBinding;
 
 import java.util.ArrayList;
 import java.util.List;

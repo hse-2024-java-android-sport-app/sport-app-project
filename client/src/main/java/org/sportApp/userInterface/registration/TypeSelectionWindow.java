@@ -10,6 +10,7 @@ import android.widget.Toast;
 import org.sportApp.registration.UserRegistrationDto;
 import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
+import org.sportApp.userInterface.coach.MainActivity;
 import org.sportApp.userInterface.sportsman.SportsmanWindow;
 import org.sportApp.utils.SessionManager;
 
@@ -42,6 +43,9 @@ public class TypeSelectionWindow extends AppCompatActivity {
             assert userDto != null;
             userDto.setType(UserRegistrationDto.Kind.coach);
             registerUser(userDto);
+            Intent coachIntent = new Intent(TypeSelectionWindow.this, MainActivity.class);
+            coachIntent.putExtra("userDto", userDto);
+            startActivity(coachIntent);
         });
     }
 

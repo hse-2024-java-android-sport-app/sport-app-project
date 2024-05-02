@@ -10,8 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import org.sportApp.userInterface.coach.databinding.FragmentHomeBinding;
-import org.sportApp.userInterface.coach.databinding.FragmentMainAccountBinding;
+import org.sportApp.userInterface.databinding.FragmentHomeBinding;
+import org.sportApp.userInterface.databinding.FragmentMainAccountBinding;
 import org.sportApp.userInterface.coach.ui.home.HomeViewModel;
 
 public class MainAccountFragment extends Fragment {

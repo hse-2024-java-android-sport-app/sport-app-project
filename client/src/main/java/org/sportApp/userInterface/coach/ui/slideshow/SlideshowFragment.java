@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import org.sportApp.userInterface.coach.databinding.FragmentSlideshowBinding;
+import org.sportApp.userInterface.databinding.FragmentSlideshowBinding;
 
 public class SlideshowFragment extends Fragment {
 

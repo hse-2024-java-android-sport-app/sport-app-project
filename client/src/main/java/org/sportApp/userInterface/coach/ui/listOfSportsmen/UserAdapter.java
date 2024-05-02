@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import org.sportApp.model.User;
-import org.sportApp.userInterface.coach.R;
+import org.sportApp.userInterface.R;
 
 import java.util.List;
 

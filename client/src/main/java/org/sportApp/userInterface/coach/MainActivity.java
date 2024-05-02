@@ -15,7 +15,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.sportApp.model.User;
-import org.sportApp.userInterface.coach.databinding.ActivityMainBinding;
+import org.sportApp.userInterface.R;
+import org.sportApp.userInterface.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
     public static User mainUser;

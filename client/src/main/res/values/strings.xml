@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">SportApp</string>
     <string name="registration">Registration</string>
     <string name="enter_username">Enter User Name</string>
     <string name="enter_email_address">Enter Email Address</string>
@@ -46,6 +46,18 @@
     <string name="trainings">Trainings</string>
     <string name="main">Main</string>
     <string name="profile">Profile</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_coachListOfSportsmen">Coach list of sportsmen</string>
+    <string name="menu_myAccount">My account</string>
 
 
 </resources>
