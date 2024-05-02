@@ -1,17 +1,23 @@
 package org.sportApp.requests;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+
 import okhttp3.*;
+
 import org.jetbrains.annotations.NotNull;
 import org.sportApp.registration.UserRegistrationDto;
-import org.sportApp.training.ExerciseDto;
 import org.sportApp.training.PlanDto;
 import org.sportApp.training.TrainingDto;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class BackendService {
@@ -33,32 +39,70 @@ public class BackendService {
                 .build();
     }
 
-    public CompletableFuture<RegistrationResultDto> registerUser(UserRegistrationDto userDto) {
-        CompletableFuture<RegistrationResultDto> future = new CompletableFuture<>();
+    public CompletableFuture<Long> registerUser(UserRegistrationDto userDto) {
+        CompletableFuture<Long> future = new CompletableFuture<>();
         String json = gson.toJson(userDto);
+        Log.d("myTag", json);
         Request request = createPostRequest(BASE_URL + "/register", json);
-        sendRequest(request, future, RegistrationResultDto.class, (response, result) -> {
+        sendRequest(request, future, Long.class, (response, result) -> {
+            Log.d("myTag", "Send Request:" + (response != null) + " " + result);
             if (response != null) {
-                if (result.isSuccessful()) {
-                    long userId = result.getUserId();
-                    result.setUserId(userId);
-                    future.complete(result);
-                } else {
-                    future.completeExceptionally(new IOException("Registration failed"));
-                }
+                future.complete(result);
             } else {
-                System.out.println("Registration failed: no response from server");
+                Log.d("myTag", "Registration failed: no response from server");
                 future.completeExceptionally(new IOException("Registration failed: no response from server"));
             }
         });
         return future;
     }
 
-    public CompletableFuture<Boolean> checkLogin(String login) {
+    public CompletableFuture<Long> getUserProfile(String login) {
+        CompletableFuture<Long> future = new CompletableFuture<>();
+        String url = BASE_URL + "/getUser" + login;
+        Request request = new Request.Builder().url(url).get().build();
+        sendRequest(request, future, Long.class, (response, result) -> {
+            Log.d("myTag", "Send Request:" + (response != null) + " " + result);
+            if (response != null) {
+                future.complete(result);
+            } else {
+                Log.d("myTag", "Failed to get user profile.");
+                future.completeExceptionally(new IOException("Failed to get user profile."));
+            }
+        });
+
+        return future;
+    }
+
+
+    public CompletableFuture<Boolean> isLoginExist(String login) {
         CompletableFuture<Boolean> future = new CompletableFuture<>();
         String json = "{\"login\": \"" + login + "\"}";
-        Request request = createPostRequest(BASE_URL + "/check-login", json);
-        sendRequest(request, future, Boolean.class, (response, result) -> {});
+        Request request = createPostRequest(BASE_URL + "/isLoginExist", json);
+        sendRequest(request, future, Boolean.class, (response, result) -> {
+            Log.d("myTag", "Send Request:" + (response != null) + " " + result);
+            if (response != null) {
+                future.complete(result);
+            } else {
+                Log.d("myTag", "Failed to check login existence.");
+                future.completeExceptionally(new IOException("Failed to check login existence."));
+            }
+        });
+        return future;
+    }
+
+    public CompletableFuture<List<Long>> getAllUsers() {
+        CompletableFuture<List<Long>> future = new CompletableFuture<>();
+        Request request = new Request.Builder().url(BASE_URL + "/getAllUsers").get().build();
+        sendRequest(request, future, new TypeToken<List<Long>>() {}.getType(), (response, result) -> {
+            Log.d("myTag", "Send Request:" + (response != null) + " " + result);
+            if (response != null) {
+                future.complete(result);
+            } else {
+                Log.d("myTag", "Failed to get all users.");
+                future.completeExceptionally(new IOException("Failed to get all users."));
+            }
+        });
+
         return future;
     }
 
@@ -119,7 +163,7 @@ public class BackendService {
         return future;
     }
 
-    private <T> void sendRequest(@NotNull Request request, CompletableFuture<T> future, Class<T> responseClass, ResponseHandler<T> responseHandler) {
+    private <T> void sendRequest(@NotNull Request request, CompletableFuture<T> future, Type responseClass, ResponseHandler<T> responseHandler) {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) {
@@ -137,7 +181,7 @@ public class BackendService {
         });
     }
 
-    private <T> void handleResponse(@NotNull Response response, CompletableFuture<T> future, Class<T> responseClass, ResponseHandler<T> responseHandler) throws IOException {
+    private <T> void handleResponse(@NotNull Response response, CompletableFuture<T> future, Type responseClass, ResponseHandler<T> responseHandler) throws IOException {
         if (!response.isSuccessful()) {
             future.completeExceptionally(new IOException("The request wasn't successful: " +
                     response.code() + " " + response.message()));
