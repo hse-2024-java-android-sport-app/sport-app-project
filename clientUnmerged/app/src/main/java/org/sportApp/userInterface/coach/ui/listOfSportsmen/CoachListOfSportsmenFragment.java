@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,6 +34,7 @@ public class CoachListOfSportsmenFragment extends Fragment {
         final RecyclerView recyclerView = binding.userRecyclerView;
         coachListOfSportsmenViewModel.getUserAdapter().observe(getViewLifecycleOwner(),
                 recyclerView::setAdapter);
+        UserAdapter.navController = NavHostFragment.findNavController(this);
         //binding.userRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         //binding.userRecyclerView.setAdapter(
                 //new UserAdapter(this.getContext(), coachListOfSportsmenViewModel.getUserList()));
