@@ -1,13 +1,19 @@
 package org.sportApp.userInterface.registration;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import org.sportApp.registration.UserRegistrationDto;
+import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
+import org.sportApp.userInterface.coach.MainActivity;
 import org.sportApp.userInterface.sportsman.SportsmanWindow;
+import org.sportApp.utils.SessionManager;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,14 +36,34 @@ public class AuthorizationWindow extends AppCompatActivity {
         bSignIn.setOnClickListener(v -> {
             isAllFieldsChecked = CheckAllFields();
             if (isAllFieldsChecked) {
-                findUser(String.valueOf(userName));
+                UserRegistrationDto userDto = new UserRegistrationDto();
+                findUser(userDto);
+
+                Intent intent = new Intent(AuthorizationWindow.this, SportsmanWindow.class);
+                intent.putExtra("userDto", userDto);
+                startActivity(intent);
             }
         });
     }
 
-    private void findUser(String userName) {
-        Intent intent = new Intent(AuthorizationWindow.this, SportsmanWindow.class);
-        startActivity(intent);
+    private void findUser(@NonNull UserRegistrationDto userDto) {
+        String uName = userName.getText().toString();
+        String pass = password.getText().toString();
+
+        userDto.setLogin(uName);
+        userDto.setPassword(pass);
+
+        BackendService backendService = new BackendService();
+        backendService.registerUser(userDto)
+                .thenAccept(resultDto -> {
+                    SessionManager sessionManager = new SessionManager(getApplicationContext());
+                    sessionManager.saveUserId(resultDto);
+                    Toast.makeText(AuthorizationWindow.this, "User authorized successfully!", Toast.LENGTH_SHORT).show();
+                })
+                .exceptionally(e -> {
+                    Toast.makeText(AuthorizationWindow.this, "Authorization failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    return null;
+                });
     }
 
     private boolean CheckAllFields() {

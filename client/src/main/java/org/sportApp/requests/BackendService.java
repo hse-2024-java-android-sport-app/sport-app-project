@@ -56,6 +56,23 @@ public class BackendService {
         return future;
     }
 
+    public CompletableFuture<Long> signInUser(UserRegistrationDto userDto) {
+        CompletableFuture<Long> future = new CompletableFuture<>();
+        String json = gson.toJson(userDto);
+        Log.d("myTag", json);
+        Request request = createPostRequest(BASE_URL + "/authorization", json);
+        sendRequest(request, future, Long.class, (response, result) -> {
+            Log.d("myTag", "Send Request:" + (response != null) + " " + result);
+            if (response != null) {
+                future.complete(result);
+            } else {
+                Log.d("myTag", "Authorization failed: no response from server");
+                future.completeExceptionally(new IOException("Authorization failed: no response from server"));
+            }
+        });
+        return future;
+    }
+
     public CompletableFuture<Long> getUserProfile(String login) {
         CompletableFuture<Long> future = new CompletableFuture<>();
         String url = BASE_URL + "/getUser" + login;
