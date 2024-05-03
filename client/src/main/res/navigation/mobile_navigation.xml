@@ -27,11 +27,21 @@
         android:id="@+id/nav_coachListOfSportsmen"
         android:name="org.sportApp.userInterface.coach.ui.listOfSportsmen.CoachListOfSportsmenFragment"
         android:label="@string/menu_coachListOfSportsmen"
-        tools:layout="@layout/fragment_coach_list_of_sportsmen" />
+        tools:layout="@layout/fragment_coach_list_of_sportsmen" >
+        <action
+            android:id="@+id/action_nav_coachListOfSportsmen_to_nav_account"
+            app:destination="@id/nav_account" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_mainAccount"
         android:name="org.sportApp.userInterface.coach.ui.account.MainAccountFragment"
         android:label="@string/menu_myAccount"
         tools:layout="@layout/fragment_main_account" />
+
+    <fragment
+        android:id="@+id/nav_account"
+        android:name="org.sportApp.userInterface.coach.ui.account.AccountFragment"
+        tools:layout="@layout/fragment_account" />
+
 </navigation>
