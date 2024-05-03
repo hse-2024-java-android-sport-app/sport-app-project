@@ -10,6 +10,7 @@ import android.widget.Toast;
 import org.sportApp.registration.UserRegistrationDto;
 import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
+import org.sportApp.userInterface.coach.MainActivity;
 import org.sportApp.userInterface.sportsman.SportsmanWindow;
 import org.sportApp.utils.SessionManager;
 
@@ -42,6 +43,9 @@ public class TypeSelectionWindow extends AppCompatActivity {
             assert userDto != null;
             userDto.setType(UserRegistrationDto.Kind.coach);
             registerUser(userDto);
+            Intent coachIntent = new Intent(TypeSelectionWindow.this, MainActivity.class);
+            coachIntent.putExtra("userDto", userDto);
+            startActivity(coachIntent);
         });
     }
 
@@ -50,7 +54,7 @@ public class TypeSelectionWindow extends AppCompatActivity {
         backendService.registerUser(userDto)
                 .thenAccept(resultDto -> {
                     SessionManager sessionManager = new SessionManager(getApplicationContext());
-                    sessionManager.saveUserId(resultDto.getUserId());
+                    sessionManager.saveUserId(resultDto);
                     Toast.makeText(TypeSelectionWindow.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
                 })
                 .exceptionally(e -> {

@@ -10,13 +10,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Registrationwindow"
+        android:theme="@style/Theme.SportApp"
         android:networkSecurityConfig="@xml/network_security_config"
         tools:targetApi="31">
         <activity
             android:name=".registration.RegistrationWindow"
             android:exported="true"
-            android:theme="@style/Theme.Registrationwindow.NoActionBar">
+            android:theme="@style/Theme.SportApp.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,6 +29,16 @@
         <activity android:name=".trainings.AddTrainingWindow" />
         <activity android:name=".sportsman.EditPlanWindow" />
         <activity android:name=".trainings.AddExerciseWindow" />
+        <activity
+            android:name=".coach.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.SportApp.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET"
         tools:ignore="ManifestOrder" />
