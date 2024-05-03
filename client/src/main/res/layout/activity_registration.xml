@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".userInterface.registration.RegistrationWindow">
+    tools:context=".registration.RegistrationWindow">
     <TextView
         android:id="@+id/idHeader"
         android:layout_width="match_parent"
@@ -101,8 +101,22 @@
             android:layout_marginTop="50dp"
             android:layout_marginEnd="10dp"
             android:backgroundTint="@color/violet"
-            android:text="@string/sign_in"
+            android:text="@string/register"
             android:textColor="@android:color/white"
             tools:ignore="ButtonStyle" />
+    <TextView
+        android:id="@+id/alreadyHaveAccountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/registrationButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="@string/already_have_an_account"
+        android:textColor="@color/violet"
+        android:textStyle="bold"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="onAlreadyHaveAccountClicked" />
+
 
 </RelativeLayout>

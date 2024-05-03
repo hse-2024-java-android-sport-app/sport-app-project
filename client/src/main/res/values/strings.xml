@@ -58,6 +58,9 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_coachListOfSportsmen">Coach list of sportsmen</string>
     <string name="menu_myAccount">My account</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="authorization">Login</string>
+    <string name="register">Register</string>
 
 
 </resources>
