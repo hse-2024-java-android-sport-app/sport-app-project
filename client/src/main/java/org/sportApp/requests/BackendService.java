@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 
 import okhttp3.*;
 
@@ -17,20 +16,19 @@ import org.sportApp.training.TrainingDto;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class BackendService {
-    OkHttpClient client = new OkHttpClient();
-    Gson gson = new Gson();
-    String BASE_URL = "http://10.0.2.2:8080/sport_app";
+    static OkHttpClient client = new OkHttpClient();
+    static Gson gson = new Gson();
+    static String BASE_URL = "http://10.0.2.2:8080/sport_app";
 
     @FunctionalInterface
     interface ResponseHandler<T> {
         void handleResponse(Response response, T result) throws IOException;
     }
 
-    private Request createPostRequest(String url, String json) {
+    private static Request createPostRequest(String url, String json) {
         MediaType JSON = MediaType.get("application/json; charset=utf-8");
         RequestBody body = RequestBody.create(json, JSON);
         return new Request.Builder()
@@ -56,7 +54,7 @@ public class BackendService {
         return future;
     }
 
-    public CompletableFuture<Long> signInUser(UserRegistrationDto userDto) {
+    public static CompletableFuture<Long> signInUser(UserRegistrationDto userDto) {
         CompletableFuture<Long> future = new CompletableFuture<>();
         String json = gson.toJson(userDto);
         Log.d("myTag", json);
@@ -91,10 +89,9 @@ public class BackendService {
     }
 
 
-    public CompletableFuture<Boolean> isLoginExist(String login) {
+    public static CompletableFuture<Boolean> isLoginExist(String login) {
         CompletableFuture<Boolean> future = new CompletableFuture<>();
-        String json = "{\"login\": \"" + login + "\"}";
-        Request request = createPostRequest(BASE_URL + "/isLoginExist", json);
+        Request request = new Request.Builder().url(BASE_URL + "/isLoginExist/" + login).get().build();
         sendRequest(request, future, Boolean.class, (response, result) -> {
             Log.d("myTag", "Send Request:" + (response != null) + " " + result);
             if (response != null) {
@@ -107,21 +104,6 @@ public class BackendService {
         return future;
     }
 
-    public CompletableFuture<List<Long>> getAllUsers() {
-        CompletableFuture<List<Long>> future = new CompletableFuture<>();
-        Request request = new Request.Builder().url(BASE_URL + "/getAllUsers").get().build();
-        sendRequest(request, future, new TypeToken<List<Long>>() {}.getType(), (response, result) -> {
-            Log.d("myTag", "Send Request:" + (response != null) + " " + result);
-            if (response != null) {
-                future.complete(result);
-            } else {
-                Log.d("myTag", "Failed to get all users.");
-                future.completeExceptionally(new IOException("Failed to get all users."));
-            }
-        });
-
-        return future;
-    }
 
     public void createPlan(@NonNull PlanDto planDto) {
         JsonObject jsonObject = new JsonObject();
@@ -180,7 +162,7 @@ public class BackendService {
         return future;
     }
 
-    private <T> void sendRequest(@NotNull Request request, CompletableFuture<T> future, Type responseClass, ResponseHandler<T> responseHandler) {
+    private static <T> void sendRequest(@NotNull Request request, CompletableFuture<T> future, Type responseClass, ResponseHandler<T> responseHandler) {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) {
@@ -198,7 +180,7 @@ public class BackendService {
         });
     }
 
-    private <T> void handleResponse(@NotNull Response response, CompletableFuture<T> future, Type responseClass, ResponseHandler<T> responseHandler) throws IOException {
+    private static <T> void handleResponse(@NotNull Response response, CompletableFuture<T> future, Type responseClass, ResponseHandler<T> responseHandler) throws IOException {
         if (!response.isSuccessful()) {
             future.completeExceptionally(new IOException("The request wasn't successful: " +
                     response.code() + " " + response.message()));
