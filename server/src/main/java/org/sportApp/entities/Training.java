@@ -11,13 +11,13 @@ public class Training {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long trainId;
-    @OneToMany(mappedBy="training")
+    @OneToMany(mappedBy="training", cascade = CascadeType.ALL)
     private List<Exercise> exercises;
     private long userId;
 
-    public Training(long trainId, List<Exercise> excersises, long userId) {
+    public Training(long trainId, List<Exercise> exercises, long userId) {
         this.trainId = trainId;
-        this.exercises = excersises;
+        this.exercises = exercises;
         this.userId = userId;
     }
 

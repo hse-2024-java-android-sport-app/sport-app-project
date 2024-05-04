@@ -1,11 +1,11 @@
 package org.sportApp.dto;
 
-import java.time.Duration;
+import java.util.Locale;
 
 public class ExerciseDto {
     private String description;
     private int repetitions;
-    private Duration duration;
+    private int duration;
     private int sets;
     private String videoUrl;
     private long trainId;
@@ -28,12 +28,12 @@ public class ExerciseDto {
         return repetitions;
     }
 
-    public void setDuration(Duration duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
 
-    public Duration getDuration() {
+    public int getDuration() {
         return duration;
     }
 
@@ -51,5 +51,12 @@ public class ExerciseDto {
 
     public String getVideoUrl() {
         return videoUrl;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(Locale.GERMANY,
+                "Exercise[description='%s', repetitions='%d', duration='%s', sets='%d', videoUrl='%s', trainId='%s']",
+                this.description, this.repetitions, this.duration, this.sets, this.videoUrl, this.trainId);
     }
 }

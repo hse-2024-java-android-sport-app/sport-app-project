@@ -13,14 +13,14 @@ public class Exercise {
     private Long id;
     private String description;
     private int repetitions;
-    private Duration duration;
+    private int duration;
     private int sets;
     private String videoUrl;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="trainId", nullable=false)
     private Training training;
 
-    public Exercise(String description, int repetitions, Duration duration, int sets, String videoUrl, Training training) {
+    public Exercise(String description, int repetitions, int duration, int sets, String videoUrl, Training training) {
         this.description = description;
         this.repetitions = repetitions;
         this.duration = duration;
@@ -51,11 +51,11 @@ public class Exercise {
         this.repetitions = repetitions;
     }
 
-    public Duration getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(Duration duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 

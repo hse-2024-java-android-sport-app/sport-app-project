@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.modelmapper.*;
+
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -39,65 +41,64 @@ public class Controller {
     public @ResponseBody
     CompletableFuture<ResponseEntity<?>> registerUser(@RequestBody UserRegistrationDto userDto) {
         User user = this.mapper.map(userDto, User.class);
-
-        CompletableFuture<User> future = new CompletableFuture<>();
         if (userService.existsByLogin(user.getLogin())) {
-            return future.thenApply(result -> ResponseEntity.status(HttpStatus.CONFLICT).body("User with this login already exists"));
+            return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.CONFLICT).body("User with this login already exists"));
         }
 
         User registeredUser = userService.registerUser(user);
-        future.complete(registeredUser);
+        CompletableFuture<User> future = CompletableFuture.supplyAsync(() -> registeredUser);
         if (!registeredUser.equals(user)) {
             return future.thenApply(result -> ResponseEntity.status(HttpStatus.VARIANT_ALSO_NEGOTIATES).body("Registered user is different from required"));
         }
-        return future.thenApply(result -> ResponseEntity.status(HttpStatus.CREATED).body(registeredUser));
-
-//        CompletableFuture<User> future = new CompletableFuture<>();
-//        future.complete(taskService.getNewTasks());
-//        if(yourCondition){
-//            return future.thenApply(result -> new ResponseEntity<Tasks>(result, HttpStatus.STATUS_1));
-//        }
-//        return future.thenApply(result -> new ResponseEntity<Tasks>(result, HttpStatus.STATUS_2));
+        return future.thenApply(result -> ResponseEntity.status(HttpStatus.CREATED).body(registeredUser.getId()));
     }
 
     @PostMapping("authorization")
-    public @ResponseBody ResponseEntity<?> authorizeUser(@RequestBody UserRegistrationDto userDto) {
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> authorizeUser(@RequestBody UserRegistrationDto userDto) {
+
         if (!userService.existsByLogin(userDto.getLogin())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User with this login doesn't exist");
+            return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User with this login doesn't exist"));
         }
+
         long aufUserId = userService.authorizeUser(userDto.getLogin(), userDto.getPassword());
+        CompletableFuture<Long> future = CompletableFuture.supplyAsync(() -> aufUserId);
         if (aufUserId < 0) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User with this password doesn't exist");
+            return future.thenApply(result -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User with this password doesn't exist"));
         }
-        return ResponseEntity.status(HttpStatus.OK).body(aufUserId);
+        return future.thenApply(result -> ResponseEntity.status(HttpStatus.OK).body(aufUserId));
     }
 
     @PostMapping("addTraining")
-    public @ResponseBody ResponseEntity<?> authorizeUser(@RequestBody TrainingDto trainingDto) {
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> addTraining(@RequestBody TrainingDto trainingDto) {
         Training training = this.mapper.map(trainingDto, Training.class);
 
         Training savedTraining = trainingService.saveTraining(training);
+        CompletableFuture<Training> future = CompletableFuture.supplyAsync(() -> savedTraining);
         if (!savedTraining.equals(training)) {
-            return ResponseEntity.status(HttpStatus.VARIANT_ALSO_NEGOTIATES).body("Saved training is different from required");
+            return future.thenApply(result -> ResponseEntity.status(HttpStatus.VARIANT_ALSO_NEGOTIATES).body("Saved training is different from required"));
         }
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedTraining);
+        return future.thenApply(result -> ResponseEntity.status(HttpStatus.CREATED).body(savedTraining.getTrainId()));
     }
 
     @GetMapping("getAllTrainings/{userId}")
-    public @ResponseBody ResponseEntity<?> getAllTrainingsByUserId(@PathVariable(value = "userId") long userId) {
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> getAllTrainingsByUserId(@PathVariable(value = "userId") long userId) {
         if (!userService.existsById(userId)) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required userId doesn't found");
+            return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required userId doesn't found"));
         }
-        return ResponseEntity.status(HttpStatus.OK).body(trainingService.findAllByUserId(userId));
+        return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.OK).body(trainingService.findAllByUserId(userId)));
     }
 
     @GetMapping("getAllExercise/{trainId}")
-    public @ResponseBody ResponseEntity<?> getAllExerciseByTrainId(@PathVariable(value = "trainId") long trainId) {
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> getAllExerciseByTrainId(@PathVariable(value = "trainId") long trainId) {
         Optional<Training> findTraining = trainingService.findById(trainId);
-        if (findTraining.isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK).body(findTraining.get().getExercises());
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required training doesn't found");
+        CompletableFuture<List<Exercise>> future = new CompletableFuture<>();
+        return findTraining
+                .<CompletableFuture<ResponseEntity<?>>>map(training ->
+                        CompletableFuture.supplyAsync(
+                                () -> ResponseEntity.status(HttpStatus.OK).body(training.getExercises())))
+                .orElseGet(() ->
+                        CompletableFuture.supplyAsync(
+                                () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required training doesn't found")));
     }
 
     @GetMapping("status")
