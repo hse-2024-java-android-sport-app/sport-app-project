@@ -88,11 +88,10 @@ public class AddTrainingWindow extends AppCompatActivity {
 
         TrainingDto trainingDto = new TrainingDto();
         trainingDto.setExercises(exercises);
-        BackendService backendService = new BackendService();
         SessionManager sessionManager = new SessionManager(getApplicationContext());
         long userId = sessionManager.getUserId();
         trainingDto.setUserId(userId);
-        backendService.addTraining(trainingDto);
+        BackendService.addTraining(trainingDto);
         Toast.makeText(this, "Your training saved!", Toast.LENGTH_SHORT).show();
     }
 
