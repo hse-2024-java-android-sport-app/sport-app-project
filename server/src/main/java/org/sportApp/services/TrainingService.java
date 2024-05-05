@@ -35,4 +35,13 @@ public class TrainingService {
     public Optional<Training> findById(long trainId) {
         return trainingRepository.findById(trainId);
     }
+
+    public Optional<Exercise> addExercise(long trainId, Exercise exercise) {
+        Optional<Training> optionalTraining = findById(trainId);
+        if (optionalTraining.isPresent()) {
+            exercise.setTraining(optionalTraining.get());
+            return Optional.of(exerciseRepository.save(exercise));
+        }
+        return Optional.empty();
+    }
 }

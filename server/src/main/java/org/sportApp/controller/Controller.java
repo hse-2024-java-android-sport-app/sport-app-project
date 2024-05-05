@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.modelmapper.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -68,6 +69,15 @@ public class Controller {
         return future.thenApply(result -> ResponseEntity.status(HttpStatus.OK).body(aufUserId));
     }
 
+    @GetMapping("getUserType/{userId}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> getUserType(@PathVariable(value = "userId") long userId) {
+        return userService.getUserType(userId)
+                .<CompletableFuture<ResponseEntity<?>>>map(userType -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.OK).body(userType)))
+                .orElseGet(() -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required userId doesn't found")));
+    }
+
     @PostMapping("addTraining")
     public @ResponseBody CompletableFuture<ResponseEntity<?>> addTraining(@RequestBody TrainingDto trainingDto) {
         Training training = this.mapper.map(trainingDto, Training.class);
@@ -80,25 +90,44 @@ public class Controller {
         return future.thenApply(result -> ResponseEntity.status(HttpStatus.CREATED).body(savedTraining.getTrainId()));
     }
 
+    @PostMapping("addExercise/{trainId}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> addExercise(@PathVariable(value = "trainId") long trainId, @RequestBody ExerciseDto exerciseDto) {
+        Exercise exercise = this.mapper.map(exerciseDto, Exercise.class);
+
+        Optional<Exercise> addedExercise = trainingService.addExercise(trainId, exercise);
+        CompletableFuture<Optional<Exercise>> future = CompletableFuture.supplyAsync(() -> addedExercise);
+        if (addedExercise.isEmpty()) {
+            return future.thenApply(result -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Training with this ID doesn't exist"));
+        }
+        if (!addedExercise.get().equals(exercise)) {
+            return future.thenApply(result -> ResponseEntity.status(HttpStatus.VARIANT_ALSO_NEGOTIATES).body("Saved exercise is different from required"));
+        }
+        return future.thenApply(result -> ResponseEntity.status(HttpStatus.CREATED).body(addedExercise.get().getId()));
+    }
+
     @GetMapping("getAllTrainings/{userId}")
     public @ResponseBody CompletableFuture<ResponseEntity<?>> getAllTrainingsByUserId(@PathVariable(value = "userId") long userId) {
-        if (!userService.existsById(userId)) {
+        if (userService.notExistsById(userId)) {
             return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required userId doesn't found"));
         }
-        return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.OK).body(trainingService.findAllByUserId(userId)));
+        List<Training> trainingList = new ArrayList<>();
+        trainingService.findAllByUserId(userId).forEach(trainingList::add);
+        return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.OK).body(
+                trainingList.stream()
+                        .map(training -> mapper.map(training, TrainingDto.class))
+                        .toList()));
     }
 
     @GetMapping("getAllExercise/{trainId}")
     public @ResponseBody CompletableFuture<ResponseEntity<?>> getAllExerciseByTrainId(@PathVariable(value = "trainId") long trainId) {
-        Optional<Training> findTraining = trainingService.findById(trainId);
-        CompletableFuture<List<Exercise>> future = new CompletableFuture<>();
-        return findTraining
-                .<CompletableFuture<ResponseEntity<?>>>map(training ->
-                        CompletableFuture.supplyAsync(
-                                () -> ResponseEntity.status(HttpStatus.OK).body(training.getExercises())))
-                .orElseGet(() ->
-                        CompletableFuture.supplyAsync(
-                                () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required training doesn't found")));
+        return trainingService.findById(trainId)
+                .<CompletableFuture<ResponseEntity<?>>>map(training -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.OK).body(
+                                training.getExercises().stream()
+                                .map(exr -> this.mapper.map(exr, ExerciseDto.class))
+                                .toList())))
+                .orElseGet(() -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required training doesn't found")));
     }
 
     @GetMapping("status")

@@ -34,8 +34,12 @@ public class UserService {
         return userRepository.existsByLogin(login);
     }
 
-    public boolean existsById(long userId) {
-        return userRepository.existsById(userId);
+    public boolean notExistsById(long userId) {
+        return !userRepository.existsById(userId);
+    }
+
+    public Optional<User.Kind> getUserType(long userId) {
+        return userRepository.findById(userId).map(User::getType);
     }
 
     public Iterable<User> findAll() {
