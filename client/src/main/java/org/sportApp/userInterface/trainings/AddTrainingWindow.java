@@ -1,4 +1,4 @@
-package org.sportApp.userInterface.trainings;
+package org.sportApp.userInterface.ui.training;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -13,20 +13,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.sportApp.requests.BackendService;
 import org.sportApp.training.ExerciseDto;
 import org.sportApp.training.TrainingDto;
-import org.sportApp.training.TrainingEventDto;
 import org.sportApp.userInterface.R;
+import org.sportApp.userInterface.trainings.AddExerciseWindow;
 import org.sportApp.utils.SessionManager;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import okhttp3.internal.concurrent.TaskRunner;
-
 public class AddTrainingWindow extends AppCompatActivity {
 
     private LocalDate selectedDate;
-    private ArrayList<ExerciseDto> exercises = new ArrayList<>();
+    private final ArrayList<ExerciseDto> exercises = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

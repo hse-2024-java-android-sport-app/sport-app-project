@@ -2,16 +2,21 @@ package org.sportApp.userInterface.trainings;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import org.sportApp.training.ExerciseDto;
 import org.sportApp.userInterface.R;
 
-public class AddExerciseWindow extends AppCompatActivity {
+public class AddExerciseWindow extends Fragment {
 
     private EditText descriptionEditText;
     private EditText repetitionsEditText;
@@ -19,18 +24,23 @@ public class AddExerciseWindow extends AppCompatActivity {
     private EditText setsEditText;
     private EditText videoUrlEditText;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_exercise);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_add_exercise, container, false);
+    }
 
-        descriptionEditText = findViewById(R.id.descriptionEditText);
-        repetitionsEditText = findViewById(R.id.repetitionsEditText);
-        durationEditText = findViewById(R.id.durationEditText);
-        setsEditText = findViewById(R.id.setsEditText);
-        videoUrlEditText = findViewById(R.id.videoUrlEditText);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        Button saveButton = findViewById(R.id.saveButton);
+        descriptionEditText = view.findViewById(R.id.descriptionEditText);
+        repetitionsEditText = view.findViewById(R.id.repetitionsEditText);
+        durationEditText = view.findViewById(R.id.durationEditText);
+        setsEditText = view.findViewById(R.id.setsEditText);
+        videoUrlEditText = view.findViewById(R.id.videoUrlEditText);
+
+        Button saveButton = view.findViewById(R.id.saveButton);
         saveButton.setOnClickListener(v -> saveExercise());
     }
 
@@ -42,7 +52,7 @@ public class AddExerciseWindow extends AppCompatActivity {
         String videoUrl = videoUrlEditText.getText().toString();
 
         if (description.isEmpty() || repetitionsText.isEmpty() || durationText.isEmpty() || setsText.isEmpty()) {
-            Toast.makeText(this, "Please fill in all required fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Please fill in all required fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -59,7 +69,7 @@ public class AddExerciseWindow extends AppCompatActivity {
 
         Intent intent = new Intent();
         intent.putExtra("exerciseDto", exerciseDto);
-        setResult(AddTrainingWindow.RESULT_OK, intent);
-        finish();
+        requireActivity().setResult(org.sportApp.userInterface.sportsman.ui.trainings.TrainingFragment.RESULT_OK, intent);
+        requireActivity().finish();
     }
 }
