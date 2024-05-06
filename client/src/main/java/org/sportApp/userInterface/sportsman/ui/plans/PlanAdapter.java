@@ -1,10 +1,10 @@
-package org.sportApp.userInterface.sportsman;
+package org.sportApp.userInterface.sportsman.ui.plans;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,51 +14,35 @@ import org.sportApp.userInterface.R;
 import java.util.List;
 
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> {
-
-    private List<PlanDto> trainingEvents;
+    private final List<PlanDto> planList;
     private final OnItemClickListener listener;
 
-    public PlanAdapter(List<PlanDto> trainingEvents, OnItemClickListener listener) {
-        this.trainingEvents = trainingEvents;
+    public PlanAdapter(List<PlanDto> planList, OnItemClickListener listener) {
+        this.planList = planList;
         this.listener = listener;
     }
 
     @NonNull
     @Override
     public PlanViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_current_plan, parent, false);
+        View itemView;
+        if (viewType == 0) {
+            itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_current_plan, parent, false);
+        } else {
+            itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_completed_plan, parent, false);
+        }
         return new PlanViewHolder(itemView);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull PlanViewHolder holder, int position) {
-        PlanDto event = trainingEvents.get(position);
-        holder.eventTextView.setText("Plan " + event.getId());
-
-        holder.itemView.setOnLongClickListener(view -> {
-            if (listener != null) {
-                listener.onItemLongClick(position);
-            }
-            return true;
-        });
-
-        holder.itemView.setOnClickListener(view -> {
-            if (listener != null) {
-                listener.onItemClick(position);
-            }
-        });
+        PlanDto plan = planList.get(position);
+        holder.bind(plan, listener);
     }
 
     @Override
     public int getItemCount() {
-        return trainingEvents.size();
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    public void setTrainingEvents(List<PlanDto> trainingEvents) {
-        this.trainingEvents = trainingEvents;
-        notifyDataSetChanged();
+        return planList.size();
     }
 
     public interface OnItemClickListener {
@@ -68,11 +52,38 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
     }
 
     public static class PlanViewHolder extends RecyclerView.ViewHolder {
-        TextView eventTextView;
+        private final TextView planNameTextView;
 
-        PlanViewHolder(View itemView) {
+        public PlanViewHolder(View itemView) {
             super(itemView);
-            eventTextView = itemView.findViewById(R.id.eventTextView);
+            planNameTextView = itemView.findViewById(R.id.planNameTextView);
+        }
+
+        public void bind(@NonNull PlanDto plan, OnItemClickListener listener) {
+            planNameTextView.setText(plan.getName());
+
+            itemView.setOnLongClickListener(v -> {
+                if (listener != null) {
+                    listener.onItemLongClick(getAdapterPosition());
+                }
+                return true;
+            });
+
+            itemView.setOnClickListener(v -> {
+                if (listener != null) {
+                    listener.onItemClick(getAdapterPosition());
+                }
+            });
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        PlanDto plan = planList.get(position);
+        if (plan.isCompleted()) {
+            return 1;
+        } else {
+            return 0;
         }
     }
 }

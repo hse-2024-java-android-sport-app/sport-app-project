@@ -27,7 +27,7 @@
         <activity android:name=".registration.BirthDateWindow" />
         <activity android:name=".sportsman.SportsmanWindow" />
         <activity android:name=".trainings.AddTrainingWindow" />
-        <activity android:name=".sportsman.EditPlanWindow" />
+        <activity android:name=".sportsman.ui.plans.EditPlanWindow" />
         <activity android:name=".sportsman.ui.trainings.AddExerciseWindow" />
         <activity android:name=".registration.AuthorizationWindow" />
         <activity

@@ -68,6 +68,7 @@
     <string name="todo">TODO</string>
     <string name="menu_trainings">Trainings</string>
     <string name="menu_notifications">Notifications</string>
+    <string name="menu_plans">Plans</string>
 
 
 </resources>

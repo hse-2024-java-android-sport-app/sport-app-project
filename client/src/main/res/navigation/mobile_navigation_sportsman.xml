@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="org.sportApp.userInterface.sportsman.ui.gallery.GalleryFragment"
+        android:name="org.sportApp.userInterface.sportsman.ui.plans.GalleryFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
 
@@ -22,6 +22,12 @@
         android:name="org.sportApp.userInterface.sportsman.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_plans"
+        android:name="org.sportApp.userInterface.sportsman.ui.plans.PlanWindow"
+        android:label="@string/menu_plans"
+        tools:layout="@layout/fragment_plans" />
 
 
 </navigation>

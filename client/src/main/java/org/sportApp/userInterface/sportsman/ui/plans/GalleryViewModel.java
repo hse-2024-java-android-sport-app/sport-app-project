@@ -1,4 +1,4 @@
-package org.sportApp.userInterface.sportsman.ui.gallery;
+package org.sportApp.userInterface.sportsman.ui.plans;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

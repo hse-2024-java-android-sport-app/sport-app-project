@@ -1,24 +1,26 @@
 package org.sportApp.training;
 
 import org.sportApp.requests.BackendService;
+import org.threeten.bp.LocalDate;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlanDto implements Serializable {
+    private String name;
     private final List<TrainingEventDto> trainings = new ArrayList<>();
     private long userId;
     private long id;
 
-    private static boolean isCompleted;
+    private boolean isCompleted;
 
     public PlanDto() {
         BackendService backendService = new BackendService();
         backendService.createPlan(this);
     }
 
-    public static boolean isCompleted() {
+    public boolean isCompleted() {
         return isCompleted;
     }
 
@@ -45,5 +47,17 @@ public class PlanDto implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
     }
 }
