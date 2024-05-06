@@ -1,45 +1,45 @@
 package org.sportApp.services;
 
 import org.sportApp.entities.Exercise;
-import org.sportApp.entities.Training;
+import org.sportApp.entities.TrainingEvent;
 import org.sportApp.repo.ExerciseRepository;
-import org.sportApp.repo.TrainingRepository;
+import org.sportApp.repo.TrainingEventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class TrainingService {
+public class TrainingEventService {
 
-    private final TrainingRepository trainingRepository;
+    private final TrainingEventRepository trainingEventRepository;
     private final ExerciseRepository exerciseRepository;
 
     @Autowired
-    public TrainingService(TrainingRepository trainingRepository, ExerciseRepository exerciseRepository) {
-        this.trainingRepository = trainingRepository;
+    public TrainingEventService(TrainingEventRepository trainingEventRepository, ExerciseRepository exerciseRepository) {
+        this.trainingEventRepository = trainingEventRepository;
         this.exerciseRepository = exerciseRepository;
     }
 
-    public Training saveTraining(Training training) {
-        training.getExercises().forEach(exr -> exr.setTraining(training));
-        Training savedTraining = trainingRepository.save(training);
-        exerciseRepository.saveAll(training.getExercises());
-        return savedTraining;
+    public TrainingEvent saveTrainingEvent(TrainingEvent trainingEvent) {
+        trainingEvent.getExercises().forEach(exr -> exr.setTrainingEvent(trainingEvent));
+        TrainingEvent savedTrainingEvent = trainingEventRepository.save(trainingEvent);
+        exerciseRepository.saveAll(trainingEvent.getExercises());
+        return savedTrainingEvent;
     }
 
-    public Iterable<Training> findAllByUserId(long userId) {
-        return trainingRepository.findAllByUserId(userId);
+    public Iterable<TrainingEvent> findAllByUserId(long userId) {
+        return trainingEventRepository.findAllByUserId(userId);
     }
 
-    public Optional<Training> findById(long trainId) {
-        return trainingRepository.findById(trainId);
+    public Optional<TrainingEvent> findById(long trainId) {
+        return trainingEventRepository.findById(trainId);
     }
 
     public Optional<Exercise> addExercise(long trainId, Exercise exercise) {
-        Optional<Training> optionalTraining = findById(trainId);
-        if (optionalTraining.isPresent()) {
-            exercise.setTraining(optionalTraining.get());
+        Optional<TrainingEvent> optionalTrainingEvent = findById(trainId);
+        if (optionalTrainingEvent.isPresent()) {
+            exercise.setTrainingEvent(optionalTrainingEvent.get());
             return Optional.of(exerciseRepository.save(exercise));
         }
         return Optional.empty();

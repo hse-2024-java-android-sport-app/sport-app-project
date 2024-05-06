@@ -3,6 +3,7 @@ package org.sportApp.dto;
 import java.util.Locale;
 
 public class ExerciseDto {
+    private String name;
     private String description;
     private int repetitions;
     private int duration;
@@ -51,6 +52,22 @@ public class ExerciseDto {
 
     public String getVideoUrl() {
         return videoUrl;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setTrainId(long trainId) {
+        this.trainId = trainId;
+    }
+
+    public long getTrainId() {
+        return trainId;
     }
 
     @Override
