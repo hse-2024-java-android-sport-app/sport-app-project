@@ -1,0 +1,97 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+    <ImageButton
+        android:id="@+id/mainButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/recyclerView"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="-60dp"
+        android:contentDescription="@string/main"
+        android:background="@drawable/button_background"
+        android:src="@drawable/main" />
+
+    <ImageButton
+        android:id="@+id/profileButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/recyclerView"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="-60dp"
+        android:layout_toEndOf="@id/mainButton"
+        android:contentDescription="@string/profile"
+        android:background="@drawable/button_background"
+        android:src="@drawable/profile" />
+
+    <ImageButton
+        android:id="@+id/chronicleButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_toEndOf="@id/profileButton"
+        android:layout_marginStart="16dp"
+        android:layout_alignTop="@id/profileButton"
+        android:src="@drawable/chronicle"
+        android:contentDescription="@string/chronicle"
+        android:background="@drawable/button_background"
+        android:layout_below="@id/recyclerView" />
+
+    <ImageButton
+        android:id="@+id/trainingsButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_toEndOf="@id/chronicleButton"
+        android:layout_marginStart="16dp"
+        android:layout_alignTop="@id/chronicleButton"
+        android:src="@drawable/trainings"
+        android:contentDescription="@string/trainings"
+        android:background="@drawable/button_background"
+        android:onClick="openTrainingWindow"
+        android:layout_below="@id/recyclerView" />
+
+    <ImageButton
+        android:id="@+id/notificationsButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_toEndOf="@id/trainingsButton"
+        android:layout_marginStart="16dp"
+        android:layout_alignTop="@id/trainingsButton"
+        android:src="@drawable/notifications"
+        android:contentDescription="@string/title_notifications"
+        android:background="@drawable/button_background"
+        android:layout_below="@id/recyclerView" />
+
+
+    <Button
+        android:id="@+id/addPlanButton"
+        android:layout_width="163dp"
+        android:layout_height="81dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="123dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/button_background"
+        android:minWidth="150dp"
+        android:padding="20dp"
+        android:text="@string/add_plan" />
+
+    <TextView
+        android:id="@+id/myPlansLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/addPlanButton"
+        android:layout_centerHorizontal="true"
+        android:text="@string/my_plans"
+        android:textSize="24sp"
+        android:layout_marginTop="15dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/myPlansLabel"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="80dp" />
+</RelativeLayout>
