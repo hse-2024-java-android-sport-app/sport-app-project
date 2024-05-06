@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_trainings"
+            android:icon="@drawable/trainings"
+            android:title="@string/menu_trainings" />
+        <item
+            android:id="@+id/nav_mainAccount"
+            android:icon="@drawable/profile"
+            android:title="@string/menu_myAccount" />
+
+        <item
+            android:id="@+id/nav_push"
+            android:icon="@drawable/notifications"
+            android:title="@string/menu_notifications" />
+
+    </group>
+</menu>
