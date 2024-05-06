@@ -61,6 +61,13 @@
     <string name="already_have_an_account">Already have an account?</string>
     <string name="authorization">Login</string>
     <string name="register">Register</string>
+    <string name="current_plan">Current plan</string>
+    <string name="completed_plans">Completed plans</string>
+    <string name="plan_title">Plan Title</string>
+    <string name="menu_training">Training</string>
+    <string name="todo">TODO</string>
+    <string name="menu_trainings">Trainings</string>
+    <string name="menu_notifications">Notifications</string>
 
 
 </resources>

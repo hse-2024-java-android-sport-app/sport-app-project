@@ -32,7 +32,7 @@ public class TypeSelectionWindow extends AppCompatActivity {
             assert userDto != null;
             userDto.setType(UserRegistrationDto.Kind.sportsman);
             registerUser(userDto);
-            Intent sportsmanIntent = new Intent(TypeSelectionWindow.this, SportsmanWindow.class);
+            Intent sportsmanIntent = new Intent(TypeSelectionWindow.this, org.sportApp.userInterface.sportsman.MainActivity.class);
             sportsmanIntent.putExtra("userDto", userDto);
             startActivity(sportsmanIntent);
         });
@@ -50,8 +50,7 @@ public class TypeSelectionWindow extends AppCompatActivity {
     }
 
     private void registerUser(UserRegistrationDto userDto) {
-        BackendService backendService = new BackendService();
-        backendService.registerUser(userDto)
+        BackendService.registerUser(userDto)
                 .thenAccept(resultDto -> {
                     SessionManager sessionManager = new SessionManager(getApplicationContext());
                     sessionManager.saveUserId(resultDto);

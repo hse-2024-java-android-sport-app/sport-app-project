@@ -1,6 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- mobile_navigation.xml -->
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             android:id="@+id/mobile_navigation_sportsman.xml">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation_sportsman"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_training"
+        android:name="org.sportApp.ui.training.TrainingFragment"
+        android:label="@string/menu_training"
+        tools:layout="@layout/fragment_training" />
+
+    <fragment
+        android:id="@+id/nav_mainAccount"
+        android:name="org.sportApp.ui.account.MainAccountFragment"
+        android:label="@string/menu_myAccount"
+        tools:layout="@layout/fragment_main_account" />
+
+    <fragment
+        android:id="@+id/nav_push"
+        android:name="org.sportApp.ui.Notifications"
+        android:label="@string/menu_notifications"
+        tools:layout="@layout/fragment_notifications" />
+
 
 </navigation>

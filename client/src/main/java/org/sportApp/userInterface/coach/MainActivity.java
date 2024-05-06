@@ -16,12 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.sportApp.model.User;
 import org.sportApp.userInterface.R;
-import org.sportApp.userInterface.databinding.ActivityMainBinding;
+import org.sportApp.userInterface.databinding.ActivityMainCoachBinding;
 
 public class MainActivity extends AppCompatActivity {
     public static User mainUser;
     private AppBarConfiguration mAppBarConfiguration;
-    private ActivityMainBinding binding;
+    private ActivityMainCoachBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +29,11 @@ public class MainActivity extends AppCompatActivity {
 
         mainUser = new User("Admin Adminov", 0);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityMainCoachBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
+        setSupportActionBar(binding.appBarMainCoach.toolbar);
+        binding.appBarMainCoach.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.main_coach, menu);
         return true;
     }
 
