@@ -20,12 +20,16 @@ import java.util.concurrent.CompletableFuture;
 public class Controller {
     private final UserService userService;
     private final TrainingService trainingService;
+    private final EventService eventService;
+    private final PlanService planService;
     private final ModelMapper mapper = new ModelMapper();
 
     @Autowired
-    public Controller(UserService userService, TrainingService trainingService) {
+    public Controller(UserService userService, TrainingService trainingService, EventService eventService, PlanService planService) {
         this.userService = userService;
         this.trainingService = trainingService;
+        this.eventService = eventService;
+        this.planService = planService;
     }
 
     @GetMapping("http://10.0.2.2:8080/sportApp/getAllUsers")
@@ -33,6 +37,14 @@ public class Controller {
         return userService.findAll();
     }
 
+    @GetMapping("status")
+    public @ResponseBody ResponseEntity<?> getStatus() {
+        return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
+
+
+
+    // USER
     @GetMapping("isLoginExist/{login}")
     public boolean isLoginExist(@PathVariable(value = "login") String login) {
         return userService.existsByLogin(login);
@@ -78,8 +90,17 @@ public class Controller {
                         () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required userId doesn't found")));
     }
 
-    @PostMapping("addTraining")
-    public @ResponseBody CompletableFuture<ResponseEntity<?>> addTraining(@RequestBody TrainingDto trainingDto) {
+    /** TODO
+     *  isUserExist or isCoachExist
+     *  addCoach
+     *  getSportsmenByCoach
+     *
+     */
+
+
+    // TRAINING
+    @PostMapping("createTraining")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> createTraining(@RequestBody TrainingDto trainingDto) {
         Training training = this.mapper.map(trainingDto, Training.class);
 
         Training savedTraining = trainingService.saveTraining(training);
@@ -90,8 +111,8 @@ public class Controller {
         return future.thenApply(result -> ResponseEntity.status(HttpStatus.CREATED).body(savedTraining.getTrainId()));
     }
 
-    @PostMapping("addExercise/{trainId}")
-    public @ResponseBody CompletableFuture<ResponseEntity<?>> addExercise(@PathVariable(value = "trainId") long trainId, @RequestBody ExerciseDto exerciseDto) {
+    @PostMapping("addExerciseByTrain/{trainId}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> addExerciseByTrain(@PathVariable(value = "trainId") long trainId, @RequestBody ExerciseDto exerciseDto) {
         Exercise exercise = this.mapper.map(exerciseDto, Exercise.class);
 
         Optional<Exercise> addedExercise = trainingService.addExercise(trainId, exercise);
@@ -118,7 +139,7 @@ public class Controller {
                         .toList()));
     }
 
-    @GetMapping("getAllExercise/{trainId}")
+    @GetMapping("getAllExerciseByTrain/{trainId}")
     public @ResponseBody CompletableFuture<ResponseEntity<?>> getAllExerciseByTrainId(@PathVariable(value = "trainId") long trainId) {
         return trainingService.findById(trainId)
                 .<CompletableFuture<ResponseEntity<?>>>map(training -> CompletableFuture.supplyAsync(
@@ -130,8 +151,71 @@ public class Controller {
                         () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required training doesn't found")));
     }
 
-    @GetMapping("status")
-    public @ResponseBody ResponseEntity<?> getStatus() {
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+
+
+    // EVENT
+    @PostMapping("addExerciseByEvent/{eventId}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> addExerciseByEvent(@PathVariable(value = "eventId") long eventId, @RequestBody ExerciseDto exerciseDto) {
+        Exercise exercise = this.mapper.map(exerciseDto, Exercise.class);
+
+        Optional<Exercise> addedExercise = eventService.addExercise(eventId, exercise);
+        CompletableFuture<Optional<Exercise>> future = CompletableFuture.supplyAsync(() -> addedExercise);
+        if (addedExercise.isEmpty()) {
+            return future.thenApply(result -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event with this ID doesn't exist"));
+        }
+        if (!addedExercise.get().equals(exercise)) {
+            return future.thenApply(result -> ResponseEntity.status(HttpStatus.VARIANT_ALSO_NEGOTIATES).body("Saved exercise is different from required"));
+        }
+        return future.thenApply(result -> ResponseEntity.status(HttpStatus.CREATED).body(addedExercise.get().getId()));
+    }
+
+    @GetMapping("getTrainingByEvent/{eventId}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> getTrainingByEventId(@PathVariable(value = "eventId") long eventId) {
+        return eventService.findTrainingById(eventId)
+                .<CompletableFuture<ResponseEntity<?>>>map(training -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.OK).body(mapper.map(training, TrainingDto.class))))
+                .orElseGet(() -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required training doesn't found")));
+    }
+
+    @GetMapping("getAllExerciseByEvent/{eventId}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> getAllExerciseByEventId(@PathVariable(value = "eventId") long eventId) {
+        return eventService.findTrainingById(eventId)
+                .<CompletableFuture<ResponseEntity<?>>>map(training -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.OK).body(
+                                training.getExercises().stream()
+                                        .map(exr -> this.mapper.map(exr, ExerciseDto.class))
+                                        .toList())))
+                .orElseGet(() -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required training doesn't found")));
+    }
+
+
+    // PLAN
+    @PostMapping("createPlan")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> createPlan(@RequestBody PlanDto planDto) {
+        Plan plan = this.mapper.map(planDto, Plan.class);
+
+        Plan savedPlan = planService.savePlan(plan);
+        CompletableFuture<Plan> future = CompletableFuture.supplyAsync(() -> savedPlan);
+        if (!savedPlan.equals(plan)) {
+            return future.thenApply(result -> ResponseEntity.status(HttpStatus.VARIANT_ALSO_NEGOTIATES).body("Saved plan is different from required"));
+        }
+        return future.thenApply(result -> ResponseEntity.status(HttpStatus.CREATED).body(savedPlan.getPlanId()));
+    }
+
+    @PostMapping("addEvent/{planId}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> addEventByPlanId(@PathVariable(value = "planId") long planId, @RequestBody TrainingEventDto eventDto) {
+        TrainingEvent event = this.mapper.map(eventDto, TrainingEvent.class);
+
+        Optional<TrainingEvent> addedEvent = planService.addEvent(planId, event);
+        CompletableFuture<Optional<TrainingEvent>> future = CompletableFuture.supplyAsync(() -> addedEvent);
+        if (addedEvent.isEmpty()) {
+            return future.thenApply(result -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Plan with this ID doesn't exist"));
+        }
+        if (!addedEvent.get().equals(event)) {
+            return future.thenApply(result -> ResponseEntity.status(HttpStatus.VARIANT_ALSO_NEGOTIATES).body("Saved event is different from required"));
+        }
+        return future.thenApply(result -> ResponseEntity.status(HttpStatus.CREATED).body(addedEvent.get().getEventId()));
     }
 }

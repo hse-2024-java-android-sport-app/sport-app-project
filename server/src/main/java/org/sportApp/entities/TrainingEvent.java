@@ -71,4 +71,16 @@ public class TrainingEvent {
     public void setTraining(Training training) {
         this.training = training;
     }
+
+    @Override
+    public String toString() {
+        return "TrainingEvent{" +
+                "eventId=" + eventId +
+                ", date=" + date +
+                ", completed=" + completed +
+                ", comment='" + comment + '\'' +
+                ", training=" + (training==null) +
+                ", planId=" + plan.getPlanId() +
+                '}';
+    }
 }

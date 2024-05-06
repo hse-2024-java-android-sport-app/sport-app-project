@@ -16,7 +16,7 @@ public class Training {
     private long userId;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="eventId", nullable=false)
+    @JoinColumn(name="eventId")
     private TrainingEvent event;
 
 
@@ -44,5 +44,23 @@ public class Training {
 
     public void setEvent(TrainingEvent event) {
         this.event = event;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    @Override
+    public String toString() {
+        return "Training{" +
+                "trainId=" + trainId +
+                ", exercises=" + exercises +
+                ", userId=" + userId +
+                ", event=" + event +
+                '}';
     }
 }
