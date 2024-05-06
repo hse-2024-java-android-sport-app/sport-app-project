@@ -28,19 +28,16 @@
         <activity android:name=".sportsman.SportsmanWindow" />
         <activity android:name=".trainings.AddTrainingWindow" />
         <activity android:name=".sportsman.EditPlanWindow" />
-        <activity android:name=".trainings.AddExerciseWindow" />
+        <activity android:name=".sportsman.ui.trainings.AddExerciseWindow" />
         <activity android:name=".registration.AuthorizationWindow" />
         <activity
-            android:name=".sportsman.MainActivity"
+            android:name=".coach.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.SportApp.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+
         <activity
-            android:name=".coach.MainActivity"
+            android:name=".sportsman.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.SportApp.NoActionBar">
         </activity>

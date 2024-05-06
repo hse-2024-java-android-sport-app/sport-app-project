@@ -1,4 +1,4 @@
-package org.sportApp.userInterface.ui.training;
+package org.sportApp.userInterface.trainings;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -14,7 +14,7 @@ import org.sportApp.requests.BackendService;
 import org.sportApp.training.ExerciseDto;
 import org.sportApp.training.TrainingDto;
 import org.sportApp.userInterface.R;
-import org.sportApp.userInterface.trainings.AddExerciseWindow;
+import org.sportApp.userInterface.sportsman.ui.trainings.AddExerciseWindow;
 import org.sportApp.utils.SessionManager;
 
 import java.time.LocalDate;

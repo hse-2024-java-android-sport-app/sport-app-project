@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".userInterface.registration.RegistrationWindow">
+    tools:context=".registration.RegistrationWindow">
 
     <TextView
         android:id="@+id/idHeader"
@@ -29,25 +29,28 @@
 
         <Button
             android:id="@+id/sportsmanButton"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="80dp"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             android:layout_marginEnd="8dp"
             android:background="@drawable/button_background"
             android:text="@string/sportsman"
             android:textColor="@android:color/black"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            tools:ignore="NestedWeights"
+            style="?android:attr/buttonBarButtonStyle" />
 
         <Button
             android:id="@+id/coachButton"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="80dp"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             android:layout_marginStart="8dp"
             android:background="@drawable/button_background"
             android:text="@string/coach"
             android:textColor="@android:color/black"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            style="?android:attr/buttonBarButtonStyle" />
     </LinearLayout>
 
 </LinearLayout>
