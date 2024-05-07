@@ -32,7 +32,7 @@
         android:textAlignment="center"
         android:text="@string/completed_plans"
         android:textSize="24sp"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="50dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/completedPlansRecyclerView"
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/completedPlansLabel"
         android:textAlignment="center"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="50dp"
         android:layout_gravity="center"
         android:gravity="center_vertical|center_horizontal"
         android:layout_marginBottom="80dp" />

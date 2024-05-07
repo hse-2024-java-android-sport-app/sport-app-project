@@ -1,17 +1,23 @@
 package org.sportApp.userInterface.sportsman.ui.plans;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.sportApp.training.ExerciseDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.training.PlanDto;
 
@@ -20,6 +26,7 @@ import java.util.List;
 
 public class PlanWindow extends Fragment {
 
+    private boolean isWindowOpened = false;
     private final List<PlanDto> currentPlanDtos = new ArrayList<>();
     private final List<PlanDto> completedPlanDtos = new ArrayList<>();
 
@@ -33,16 +40,20 @@ public class PlanWindow extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        PlanDto planDto1 = new PlanDto();
-        planDto1.setName("Test Plan");
-        planDto1.setCompleted(false);
-        currentPlanDtos.add(planDto1);
+        if (!isWindowOpened) {
+            PlanDto planDto1 = new PlanDto();
+            planDto1.setName("Test Plan");
+            planDto1.setCompleted(false);
+            currentPlanDtos.add(planDto1);
 
-        for (int i = 0; i < 20; i++) {
-            PlanDto plan = new PlanDto();
-            plan.setName("Completed plan " + i);
-            plan.setCompleted(true);
-            completedPlanDtos.add(plan);
+            for (int i = 0; i < 20; i++) {
+                PlanDto plan = new PlanDto();
+                plan.setName("Completed plan " + i);
+                plan.setCompleted(true);
+                completedPlanDtos.add(plan);
+            }
+
+            isWindowOpened = true;
         }
 
         RecyclerView currentPlanRecyclerView = view.findViewById(R.id.currentPlanRecyclerView);
@@ -71,4 +82,11 @@ public class PlanWindow extends Fragment {
         completedPlansRecyclerView.setAdapter(completedAdapter);
         completedPlansRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
     }
+
+    private final ActivityResultLauncher<Intent> addPlanLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == AppCompatActivity.RESULT_OK) {
+            assert result.getData() != null;
+            PlanDto planDto = result.getData().getParcelableExtra("planDto");
+        }
+    });
 }

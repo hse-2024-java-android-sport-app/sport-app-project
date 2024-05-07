@@ -11,9 +11,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/plan_title"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textAlignment="center"
-        android:padding="8dp" />
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp"/>
 
 </LinearLayout>

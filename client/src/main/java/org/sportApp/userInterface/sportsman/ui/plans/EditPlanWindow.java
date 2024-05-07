@@ -1,6 +1,7 @@
-package org.sportApp.userInterface.sportsman;
+package org.sportApp.userInterface.sportsman.ui.plans;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
@@ -79,6 +80,10 @@ public class EditPlanWindow extends AppCompatActivity {
     private void saveChanges() {
         boolean isCompleted = completedCheckBox.isChecked();
         Toast.makeText(this, "Changes saved!", Toast.LENGTH_SHORT).show();
+        Intent resultIntent = new Intent();
+//        resultIntent.putExtra("planDto", planDto);
+
+        setResult(RESULT_OK, resultIntent);
         finish();
     }
 }

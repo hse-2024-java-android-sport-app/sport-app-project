@@ -60,41 +60,35 @@ public class AddTrainingWindow extends Fragment {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                requireContext(),
-                (view, year1, monthOfYear, dayOfMonth) -> {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        selectedDate = LocalDate.of(year1, monthOfYear + 1, dayOfMonth);
-                    }
-                    Toast.makeText(requireContext(), "Date saved", Toast.LENGTH_SHORT).show();
-                },
-                year, month, day);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), (view, year1, monthOfYear, dayOfMonth) -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                selectedDate = LocalDate.of(year1, monthOfYear + 1, dayOfMonth);
+            }
+            Toast.makeText(requireContext(), "Date saved", Toast.LENGTH_SHORT).show();
+        }, year, month, day);
         datePickerDialog.show();
     }
 
-    private final ActivityResultLauncher<Intent> addExerciseLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == AppCompatActivity.RESULT_OK) {
-                    assert result.getData() != null;
-                    ExerciseDto exerciseDto = result.getData().getParcelableExtra("exerciseDto");
-                }
-            });
+    private final ActivityResultLauncher<Intent> addExerciseLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == AppCompatActivity.RESULT_OK) {
+            assert result.getData() != null;
+            ExerciseDto exerciseDto = result.getData().getParcelableExtra("exerciseDto");
+        }
+    });
 
     private void showExerciseSelectionDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Select Exercise Option")
-                .setItems(R.array.exercise_options, (dialog, which) -> {
-                    switch (which) {
-                        case 0:
-                            Intent intent = new Intent(requireContext(), AddExerciseWindow.class);
-                            addExerciseLauncher.launch(intent);
-                            break;
-                        case 1:
-                            Toast.makeText(requireContext(), "Existing Exercise", Toast.LENGTH_SHORT).show();
-                            break;
-                    }
-                });
+        builder.setTitle("Select Exercise Option").setItems(R.array.exercise_options, (dialog, which) -> {
+            switch (which) {
+                case 0:
+                    Intent intent = new Intent(requireContext(), AddExerciseWindow.class);
+                    addExerciseLauncher.launch(intent);
+                    break;
+                case 1:
+                    Toast.makeText(requireContext(), "Existing Exercise", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        });
         builder.create().show();
     }
 
@@ -108,13 +102,8 @@ public class AddTrainingWindow extends Fragment {
         trainingDto.setExercises(exercises);
         SessionManager sessionManager = new SessionManager(requireContext());
         long userId = sessionManager.getUserId();
-        trainingDto.setUserId(userId);
+        trainingDto.setSportsmanId(userId);
         BackendService.addTraining(trainingDto);
         Toast.makeText(requireContext(), "Your training saved!", Toast.LENGTH_SHORT).show();
-    }
-
-    private ExerciseDto getExerciseDto() {
-        Intent intent = requireActivity().getIntent();
-        return intent.getParcelableExtra("exerciseDto");
     }
 }
