@@ -23,6 +23,7 @@ import org.sportApp.requests.BackendService;
 import org.sportApp.training.ExerciseDto;
 import org.sportApp.training.TrainingDto;
 import org.sportApp.userInterface.R;
+import org.sportApp.userInterface.sportsman.ui.exercise.AddExerciseWindow;
 import org.sportApp.utils.SessionManager;
 
 import java.time.LocalDate;
@@ -72,7 +73,9 @@ public class AddTrainingWindow extends Fragment {
     private final ActivityResultLauncher<Intent> addExerciseLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == AppCompatActivity.RESULT_OK) {
             assert result.getData() != null;
-            ExerciseDto exerciseDto = result.getData().getParcelableExtra("exerciseDto");
+            ExerciseDto exerciseDto = (ExerciseDto) result.getData().getSerializableExtra("exerciseDto");
+            assert exerciseDto != null;
+            Log.d("exerciseDescription", exerciseDto.getDescription());
         }
     });
 

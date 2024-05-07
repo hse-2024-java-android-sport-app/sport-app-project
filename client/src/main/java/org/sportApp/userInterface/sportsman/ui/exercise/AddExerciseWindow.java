@@ -1,4 +1,4 @@
-package org.sportApp.userInterface.sportsman.ui.trainings;
+package org.sportApp.userInterface.sportsman.ui.exercise;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.sportApp.training.ExerciseDto;
 import org.sportApp.userInterface.R;
+
+import java.io.Serializable;
 
 public class AddExerciseWindow extends AppCompatActivity {
 
@@ -58,7 +60,7 @@ public class AddExerciseWindow extends AppCompatActivity {
         exerciseDto.setVideoUrl(videoUrl);
 
         Intent resultIntent = new Intent();
-        resultIntent.putExtra("exerciseDto", exerciseDto);
+        resultIntent.putExtra("exerciseDto", (Serializable) exerciseDto);
 
         setResult(RESULT_OK, resultIntent);
         finish();

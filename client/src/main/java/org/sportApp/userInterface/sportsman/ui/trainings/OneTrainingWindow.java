@@ -2,6 +2,8 @@ package org.sportApp.userInterface.sportsman.ui.trainings;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +21,10 @@ import org.sportApp.testData.OneTraining;
 import org.sportApp.training.ExerciseDto;
 import org.sportApp.training.PlanDto;
 import org.sportApp.userInterface.R;
+import org.sportApp.userInterface.sportsman.ui.exercise.ExerciseWindow;
+import org.sportApp.userInterface.sportsman.ui.plans.EditPlanWindow;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,16 +55,20 @@ public class OneTrainingWindow extends Fragment {
 
             @Override
             public void onItemClick(int position) {
+                showExercise(position);
             }
         });
         currentTrainingRecyclerView.setAdapter(currentAdapter);
         currentTrainingRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
     }
 
-    private final ActivityResultLauncher<Intent> addPlanLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-        if (result.getResultCode() == AppCompatActivity.RESULT_OK) {
-            assert result.getData() != null;
-            PlanDto planDto = result.getData().getParcelableExtra("planDto");
+    private void showExercise(int position) {
+        if (position != RecyclerView.NO_POSITION) {
+            ExerciseDto exercise = exercises.get(position);
+            Log.d("exercise", exercise.getDescription());
+            Intent intent = new Intent(requireContext(), ExerciseWindow.class);
+            intent.putExtra("exerciseDto",(Serializable) exercise);
+            startActivity(intent);
         }
-    });
+    }
 }

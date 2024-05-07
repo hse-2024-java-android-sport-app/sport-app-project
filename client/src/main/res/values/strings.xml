@@ -76,6 +76,7 @@
     <string name="exercise_title">Exercise title</string>
     <string name="exercise_description">Exercise description</string>
     <string name="exercise_repetitions">Exercise repetitions</string>
+    <string name="exercise">Exercise</string>
 
 
 </resources>

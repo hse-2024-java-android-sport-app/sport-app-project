@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/exercise"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/descriptionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/description"
+        android:layout_below="@id/titleTextView"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/repetitionsText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/number_of_repeats"
+        android:layout_below="@id/descriptionText"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/durationText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/duration"
+        android:layout_below="@id/repetitionsText"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/setsText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/number_of_sets"
+        android:layout_below="@id/durationText"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/videoUrlText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/video_url"
+        android:layout_below="@id/setsText"
+        android:layout_marginTop="16dp" />
+
+</RelativeLayout>

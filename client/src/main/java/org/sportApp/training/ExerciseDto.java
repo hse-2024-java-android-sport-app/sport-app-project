@@ -1,9 +1,12 @@
 package org.sportApp.training;
 
-import java.io.Serializable;
-import java.time.Duration;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class ExerciseDto implements Serializable {
+import androidx.annotation.NonNull;
+
+import java.io.Serializable;
+public class ExerciseDto implements Serializable{
     private String name;
     private String description;
     private int repetitions;
@@ -20,6 +23,7 @@ public class ExerciseDto implements Serializable {
         this.duration = duration;
         this.sets = sets;
     }
+
 
     public void setDescription(String description) {
         this.description = description;

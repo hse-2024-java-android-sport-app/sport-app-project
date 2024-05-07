@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SportApp"
         android:networkSecurityConfig="@xml/network_security_config"
-        tools:targetApi="31">
+        android:enableOnBackInvokedCallback="true"
+        tools:targetApi="tiramisu">
         <activity
             android:name=".registration.RegistrationWindow"
             android:exported="true"
@@ -28,8 +29,9 @@
         <activity android:name=".sportsman.SportsmanWindow" />
         <activity android:name=".trainings.AddTrainingWindow" />
         <activity android:name=".sportsman.ui.plans.EditPlanWindow" />
-        <activity android:name=".sportsman.ui.trainings.AddExerciseWindow" />
+        <activity android:name=".sportsman.ui.exercise.AddExerciseWindow" />
         <activity android:name=".registration.AuthorizationWindow" />
+        <activity android:name=".sportsman.ui.exercise.ExerciseWindow" />
         <activity
             android:name=".coach.MainActivity"
             android:exported="true"
