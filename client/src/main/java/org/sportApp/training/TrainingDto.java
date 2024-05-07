@@ -5,7 +5,7 @@ import java.util.List;
 public class TrainingDto {
     private long trainId;
     private List<ExerciseDto> exercises;
-    private long userId;
+    private long coachId;
     private long sportsmanId;
 
     public TrainingDto() {
@@ -19,12 +19,12 @@ public class TrainingDto {
         this.exercises = exercises;
     }
 
-    public long getUserId() {
-        return userId;
+    public long getCoachId() {
+        return coachId;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setCoachId(long coachId) {
+        this.coachId = coachId;
     }
 
     public long getTrainId() {

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.Duration;
 
 public class ExerciseDto implements Serializable {
+    private String name;
     private String description;
     private int repetitions;
     private int duration;
@@ -11,6 +12,14 @@ public class ExerciseDto implements Serializable {
     private String videoUrl;
 
     public ExerciseDto(){}
+
+    public ExerciseDto(String name, String description, int repetitions, int duration, int sets) {
+        this.name = name;
+        this.description = description;
+        this.repetitions = repetitions;
+        this.duration = duration;
+        this.sets = sets;
+    }
 
     public void setDescription(String description) {
         this.description = description;
@@ -51,6 +60,14 @@ public class ExerciseDto implements Serializable {
 
     public String getVideoUrl() {
         return videoUrl;
+    }
+
+    public void setName (String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
 }

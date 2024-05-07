@@ -64,11 +64,18 @@
     <string name="current_plan">Current plan</string>
     <string name="completed_plans">Completed plans</string>
     <string name="plan_title">Plan Title</string>
-    <string name="menu_training">Training</string>
     <string name="todo">TODO</string>
-    <string name="menu_trainings">Trainings</string>
+    <string name="menu_add_training">Add training</string>
     <string name="menu_notifications">Notifications</string>
     <string name="menu_plans">Plans</string>
+    <string name="menu_search">Search</string>
+    <string name="enter_coach_s_login">Enter coach\'s login</string>
+    <string name="search">Search</string>
+    <string name="menu_one_training">One training</string>
+    <string name="current_training">Current training</string>
+    <string name="exercise_title">Exercise title</string>
+    <string name="exercise_description">Exercise description</string>
+    <string name="exercise_repetitions">Exercise repetitions</string>
 
 
 </resources>
