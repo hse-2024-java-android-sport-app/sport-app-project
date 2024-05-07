@@ -1,5 +1,7 @@
 package org.sportApp.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,6 +14,8 @@ public class UserRegistrationDto implements Serializable {
     public enum Kind {sportsman, coach}
 
     private Kind type;
+
+    @JsonFormat(pattern = "MMM dd, yyyy hh:mm:ss a")
     private Date dateOfBirth;
 
     public Kind getType() {

@@ -8,24 +8,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlanDto implements Serializable {
+    private long planId;
     private String name;
     private final List<TrainingEventDto> trainings = new ArrayList<>();
-    private long userId;
-    private long id;
+    private long coachId;
+    private long sportsmanId;
 
     private boolean isCompleted;
 
     public PlanDto() {
-        BackendService backendService = new BackendService();
-        backendService.createPlan(this);
+        BackendService.createPlan(this);
     }
 
     public boolean isCompleted() {
         return isCompleted;
     }
 
-    public long getUserId() {
-        return userId;
+    public void setIsCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
     }
 
     private void edit(){}
@@ -37,16 +37,12 @@ public class PlanDto implements Serializable {
         trainings.add(trainingEventDto);
     }
 
-    public long getId() {
-        return id;
+    public long getPlanId() {
+        return planId;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public void setPlanId(long planId) {
+        this.planId = planId;
     }
 
     public String getName() {
@@ -60,4 +56,21 @@ public class PlanDto implements Serializable {
     public void setCompleted(boolean completed) {
         isCompleted = completed;
     }
+
+    public long getCoachId() {
+        return coachId;
+    }
+
+    public void setCoachId(long coachId) {
+        this.coachId = coachId;
+    }
+
+    public long getSportsmanId() {
+        return sportsmanId;
+    }
+
+    public void setSportsmanId(long sportsmanId) {
+        this.sportsmanId = sportsmanId;
+    }
+
 }
