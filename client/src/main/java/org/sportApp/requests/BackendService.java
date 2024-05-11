@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import okhttp3.*;
 
 import org.jetbrains.annotations.NotNull;
+import org.sportApp.model.User;
 import org.sportApp.registration.UserRegistrationDto;
 import org.sportApp.training.ExerciseDto;
 import org.sportApp.training.PlanDto;
@@ -75,8 +76,8 @@ public class BackendService {
 
     @NonNull
     public static CompletableFuture<Boolean> addTrainingToPlan(long planId, TrainingDto trainingDto) {
-          String msg = "Failed to add training to plan: no response from server";
-          return sendRequestAndHandleResponse(BASE_URL + "/plans/" + planId + "/add-training", trainingDto, Boolean.class, msg);
+        String msg = "Failed to add training to plan: no response from server";
+        return sendRequestAndHandleResponse(BASE_URL + "/plans/" + planId + "/add-training", trainingDto, Boolean.class, msg);
     }
 
     @NonNull
@@ -89,6 +90,12 @@ public class BackendService {
     public static CompletableFuture<Long> addExercise(ExerciseDto exerciseDto) {
         String msg = "Failed adding exercise: no response from server";
         return sendRequestAndHandleResponse(BASE_URL + "/register", exerciseDto, Long.class, msg);
+    }
+
+    @NonNull
+    public static CompletableFuture<Long> addCoach(UserRegistrationDto userDto) {
+        String msg = "Failed finding coach: no response from server";
+        return sendRequestAndHandleResponse(BASE_URL + "/findCoach", userDto, Long.class, msg);
     }
 
 
