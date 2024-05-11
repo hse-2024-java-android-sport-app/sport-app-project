@@ -2,14 +2,18 @@ package org.sportApp.userInterface.sportsman.ui.exercise;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.sportApp.requests.BackendService;
 import org.sportApp.training.ExerciseDto;
 import org.sportApp.userInterface.R;
+import org.sportApp.userInterface.registration.TypeSelectionWindow;
+import org.sportApp.utils.SessionManager;
 
 import java.io.Serializable;
 
@@ -60,9 +64,21 @@ public class AddExerciseWindow extends AppCompatActivity {
         exerciseDto.setVideoUrl(videoUrl);
 
         Intent resultIntent = new Intent();
-        resultIntent.putExtra("exerciseDto", (Serializable) exerciseDto);
+        resultIntent.putExtra("exerciseDto",  exerciseDto);
 
         setResult(RESULT_OK, resultIntent);
+        BackendService.addExercise(exerciseDto)
+                .thenAccept(resultDto -> {
+                    SessionManager sessionManager = new SessionManager(getApplicationContext());
+                    exerciseDto.setId(resultDto);
+
+                    Log.d("id", resultDto.toString());
+                    Toast.makeText(AddExerciseWindow.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
+                })
+                .exceptionally(e -> {
+                    Toast.makeText(AddExerciseWindow.this, "Registration failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    return null;
+                });
         finish();
     }
 }

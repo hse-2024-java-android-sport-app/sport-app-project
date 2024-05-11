@@ -13,6 +13,7 @@ public class ExerciseDto implements Serializable{
     private int duration;
     private int sets;
     private String videoUrl;
+    private Long id;
 
     public ExerciseDto(){}
 
@@ -74,4 +75,11 @@ public class ExerciseDto implements Serializable{
         return name;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId(){
+        return id;
+    }
 }
