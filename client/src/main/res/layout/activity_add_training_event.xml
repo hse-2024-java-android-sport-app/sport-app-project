@@ -18,7 +18,7 @@
         android:id="@+id/datePickerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/select_plan_date"
+        android:text="@string/select_date"
         android:layout_below="@id/dialogTitle"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp" />
@@ -32,31 +32,12 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp" />
 
-    <!-- Completed CheckBox -->
-    <CheckBox
-        android:id="@+id/completedCheckBox"
+    <Button
+        android:id="@+id/saveTrainingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/completed"
+        android:text="@string/save_training"
         android:layout_below="@id/addExerciseButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
-
-    <Button
-        android:id="@+id/deletePlanButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/delete_plan"
-        android:layout_below="@id/completedCheckBox"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
-
-    <Button
-        android:id="@+id/saveChangesButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/save_changes"
-        android:layout_below="@id/deletePlanButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp" />
 

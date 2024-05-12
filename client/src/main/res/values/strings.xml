@@ -15,7 +15,7 @@
     <string name="coach">Coach</string>
     <string name="type">Choose your type</string>
     <string name="next">Continue</string>
-    <string name="add_training">Add training</string>
+    <string name="create_training">Create training</string>
     <string name="title_profile">profile</string>
     <string name="add_plan">Add plan</string>
     <string name="my_plans">My plans</string>
@@ -77,6 +77,12 @@
     <string name="exercise_description">Exercise description</string>
     <string name="exercise_repetitions">Exercise repetitions</string>
     <string name="exercise">Exercise</string>
+    <string name="choose_an_existing_exercise">Choose an existing exercise</string>
+    <string name="your_training_events">Your training events</string>
+    <string name="menu_training_events">Training Events</string>
+    <string name="training_title">Training Title</string>
+    <string name="total_number_of_exercises">Total number of exercises</string>
+    <string name="total_duration">Total duration</string>
 
 
 </resources>

@@ -1,14 +1,21 @@
 package org.sportApp.training;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class TrainingDto {
+public class TrainingDto implements Serializable {
+    private String name;
     private long trainId;
     private List<ExerciseDto> exercises;
     private long coachId;
     private long sportsmanId;
 
     public TrainingDto() {
+    }
+
+    public TrainingDto(String name, List<ExerciseDto> exercises) {
+        this.name = name;
+        this.exercises = exercises;
     }
 
     public List<ExerciseDto> getExercises() {
@@ -41,5 +48,13 @@ public class TrainingDto {
 
     public void setSportsmanId(long sportsmanId) {
         this.sportsmanId = sportsmanId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    private void setName(String name) {
+        this.name = name;
     }
 }

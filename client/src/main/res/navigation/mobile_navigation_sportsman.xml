@@ -9,14 +9,7 @@
         android:id="@+id/nav_add_training"
         android:name="org.sportApp.userInterface.sportsman.ui.trainings.AddTrainingWindow"
         android:label="@string/menu_add_training"
-        tools:layout="@layout/fragment_trainings" />
-
-    <fragment
-        android:id="@+id/nav_one_training"
-        android:name="org.sportApp.userInterface.sportsman.ui.trainings.OneTrainingWindow"
-        android:label="@string/menu_one_training"
-        tools:layout="@layout/fragment_one_training" />
-
+        tools:layout="@layout/fragment_add_training" />
 
     <fragment
         android:id="@+id/nav_plans"
@@ -29,5 +22,11 @@
         android:name="org.sportApp.userInterface.sportsman.ui.account.SearchWindow"
         android:label="@string/menu_search"
         tools:layout="@layout/fragment_search" />
+
+    <fragment
+        android:id="@+id/nav_training_events"
+        android:name="org.sportApp.userInterface.sportsman.ui.trainings.TrainingsWindow"
+        android:label="@string/menu_training_events"
+        tools:layout="@layout/fragment_trainings" />
 
 </navigation>

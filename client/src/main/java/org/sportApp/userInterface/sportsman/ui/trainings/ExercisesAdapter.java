@@ -10,29 +10,28 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.sportApp.training.ExerciseDto;
-import org.sportApp.training.TrainingDto;
 import org.sportApp.userInterface.R;
 
 import java.util.List;
 
-public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.TrainingViewHolder> {
+public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.ExercisesViewHolder> {
     private final List<ExerciseDto> trainingList;
     private final OnItemClickListener listener;
 
-    public TrainingAdapter(List<ExerciseDto> trainingList, OnItemClickListener listener) {
+    public ExercisesAdapter(List<ExerciseDto> trainingList, OnItemClickListener listener) {
         this.trainingList = trainingList;
         this.listener = listener;
     }
 
     @NonNull
     @Override
-    public TrainingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ExercisesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_exercises, parent, false);
-         return new TrainingViewHolder(itemView);
+         return new ExercisesViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TrainingViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ExercisesViewHolder holder, int position) {
         ExerciseDto exercise = trainingList.get(position);
         holder.bind(exercise, listener);
     }
@@ -48,13 +47,13 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.Traini
         void onItemClick(int position);
     }
 
-    public static class TrainingViewHolder extends RecyclerView.ViewHolder {
+    public static class ExercisesViewHolder extends RecyclerView.ViewHolder {
         private final TextView exerciseNameTextView;
         private final TextView exerciseDescriptionTextView;
 
         private final TextView exerciseRepetitionsTextView;
 
-        public TrainingViewHolder(View itemView) {
+        public ExercisesViewHolder(View itemView) {
             super(itemView);
             exerciseNameTextView = itemView.findViewById(R.id.exerciseNameTextView);
             exerciseDescriptionTextView = itemView.findViewById(R.id.exerciseDescriptionTextView);

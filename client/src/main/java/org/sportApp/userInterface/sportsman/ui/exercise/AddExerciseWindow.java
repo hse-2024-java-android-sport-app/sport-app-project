@@ -69,7 +69,6 @@ public class AddExerciseWindow extends AppCompatActivity {
         setResult(RESULT_OK, resultIntent);
         BackendService.addExercise(exerciseDto)
                 .thenAccept(resultDto -> {
-                    SessionManager sessionManager = new SessionManager(getApplicationContext());
                     exerciseDto.setId(resultDto);
 
                     Log.d("id", resultDto.toString());

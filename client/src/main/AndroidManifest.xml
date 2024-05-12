@@ -32,6 +32,7 @@
         <activity android:name=".sportsman.ui.exercise.AddExerciseWindow" />
         <activity android:name=".registration.AuthorizationWindow" />
         <activity android:name=".sportsman.ui.exercise.ExerciseWindow" />
+        <activity android:name=".sportsman.ui.trainings.OneTrainingWindow" />
         <activity
             android:name=".coach.MainActivity"
             android:exported="true"
