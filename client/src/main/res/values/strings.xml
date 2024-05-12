@@ -88,7 +88,11 @@
     <string name="menu_my_trainings">My trainings</string>
     <string name="my_trainings">My trainings</string>
     <string name="create_event">Create training event</string>
-    <string name="choose_event">Choose an existing training event</string>
+    <string name="choose_event">Choose an existing training</string>
+    <string name="_1_select_date">1. Select date</string>
+    <string name="_2_choose_a_way_to_create_a_training">2. Choose a way to create a training</string>
+    <string name="or">or</string>
+    <string name="enter_training_s_name">Enter training\'s name</string>
 
 
 </resources>

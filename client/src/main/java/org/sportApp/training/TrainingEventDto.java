@@ -2,10 +2,11 @@ package org.sportApp.training;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
 public class TrainingEventDto implements Serializable {
     private long eventId;
-    private LocalDate date;
+    private Date date;
     private boolean completed;
     private String comment;
     private TrainingDto trainingDto;
@@ -20,11 +21,11 @@ public class TrainingEventDto implements Serializable {
         return eventId;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
