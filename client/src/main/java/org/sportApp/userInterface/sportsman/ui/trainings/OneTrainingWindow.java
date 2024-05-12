@@ -23,7 +23,7 @@ public class OneTrainingWindow extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_one_training);
+        setContentView(R.layout.activity_one_training);
 
         if (!isWindowOpened) {
             exercises = TestData.getExercises();

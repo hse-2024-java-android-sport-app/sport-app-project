@@ -29,7 +29,7 @@ public class AddTrainingWindow extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_training);
+        setContentView(R.layout.activity_add_event_training);
 
         Button selectDateButton = findViewById(R.id.datePickerButton);
         selectDateButton.setOnClickListener(v -> showDatePickerDialog());

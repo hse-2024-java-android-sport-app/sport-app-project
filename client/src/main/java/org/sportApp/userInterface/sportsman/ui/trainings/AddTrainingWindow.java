@@ -1,64 +1,82 @@
 package org.sportApp.userInterface.sportsman.ui.trainings;
 
-import android.app.DatePickerDialog;
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.sportApp.requests.BackendService;
 import org.sportApp.training.ExerciseDto;
 import org.sportApp.training.TrainingDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.sportsman.ui.exercise.AddExerciseWindow;
+import org.sportApp.userInterface.sportsman.ui.exercise.ExerciseWindow;
 import org.sportApp.utils.SessionManager;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.List;
 
 public class AddTrainingWindow extends AppCompatActivity {
 
-    private LocalDate selectedDate;
-    private final ArrayList<ExerciseDto> exercises = new ArrayList<>();
+    private final List<ExerciseDto> exercises = new ArrayList<>();
+    private ExercisesAdapter adapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_training);
 
-        //Button selectDateButton = findViewById(R.id.datePickerButton);
-        //selectDateButton.setOnClickListener(v -> showDatePickerDialog());
+        RecyclerView currentTrainingRecyclerView = findViewById(R.id.addTrainingsRecyclerView);
+        adapter = new ExercisesAdapter(exercises, new ExercisesAdapter.OnItemClickListener() {
+            @Override
+            public void onItemLongClick(int position) {
+                showExercise(position);
+            }
 
-        Button addExerciseButton = findViewById(R.id.addExerciseButton);
-        addExerciseButton.setOnClickListener(v -> showExerciseSelectionDialog());
+            @Override
+            public void onItemClick(int position) {
+                showExercise(position);
+            }
+        });
+        currentTrainingRecyclerView.setAdapter(adapter);
+        currentTrainingRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        ImageButton addButton = findViewById(R.id.addTrainingButton);
+        addButton.setOnClickListener(v -> openAddExerciseWindow());
 
         Button saveTrainingButton = findViewById(R.id.saveTrainingButton);
         saveTrainingButton.setOnClickListener(v -> saveTrainingEvent());
+
+        EditText trainingNameEditText = findViewById(R.id.trainingNameEditText);
+
+        trainingNameEditText.setOnEditorActionListener((textView, actionId, keyEvent) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                String trainingName = textView.getText().toString().trim();
+                if (!trainingName.isEmpty()) {
+                    textView.setEnabled(false);
+                    saveTrainingButton.requestFocus();
+                    return true;
+                }
+            }
+            return false;
+        });
     }
 
-    private void showDatePickerDialog() {
-        final Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year1, monthOfYear, dayOfMonth) -> {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                selectedDate = LocalDate.of(year1, monthOfYear + 1, dayOfMonth);
-            }
-            Toast.makeText(this, "Date saved", Toast.LENGTH_SHORT).show();
-        }, year, month, day);
-        datePickerDialog.show();
+    private void openAddExerciseWindow() {
+        Intent intent = new Intent(this, AddExerciseWindow.class);
+        addExerciseLauncher.launch(intent);
     }
 
     private final ActivityResultLauncher<Intent> addExerciseLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -70,28 +88,30 @@ public class AddTrainingWindow extends AppCompatActivity {
         }
     });
 
-    private void showExerciseSelectionDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select Exercise Option").setItems(R.array.exercise_options, (dialog, which) -> {
-            switch (which) {
-                case 0:
-                    Intent intent = new Intent(this, AddExerciseWindow.class);
-                    addExerciseLauncher.launch(intent);
-                    break;
-                case 1:
-                    Toast.makeText(this, "Existing Exercise", Toast.LENGTH_SHORT).show();
-                    break;
+    @SuppressLint("NotifyDataSetChanged")
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && data != null) {
+            ExerciseDto exerciseDto = (ExerciseDto) data.getSerializableExtra("exerciseDto");
+            if (exerciseDto != null) {
+                exercises.add(exerciseDto);
+                adapter.notifyDataSetChanged();
             }
-        });
-        builder.create().show();
+        }
+    }
+
+    private void showExercise(int position) {
+        if (position != RecyclerView.NO_POSITION) {
+            ExerciseDto exercise = exercises.get(position);
+            Log.d("exercise", exercise.getDescription());
+            Intent intent = new Intent(this, ExerciseWindow.class);
+            intent.putExtra("exerciseDto", exercise);
+            startActivity(intent);
+        }
     }
 
     private void saveTrainingEvent() {
-        if (selectedDate == null) {
-            Toast.makeText(this, "You didn't select the date", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         TrainingDto trainingDto = new TrainingDto();
         trainingDto.setExercises(exercises);
         SessionManager sessionManager = new SessionManager(this);

@@ -19,6 +19,7 @@ import java.io.Serializable;
 
 public class AddExerciseWindow extends AppCompatActivity {
 
+    private EditText nameEditText;
     private EditText descriptionEditText;
     private EditText repetitionsEditText;
     private EditText durationEditText;
@@ -29,7 +30,7 @@ public class AddExerciseWindow extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_exercise);
-
+        nameEditText = findViewById(R.id.nameEditText);
         descriptionEditText = findViewById(R.id.descriptionEditText);
         repetitionsEditText = findViewById(R.id.repetitionsEditText);
         durationEditText = findViewById(R.id.durationEditText);
@@ -41,6 +42,7 @@ public class AddExerciseWindow extends AppCompatActivity {
     }
 
     private void saveExercise() {
+        String name = nameEditText.getText().toString();
         String description = descriptionEditText.getText().toString();
         String repetitionsText = repetitionsEditText.getText().toString();
         String durationText = durationEditText.getText().toString();
@@ -57,6 +59,7 @@ public class AddExerciseWindow extends AppCompatActivity {
         int sets = Integer.parseInt(setsText);
 
         ExerciseDto exerciseDto = new ExerciseDto();
+        exerciseDto.setName(name);
         exerciseDto.setDescription(description);
         exerciseDto.setRepetitions(repetitions);
         exerciseDto.setDuration(duration);

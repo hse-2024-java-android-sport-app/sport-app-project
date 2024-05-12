@@ -83,6 +83,8 @@
     <string name="training_title">Training Title</string>
     <string name="total_number_of_exercises">Total number of exercises</string>
     <string name="total_duration">Total duration</string>
+    <string name="enter_training_name">Enter training name</string>
+    <string name="name">Write exercise\'s name</string>
 
 
 </resources>
