@@ -15,6 +15,11 @@
             android:title="@string/menu_search" />
 
         <item
+            android:id="@+id/nav_trainings"
+            android:icon="@drawable/trainings"
+            android:title="@string/menu_my_trainings" />
+
+        <item
             android:id="@+id/nav_training_events"
             android:icon="@drawable/trainings"
             android:title="@string/menu_training_events" />

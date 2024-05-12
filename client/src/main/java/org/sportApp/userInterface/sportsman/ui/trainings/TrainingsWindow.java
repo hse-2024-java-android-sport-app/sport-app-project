@@ -1,7 +1,6 @@
 package org.sportApp.userInterface.sportsman.ui.trainings;
 
 import android.content.Intent;
-import android.graphics.ImageFormat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.sportApp.testData.TestData;
 import org.sportApp.training.TrainingDto;
 import org.sportApp.userInterface.R;
-import org.sportApp.userInterface.sportsman.ui.exercise.AddExerciseWindow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +56,7 @@ public class TrainingsWindow extends Fragment {
         currentTrainingRecyclerView.setAdapter(currentAdapter);
         currentTrainingRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        add = view.findViewById(R.id.addTrainingEventButton);
+        add = view.findViewById(R.id.addTrainingButton);
         add.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), AddTrainingWindow.class);
             startActivity(intent);

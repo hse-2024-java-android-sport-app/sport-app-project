@@ -69,7 +69,7 @@
     <string name="menu_notifications">Notifications</string>
     <string name="menu_plans">Plans</string>
     <string name="menu_search">Search</string>
-    <string name="enter_coach_s_login">Enter coach\'s login</string>
+    <string name="enter_coach_s_login">Enter coach\'s  login or coach\'s surname and firstname</string>
     <string name="search">Search</string>
     <string name="menu_one_training">One training</string>
     <string name="current_training">Current training</string>
@@ -78,13 +78,17 @@
     <string name="exercise_repetitions">Exercise repetitions</string>
     <string name="exercise">Exercise</string>
     <string name="choose_an_existing_exercise">Choose an existing exercise</string>
-    <string name="your_training_events">Your training events</string>
-    <string name="menu_training_events">Training Events</string>
+    <string name="my_training_events">My training events</string>
+    <string name="menu_training_events">My training Events</string>
     <string name="training_title">Training Title</string>
     <string name="total_number_of_exercises">Total number of exercises</string>
     <string name="total_duration">Total duration</string>
     <string name="enter_training_name">Enter training name</string>
     <string name="name">Write exercise\'s name</string>
+    <string name="menu_my_trainings">My trainings</string>
+    <string name="my_trainings">My trainings</string>
+    <string name="create_event">Create training event</string>
+    <string name="choose_event">Choose an existing training event</string>
 
 
 </resources>

@@ -1,4 +1,4 @@
-package org.sportApp.userInterface.sportsman.ui.trainings;
+package org.sportApp.userInterface.sportsman.ui.trainingEvents;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;

@@ -1,8 +1,9 @@
 package org.sportApp.training;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class TrainingEventDto {
+public class TrainingEventDto implements Serializable {
     private long eventId;
     private LocalDate date;
     private boolean completed;

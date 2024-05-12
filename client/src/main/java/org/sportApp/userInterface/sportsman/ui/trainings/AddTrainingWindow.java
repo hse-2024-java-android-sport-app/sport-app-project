@@ -23,6 +23,7 @@ import org.sportApp.training.TrainingDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.sportsman.ui.exercise.AddExerciseWindow;
 import org.sportApp.userInterface.sportsman.ui.exercise.ExerciseWindow;
+import org.sportApp.userInterface.sportsman.ui.exercise.ExercisesAdapter;
 import org.sportApp.utils.SessionManager;
 
 import java.util.ArrayList;

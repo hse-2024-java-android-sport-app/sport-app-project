@@ -12,6 +12,7 @@ import org.sportApp.testData.TestData;
 import org.sportApp.training.ExerciseDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.sportsman.ui.exercise.ExerciseWindow;
+import org.sportApp.userInterface.sportsman.ui.exercise.ExercisesAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

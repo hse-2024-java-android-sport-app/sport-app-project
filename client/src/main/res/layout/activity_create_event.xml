@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".registration.RegistrationWindow">
+    tools:context=".sportsman.ui.trainingEvents.TrainingEventsWindow">
 
     <TextView
         android:id="@+id/idHeader"
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="32dp"
-        android:text="@string/type"
+        android:text="@string/create_event"
         android:textAlignment="center"
         android:textColor="@color/violet"
         android:textSize="20sp" />
@@ -28,27 +28,27 @@
         android:layout_marginEnd="16dp">
 
         <Button
-            android:id="@+id/sportsmanButton"
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:layout_weight="0.5"
+            android:id="@+id/choseEvent"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="157dp"
+            android:layout_height="115dp"
             android:layout_marginEnd="8dp"
-            android:text="@string/sportsman"
+            android:layout_weight="0.5"
+            android:text="@string/choose_event"
             android:textColor="@android:color/black"
             android:textSize="14sp"
-            tools:ignore="NestedWeights"
-            style="?android:attr/buttonBarButtonStyle" />
+            tools:ignore="NestedWeights" />
 
         <Button
-            android:id="@+id/coachButton"
-            android:layout_width="wrap_content"
+            android:id="@+id/createEvent"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="177dp"
             android:layout_height="80dp"
-            android:layout_weight="0.5"
             android:layout_marginStart="8dp"
-            android:text="@string/coach"
+            android:layout_weight="0.5"
+            android:text="@string/create_event"
             android:textColor="@android:color/black"
-            android:textSize="14sp"
-            style="?android:attr/buttonBarButtonStyle" />
+            android:textSize="14sp" />
     </LinearLayout>
 
 </LinearLayout>
