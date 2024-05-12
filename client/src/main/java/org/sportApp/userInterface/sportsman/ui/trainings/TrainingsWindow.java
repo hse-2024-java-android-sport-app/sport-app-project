@@ -1,11 +1,13 @@
 package org.sportApp.userInterface.sportsman.ui.trainings;
 
 import android.content.Intent;
+import android.graphics.ImageFormat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.sportApp.testData.TestData;
 import org.sportApp.training.TrainingDto;
 import org.sportApp.userInterface.R;
+import org.sportApp.userInterface.sportsman.ui.exercise.AddExerciseWindow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +26,8 @@ import java.util.List;
 public class TrainingsWindow extends Fragment {
     private boolean isWindowOpened = false;
     private List<TrainingDto> trainings = new ArrayList<>();
+
+    ImageButton add;
 
     @Nullable
     @Override
@@ -39,7 +44,7 @@ public class TrainingsWindow extends Fragment {
             isWindowOpened = true;
         }
 
-        RecyclerView currentTrainingRecyclerView = view.findViewById(R.id.trainingEventRecyclerView);
+        RecyclerView currentTrainingRecyclerView = view.findViewById(R.id.trainingRecyclerView);
         TrainingsAdapter currentAdapter = new TrainingsAdapter(trainings, new TrainingsAdapter.OnItemClickListener() {
             @Override
             public void onItemLongClick(int position) {
@@ -52,6 +57,12 @@ public class TrainingsWindow extends Fragment {
         });
         currentTrainingRecyclerView.setAdapter(currentAdapter);
         currentTrainingRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        add = view.findViewById(R.id.addTrainingEventButton);
+        add.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), AddTrainingWindow.class);
+            startActivity(intent);
+        });
     }
 
     private void showTraining(int position) {

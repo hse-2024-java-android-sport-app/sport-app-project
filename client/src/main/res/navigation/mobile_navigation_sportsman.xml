@@ -6,12 +6,6 @@
     app:startDestination="@+id/nav_plans">
 
     <fragment
-        android:id="@+id/nav_add_training"
-        android:name="org.sportApp.userInterface.sportsman.ui.trainings.AddTrainingWindow"
-        android:label="@string/menu_add_training"
-        tools:layout="@layout/fragment_add_training" />
-
-    <fragment
         android:id="@+id/nav_plans"
         android:name="org.sportApp.userInterface.sportsman.ui.plans.PlanWindow"
         android:label="@string/menu_plans"
