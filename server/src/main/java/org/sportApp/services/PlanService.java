@@ -10,6 +10,8 @@ import org.sportApp.repo.TrainingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,9 +41,30 @@ public class PlanService {
         Optional<Plan> optionalPlan = planRepository.findById(planId);
         if (optionalPlan.isPresent()) {
             event.setPlan(optionalPlan.get());
-            System.out.println("BBBBBBBBB");
             return Optional.of(eventService.saveEvent(event));
         }
         return Optional.empty();
+    }
+
+    public Iterable<Plan> findAllPlansBySportsmanId(long sportsmanId) {
+        return planRepository.getAllBySportsmanId(sportsmanId);
+    }
+
+    public List<Plan> findAllNotCompletedPlansBySportsmanId(long sportsmanId) {
+        List<Plan> result = new ArrayList<>();
+        for (Plan plan : planRepository.getAllBySportsmanId(sportsmanId)) {
+            if (!plan.isCompleted()) {
+                result.add(plan);
+            }
+        }
+        return result;
+    }
+
+    public Optional<Plan> findPlanByPlanId(long planId) {
+        return planRepository.findById(planId);
+    }
+
+    public Optional<Boolean> isCompeted(long planId) {
+        return planRepository.findById(planId).map(Plan::isCompleted);
     }
 }

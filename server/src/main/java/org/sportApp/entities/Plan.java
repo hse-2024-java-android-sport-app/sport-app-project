@@ -10,14 +10,14 @@ public class Plan {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long planId;
     private String name;
-    @OneToMany(mappedBy="plan", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="plan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<TrainingEvent> trainings;
     private long coachId;
     private long sportsmanId;
 
     protected Plan() {}
 
-    private boolean isCompleted(){
+    public boolean isCompleted(){
         return trainings.stream().allMatch(TrainingEvent::isCompleted);
     }
 

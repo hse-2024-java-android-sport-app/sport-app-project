@@ -90,10 +90,20 @@ public class Controller {
                         () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required userId doesn't found")));
     }
 
+    @GetMapping("getSportsmenByCoachId/{coachId}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> getSportsmenByCoachId(@PathVariable(value = "coachId") long coachId) {
+        List<User> sportsmenList = new ArrayList<>();
+        userService.getAllSportsmenByCoachId(coachId).forEach(sportsmenList::add);
+        return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.OK).body(
+                sportsmenList.stream()
+                        .map(user -> mapper.map(user, UserRegistrationDto.class))
+                        .toList()
+        ));
+    }
+
     /** TODO
      *  isUserExist or isCoachExist
      *  addCoach
-     *  getSportsmenByCoach
      *
      */
 
@@ -169,6 +179,11 @@ public class Controller {
         return future.thenApply(result -> ResponseEntity.status(HttpStatus.CREATED).body(addedExercise.get().getId()));
     }
 
+//    @PostMapping("setCompleted/{eventId}")
+//    public @ResponseBody CompletableFuture<ResponseEntity<?>> setCompleted(@PathVariable(value = "eventId") long eventId) {
+//        return ;
+//    }
+
     @GetMapping("getTrainingByEvent/{eventId}")
     public @ResponseBody CompletableFuture<ResponseEntity<?>> getTrainingByEventId(@PathVariable(value = "eventId") long eventId) {
         return eventService.findTrainingById(eventId)
@@ -188,6 +203,15 @@ public class Controller {
                                         .toList())))
                 .orElseGet(() -> CompletableFuture.supplyAsync(
                         () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required training doesn't found")));
+    }
+
+    @GetMapping("getEventIsCompleted/{eventId}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> getEventIsCompleted(@PathVariable(value = "eventId") long eventId) {
+        return eventService.isCompeted(eventId)
+                .<CompletableFuture<ResponseEntity<?>>>map(isCompleted -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.OK).body(isCompleted)))
+                .orElseGet(() -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event with this ID doesn't exist")));
     }
 
 
@@ -217,5 +241,41 @@ public class Controller {
             return future.thenApply(result -> ResponseEntity.status(HttpStatus.VARIANT_ALSO_NEGOTIATES).body("Saved event is different from required"));
         }
         return future.thenApply(result -> ResponseEntity.status(HttpStatus.CREATED).body(addedEvent.get().getEventId()));
+    }
+
+    @GetMapping("getAllPlans/{sportsmanId}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> getAllPlansBySportsmanId(@PathVariable(value = "sportsmanId") long sportsmanId) {
+        Iterable<Plan> planDtos = planService.findAllPlansBySportsmanId(sportsmanId);
+//        planDtos.forEach(plan -> this.mapper.map(plan, PlanDto.class));
+        //TODO
+        List<Long> ids = new ArrayList<>();
+        planDtos.forEach(pl -> ids.add(pl.getPlanId()));
+        return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.OK).body(ids));
+    }
+
+    @GetMapping("getPlan/{planId}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> getPlanByPlanId(@PathVariable(value = "planId") long planId) {
+        return planService.findPlanByPlanId(planId)
+                .<CompletableFuture<ResponseEntity<?>>>map(plan -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.OK).body(mapper.map(plan, PlanDto.class))))
+                .orElseGet(() -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Plan with this ID doesn't exist")));
+
+    }
+
+    @GetMapping("getAllNotCompletedPlans/{sportsmanId}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> getAllNotCompletedPlans(@PathVariable(value = "sportsmanId") long sportsmanId) {
+        List<Plan> planEnt = planService.findAllNotCompletedPlansBySportsmanId(sportsmanId);
+        planEnt.forEach(plan -> this.mapper.map(plan, PlanDto.class));
+        return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.OK).body(planEnt));
+    }
+
+    @GetMapping("getPlanIsCompleted/{planId}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> getPlanIsCompleted(@PathVariable(value = "planId") long planId) {
+        return planService.isCompeted(planId)
+                .<CompletableFuture<ResponseEntity<?>>>map(isCompleted -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.OK).body(isCompleted)))
+                .orElseGet(() -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Plan with this ID doesn't exist")));
     }
 }

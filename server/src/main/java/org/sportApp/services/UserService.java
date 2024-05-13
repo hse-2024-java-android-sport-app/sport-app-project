@@ -45,4 +45,8 @@ public class UserService {
     public Iterable<User> findAll() {
         return userRepository.findAll();
     }
+
+    public Iterable<User> getAllSportsmenByCoachId(long coachId) {
+        return userRepository.findAllByCoachId(coachId);
+    }
 }

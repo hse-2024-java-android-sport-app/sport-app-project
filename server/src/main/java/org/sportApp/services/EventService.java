@@ -1,12 +1,15 @@
 package org.sportApp.services;
 
+import org.modelmapper.ModelMapper;
 import org.sportApp.entities.Exercise;
+import org.sportApp.entities.Plan;
 import org.sportApp.entities.Training;
 import org.sportApp.entities.TrainingEvent;
 import org.sportApp.repo.TrainingEventRepository;
 import org.sportApp.repo.TrainingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.events.Event;
 
 import java.util.Optional;
 
@@ -41,5 +44,9 @@ public class EventService {
 
     public Optional<Training> findTrainingById(long eventId) {
         return eventRepository.findById(eventId).map(TrainingEvent::getTraining);
+    }
+
+    public Optional<Boolean> isCompeted(long eventId) {
+        return eventRepository.findById(eventId).map(TrainingEvent::isCompleted);
     }
 }

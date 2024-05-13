@@ -12,6 +12,7 @@ import java.util.Locale;
 @Table(name="TrainingEvents")
 public class TrainingEvent {
     @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private int eventId;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date date;
@@ -20,7 +21,7 @@ public class TrainingEvent {
     @OneToOne(mappedBy = "event", cascade = CascadeType.ALL)
     private Training training;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="planId", nullable=false)
     private Plan plan;
 

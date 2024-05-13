@@ -17,6 +17,8 @@ public class PlanDto {
         this.sportsmanId = sportsmanId;
     }
 
+    protected PlanDto(){}
+
     private boolean isCompleted(){
         return trainings.stream().allMatch(TrainingEventDto::isCompleted);
     }

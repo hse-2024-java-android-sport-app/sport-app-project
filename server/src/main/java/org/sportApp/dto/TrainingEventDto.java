@@ -21,6 +21,9 @@ public class TrainingEventDto {
         this.training = trainingDto;
     }
 
+    protected TrainingEventDto() {
+    }
+
     public int getEventId() {
         return eventId;
     }

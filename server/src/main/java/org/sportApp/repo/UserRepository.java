@@ -11,4 +11,5 @@ public interface UserRepository extends CrudRepository<User, Long> {
     boolean existsByLogin(String login);
     boolean existsByLoginAndPassword(String login, String password);
     User getByLogin(String login);
+    Iterable<User> findAllByCoachId(long coach_id);
 }

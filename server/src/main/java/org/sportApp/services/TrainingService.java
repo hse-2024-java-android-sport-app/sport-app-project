@@ -22,7 +22,6 @@ public class TrainingService {
     }
 
     public Training saveTraining(Training training) {
-        System.out.println("AAAAAAAAAAAA");
         if (training.getExercises() == null) {
             return trainingRepository.save(training);
         }
