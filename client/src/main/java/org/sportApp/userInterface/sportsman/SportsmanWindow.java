@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.sportApp.requests.BackendService;
 import org.sportApp.training.PlanDto;
 import org.sportApp.userInterface.R;
+import org.sportApp.userInterface.sportsman.ui.plans.EditPlanWindow;
+import org.sportApp.userInterface.sportsman.ui.plans.PlanAdapter;
 import org.sportApp.userInterface.trainings.AddTrainingWindow;
 import org.sportApp.utils.SessionManager;
 
@@ -56,7 +58,7 @@ public class SportsmanWindow extends AppCompatActivity {
         long userId = sessionManager.getUserId();
 
         PlanDto newPlan = new PlanDto();
-        newPlan.setUserId(userId);
+        newPlan.setCoachId(userId);
 
         planDtoList.add(newPlan);
         planAdapter.notifyDataSetChanged();
