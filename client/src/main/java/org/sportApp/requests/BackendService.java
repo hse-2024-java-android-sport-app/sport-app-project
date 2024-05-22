@@ -18,6 +18,7 @@ import org.sportApp.training.TrainingDto;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 public class BackendService {
     static OkHttpClient client = new OkHttpClient();
@@ -56,12 +57,29 @@ public class BackendService {
         CompletableFuture<Boolean> future = new CompletableFuture<>();
         Request request = new Request.Builder().url(BASE_URL + "/isLoginExist/" + login).get().build();
         sendAsyncRequest(request, future, Boolean.class, (response, result) -> {
-            Log.d("myTag", "Send Request:" + (response != null) + " " + result);
+            Log.d("backendServiceTag", "Send Request:" + (response != null) + " " + result);
             if (response != null) {
                 future.complete(result);
             } else {
-                Log.d("myTag", "Failed to check login existence.");
+                Log.d("backendServiceTag", "Failed to check login existence.");
                 future.completeExceptionally(new IOException("Failed to check login existence."));
+            }
+        });
+        return future;
+    }
+
+
+    @NonNull
+    public static CompletableFuture<UserRegistrationDto.Kind> getType(Long id) {
+        CompletableFuture<UserRegistrationDto.Kind> future = new CompletableFuture<>();
+        Request request = new Request.Builder().url(BASE_URL + "/getUserType/" + id).get().build();
+        sendAsyncRequest(request, future, UserRegistrationDto.Kind.class, (response, result) -> {
+            Log.d("BackendService", "Get request: " + (response != null) + " " + result);
+            if (response != null) {
+                future.complete(result);
+            } else {
+                Log.d("BackendService", "Failed to find user's type.");
+                future.completeExceptionally(new IOException("Failed to find user's type."));
             }
         });
         return future;
@@ -81,9 +99,9 @@ public class BackendService {
     }
 
     @NonNull
-    public static CompletableFuture<Boolean> addTraining(TrainingDto trainingDto) {
+    public static CompletableFuture<Long> addTraining(TrainingDto trainingDto) {
         String msg = "Saving training failed: no response from server";
-        return sendRequestAndHandleResponse(BASE_URL + "/register", trainingDto, Boolean.class, msg);
+        return sendRequestAndHandleResponse(BASE_URL + "/createTraining", trainingDto, Long.class, msg);
     }
 
     @NonNull
@@ -100,6 +118,7 @@ public class BackendService {
 
 
     private static <T> void handleResponse(@NotNull Response response, CompletableFuture<T> future, Type responseClass, ResponseHandler<T> responseHandler) throws IOException {
+        Log.d("BackendService", "handleResponse");
         if (!response.isSuccessful()) {
             future.completeExceptionally(new IOException("The request wasn't successful: " +
                     response.code() + " " + response.message()));
@@ -107,34 +126,49 @@ public class BackendService {
         }
         assert response.body() != null;
         String responseBody = response.body().string();
+        Log.d("BackendService", "Response body in handleResponse: " + responseBody);
         T result = gson.fromJson(responseBody, responseClass);
         responseHandler.handleResponse(response, result);
         future.complete(result);
+        Log.d("BackendService", "Future completed with result " + result);
     }
 
     @NonNull
     public static <T> CompletableFuture<T> sendRequestAndHandleResponse(String url, Object dto, Class<T> responseType, String msg) {
         CompletableFuture<T> future = new CompletableFuture<>();
         String json = gson.toJson(dto);
-        Log.d("myTag", json);
         Request request = createPostRequest(url, json);
-        sendAsyncRequest(request, future, responseType, (response, result) -> {
-            Log.d("myTag", "Send Request:" + (response != null) + " " + result);
-            if (response != null) {
-                future.complete(result);
-            } else {
-                Log.d("myTag", msg);
-                future.completeExceptionally(new IOException(msg));
-            }
-        });
+        Log.d("myTag", "sendRequestAndHandleResponse1");
+        try {
+            Log.d("myTag", "sendRequestAndHandleResponse2");
+            sendAsyncRequest(request, future, responseType, (response, result) -> {
+                Log.d("myTag", "sendRequestAndHandleResponse3");
+                Log.d("sendRequest", "sendRequest");
+                Log.d("backendServiceTag", "Send Request:" + (response != null) + " " + result);
+                if (response != null) {
+                    future.complete(result);
+                } else {
+                    Log.d("backendServiceError", msg);
+                    future.completeExceptionally(new IOException(msg));
+                }
+            });
+        }
+        catch (Exception e) {
+            Log.d("Exception", e.getMessage());
+        }
         return future;
     }
 
 
     private static <T> void sendAsyncRequest(@NotNull Request request, CompletableFuture<T> future, Type responseClass, ResponseHandler<T> responseHandler) {
+        Log.d("BackendService", "Starting async request");
+        Log.d("BackendService", "Request URL: " + request.url());
+        Log.d("BackendService", "Request Headers: " + request.headers());
+        Log.d("BackendService", "Request Body: " + request.body());
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) {
+                Log.d("BackendService", "Request successful, Response code: " + response.code());
                 try {
                     handleResponse(response, future, responseClass, responseHandler);
                 } catch (IOException e) {
@@ -147,5 +181,7 @@ public class BackendService {
                 future.completeExceptionally(e);
             }
         });
+
+        Log.d("BackendService", "Async request initiated");
     }
 }
