@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import okhttp3.*;
 
 import org.jetbrains.annotations.NotNull;
-import org.sportApp.model.User;
 import org.sportApp.registration.UserRegistrationDto;
 import org.sportApp.training.ExerciseDto;
 import org.sportApp.training.PlanDto;
@@ -18,7 +17,6 @@ import org.sportApp.training.TrainingDto;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
 
 public class BackendService {
     static OkHttpClient client = new OkHttpClient();
@@ -56,7 +54,7 @@ public class BackendService {
     public static CompletableFuture<Boolean> isLoginExist(String login) {
         CompletableFuture<Boolean> future = new CompletableFuture<>();
         Request request = new Request.Builder().url(BASE_URL + "/isLoginExist/" + login).get().build();
-        sendAsyncRequest(request, future, Boolean.class, (response, result) -> {
+        sendAsyncPostRequest(request, future, Boolean.class, (response, result) -> {
             Log.d("backendServiceTag", "Send Request:" + (response != null) + " " + result);
             if (response != null) {
                 future.complete(result);
@@ -73,7 +71,7 @@ public class BackendService {
     public static CompletableFuture<UserRegistrationDto.Kind> getType(Long id) {
         CompletableFuture<UserRegistrationDto.Kind> future = new CompletableFuture<>();
         Request request = new Request.Builder().url(BASE_URL + "/getUserType/" + id).get().build();
-        sendAsyncRequest(request, future, UserRegistrationDto.Kind.class, (response, result) -> {
+        sendAsyncPostRequest(request, future, UserRegistrationDto.Kind.class, (response, result) -> {
             Log.d("BackendService", "Get request: " + (response != null) + " " + result);
             if (response != null) {
                 future.complete(result);
@@ -99,7 +97,7 @@ public class BackendService {
     }
 
     @NonNull
-    public static CompletableFuture<Long> addTraining(TrainingDto trainingDto) {
+    public static CompletableFuture<Long> createTraining(TrainingDto trainingDto) {
         String msg = "Saving training failed: no response from server";
         return sendRequestAndHandleResponse(BASE_URL + "/createTraining", trainingDto, Long.class, msg);
     }
@@ -141,7 +139,7 @@ public class BackendService {
         Log.d("myTag", "sendRequestAndHandleResponse1");
         try {
             Log.d("myTag", "sendRequestAndHandleResponse2");
-            sendAsyncRequest(request, future, responseType, (response, result) -> {
+            sendAsyncPostRequest(request, future, responseType, (response, result) -> {
                 Log.d("myTag", "sendRequestAndHandleResponse3");
                 Log.d("sendRequest", "sendRequest");
                 Log.d("backendServiceTag", "Send Request:" + (response != null) + " " + result);
@@ -160,7 +158,7 @@ public class BackendService {
     }
 
 
-    private static <T> void sendAsyncRequest(@NotNull Request request, CompletableFuture<T> future, Type responseClass, ResponseHandler<T> responseHandler) {
+    private static <T> void sendAsyncPostRequest(@NotNull Request request, CompletableFuture<T> future, Type responseClass, ResponseHandler<T> responseHandler) {
         Log.d("BackendService", "Starting async request");
         Log.d("BackendService", "Request URL: " + request.url());
         Log.d("BackendService", "Request Headers: " + request.headers());
