@@ -10,11 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.sportApp.model.User;
 import org.sportApp.registration.UserRegistrationDto;
 import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
-import org.sportApp.utils.SessionManager;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,10 +44,23 @@ public class AuthorizationWindow extends AppCompatActivity {
             userDto.setPassword(pass);
             if (isAllFieldsChecked) {
                 userDto.setType(UserRegistrationDto.Kind.sportsman);
-                signInUser(userDto);
-                Intent sportsmanIntent = new Intent(AuthorizationWindow.this, org.sportApp.userInterface.sportsman.MainActivity.class);
-                sportsmanIntent.putExtra("userDto", userDto);
-                startActivity(sportsmanIntent);
+                signInUser(userDto)
+                        .thenAccept(resultDto -> getType(userDto.getId(), userDto))
+                        .exceptionally(e -> {
+                            Toast.makeText(AuthorizationWindow.this, "Authorization failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            return null;
+                        });
+                Log.d("Main thread ", userDto.getType().toString());
+                if (userDto.getType().equals(UserRegistrationDto.Kind.sportsman)) {
+                    Intent sportsmanIntent = new Intent(AuthorizationWindow.this, org.sportApp.userInterface.sportsman.MainActivity.class);
+                    sportsmanIntent.putExtra("userDto", userDto);
+                    startActivity(sportsmanIntent);
+                }
+                else {
+                    Intent coachIntent = new Intent(AuthorizationWindow.this, org.sportApp.userInterface.coach.MainActivity.class);
+                    coachIntent.putExtra("userDto", userDto);
+                    startActivity(coachIntent);
+                }
             }
         });
     }
@@ -78,19 +93,26 @@ public class AuthorizationWindow extends AppCompatActivity {
         return matcher.matches() && !passwordString.contains("\\");
     }
 
-    private void signInUser(UserRegistrationDto userDto) {
-        Log.d("myTag", "authorization");
-        BackendService.signInUser(userDto)
+    private CompletableFuture<Void> signInUser(UserRegistrationDto userDto) {
+        return BackendService.signInUser(userDto)
                 .thenAccept(resultDto -> {
-                    SessionManager sessionManager = new SessionManager(getApplicationContext());
                     userDto.setId(resultDto);
-                    Log.d("myTag", resultDto.toString());
-                    sessionManager.saveUserId(resultDto);
-                    Toast.makeText(AuthorizationWindow.this, "User authorized successfully!", Toast.LENGTH_SHORT).show();
+                    Log.d("Authorization", "resultDto: " + resultDto);
+                })
+                .exceptionally(e -> {
+                    //Toast.makeText(AuthorizationWindow.this, "Authorization failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    return null;
+                });
+    }
+
+    private void getType(Long id, UserRegistrationDto userDto){
+        BackendService.getType(id).thenAccept(resultDto -> {
+                    userDto.setType(resultDto);
+                    Log.d("UserType", "resultDto: " + resultDto);
                 })
                 .exceptionally(e -> {
                     Toast.makeText(AuthorizationWindow.this, "Authorization failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     return null;
-                });
+                }).join();
     }
 }
