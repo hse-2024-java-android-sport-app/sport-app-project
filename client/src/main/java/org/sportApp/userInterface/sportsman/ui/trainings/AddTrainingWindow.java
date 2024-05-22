@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.sportApp.registration.UserRegistrationDto;
 import org.sportApp.requests.BackendService;
 import org.sportApp.training.ExerciseDto;
 import org.sportApp.training.TrainingDto;
@@ -24,10 +25,11 @@ import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.sportsman.ui.exercise.AddExerciseWindow;
 import org.sportApp.userInterface.sportsman.ui.exercise.ExerciseWindow;
 import org.sportApp.userInterface.sportsman.ui.exercise.ExercisesAdapter;
-import org.sportApp.utils.SessionManager;
+import org.sportApp.utils.UserManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class AddTrainingWindow extends AppCompatActivity {
 
@@ -115,10 +117,21 @@ public class AddTrainingWindow extends AppCompatActivity {
     private void saveTrainingEvent() {
         TrainingDto trainingDto = new TrainingDto();
         trainingDto.setExercises(exercises);
-        SessionManager sessionManager = new SessionManager(this);
-        long userId = sessionManager.getUserId();
-        trainingDto.setSportsmanId(userId);
-        BackendService.addTraining(trainingDto);
+        trainingDto.setSportsmanId(UserManager.getInstance().getUserId());
+        createTraining(trainingDto);
         Toast.makeText(this, "Your training saved!", Toast.LENGTH_SHORT).show();
+        Log.d("myTag", "user's id in training " + trainingDto.getSportsmanId());
+    }
+
+    private void createTraining(TrainingDto trainingDto) {
+        BackendService.createTraining(trainingDto)
+                .thenAccept(resultDto -> {
+                    trainingDto.setTrainId(resultDto);
+                    Log.d("Creating Training", "resultDto: " + resultDto);
+                })
+                .exceptionally(e -> {
+                    //Toast.makeText(AuthorizationWindow.this, "Authorization failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    return null;
+                }).join();
     }
 }

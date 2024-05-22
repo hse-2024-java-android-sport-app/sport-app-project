@@ -12,10 +12,7 @@ import org.sportApp.registration.UserRegistrationDto;
 import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.coach.MainActivity;
-import org.sportApp.userInterface.sportsman.SportsmanWindow;
-import org.sportApp.utils.SessionManager;
 
-import java.util.concurrent.CompletableFuture;
 
 public class TypeSelectionWindow extends AppCompatActivity {
 
@@ -55,11 +52,9 @@ public class TypeSelectionWindow extends AppCompatActivity {
     private void registerUser(UserRegistrationDto userDto) {
         BackendService.registerUser(userDto)
                 .thenAccept(resultDto -> {
-                    SessionManager sessionManager = new SessionManager(getApplicationContext());
                     userDto.setId(resultDto);
 
                     Log.d("id", resultDto.toString());
-                    sessionManager.saveUserId(resultDto);
                     Toast.makeText(TypeSelectionWindow.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
                 })
                 .exceptionally(e -> {

@@ -17,7 +17,6 @@ import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.sportsman.ui.plans.EditPlanWindow;
 import org.sportApp.userInterface.sportsman.ui.plans.PlanAdapter;
 import org.sportApp.userInterface.trainings.AddTrainingWindow;
-import org.sportApp.utils.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,17 +53,13 @@ public class SportsmanWindow extends AppCompatActivity {
 
     @SuppressLint("NotifyDataSetChanged")
     private void addPlan() {
-        SessionManager sessionManager = new SessionManager(getApplicationContext());
-        long userId = sessionManager.getUserId();
 
         PlanDto newPlan = new PlanDto();
-        newPlan.setCoachId(userId);
 
         planDtoList.add(newPlan);
         planAdapter.notifyDataSetChanged();
 
-        BackendService backendService = new BackendService();
-        backendService.createPlan(newPlan);
+        BackendService.createPlan(newPlan);
     }
 
     private void editPlan(int position) {

@@ -18,7 +18,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import org.sportApp.userInterface.R;
-import org.sportApp.utils.SessionManager;
 
 
 public class SearchWindow extends Fragment {
@@ -72,8 +71,6 @@ public class SearchWindow extends Fragment {
     }
 
     private void addCoach(UserRegistrationDto userDto) {
-        SessionManager sessionManager = new SessionManager(requireContext());
-        long userId = sessionManager.getUserId();
         BackendService.addCoach(userDto)
                 .thenAccept(resultDto -> {
                     if (resultDto != null) {

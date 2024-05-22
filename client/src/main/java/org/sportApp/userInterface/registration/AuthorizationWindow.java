@@ -10,13 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.sportApp.model.User;
 import org.sportApp.registration.UserRegistrationDto;
 import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
+import org.sportApp.utils.UserManager;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,7 +49,6 @@ public class AuthorizationWindow extends AppCompatActivity {
                             Toast.makeText(AuthorizationWindow.this, "Authorization failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             return null;
                         });
-                Log.d("Main thread ", userDto.getType().toString());
                 if (userDto.getType().equals(UserRegistrationDto.Kind.sportsman)) {
                     Intent sportsmanIntent = new Intent(AuthorizationWindow.this, org.sportApp.userInterface.sportsman.MainActivity.class);
                     sportsmanIntent.putExtra("userDto", userDto);
@@ -97,6 +95,7 @@ public class AuthorizationWindow extends AppCompatActivity {
         return BackendService.signInUser(userDto)
                 .thenAccept(resultDto -> {
                     userDto.setId(resultDto);
+                    UserManager.getInstance().setUserId(resultDto);
                     Log.d("Authorization", "resultDto: " + resultDto);
                 })
                 .exceptionally(e -> {

@@ -18,7 +18,6 @@ import org.sportApp.training.ExerciseDto;
 import org.sportApp.training.TrainingDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.sportsman.ui.exercise.AddExerciseWindow;
-import org.sportApp.utils.SessionManager;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -92,10 +91,8 @@ public class AddTrainingEventWindow extends AppCompatActivity {
 
         TrainingDto trainingDto = new TrainingDto();
         trainingDto.setExercises(exercises);
-        SessionManager sessionManager = new SessionManager(this);
-        long userId = sessionManager.getUserId();
-        trainingDto.setSportsmanId(userId);
-        BackendService.addTraining(trainingDto);
+        //trainingDto.setSportsmanId(userId);
+        BackendService.createTraining(trainingDto);
         Toast.makeText(this, "Your training saved!", Toast.LENGTH_SHORT).show();
     }
 }

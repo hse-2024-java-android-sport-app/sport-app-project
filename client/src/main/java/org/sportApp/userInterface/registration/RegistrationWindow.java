@@ -1,7 +1,6 @@
 package org.sportApp.userInterface.registration;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ComputableLiveData;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.widget.Toast;
 import org.sportApp.registration.UserRegistrationDto;
 import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
-import org.sportApp.utils.SessionManager;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;

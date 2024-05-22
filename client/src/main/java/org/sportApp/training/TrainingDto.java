@@ -57,4 +57,5 @@ public class TrainingDto implements Serializable {
     private void setName(String name) {
         this.name = name;
     }
+
 }

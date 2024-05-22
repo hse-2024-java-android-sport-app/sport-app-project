@@ -17,7 +17,7 @@ public class PlanDto implements Serializable {
     private boolean isCompleted;
 
     public PlanDto() {
-        BackendService.createPlan(this);
+        //BackendService.createPlan(this);
     }
 
     public boolean isCompleted() {

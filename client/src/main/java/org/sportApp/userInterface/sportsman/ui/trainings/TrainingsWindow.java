@@ -42,7 +42,6 @@ public class TrainingsWindow extends Fragment {
             isWindowOpened = true;
         }
 
-        assert getArguments() != null;
         RecyclerView currentTrainingRecyclerView = view.findViewById(R.id.trainingRecyclerView);
         TrainingsAdapter currentAdapter = new TrainingsAdapter(trainings, new TrainingsAdapter.OnItemClickListener() {
             @Override
