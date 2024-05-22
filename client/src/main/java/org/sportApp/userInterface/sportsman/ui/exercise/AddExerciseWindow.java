@@ -66,17 +66,17 @@ public class AddExerciseWindow extends AppCompatActivity {
         resultIntent.putExtra("exerciseDto",  exerciseDto);
 
         setResult(RESULT_OK, resultIntent);
-        BackendService.addExercise(exerciseDto)
-                .thenAccept(resultDto -> {
-                    exerciseDto.setId(resultDto);
-
-                    Log.d("id", resultDto.toString());
-                    Toast.makeText(AddExerciseWindow.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
-                })
-                .exceptionally(e -> {
-                    Toast.makeText(AddExerciseWindow.this, "Registration failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    return null;
-                });
+//        BackendService.addExercise(exerciseDto)
+//                .thenAccept(resultDto -> {
+//                    exerciseDto.setId(resultDto);
+//
+//                    Log.d("id", resultDto.toString());
+//                    Toast.makeText(AddExerciseWindow.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
+//                })
+//                .exceptionally(e -> {
+//                    Toast.makeText(AddExerciseWindow.this, "Registration failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+//                    return null;
+//                });
         finish();
     }
 }

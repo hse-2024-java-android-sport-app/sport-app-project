@@ -103,6 +103,12 @@ public class BackendService {
     }
 
     @NonNull
+    public static CompletableFuture<Long> addExerciseByTrain(ExerciseDto exerciseDto, Long trainId) {
+        String msg = "Saving exercise failed: no response from server";
+        return sendRequestAndHandleResponse(BASE_URL + "/addExerciseByTrain/" + trainId, exerciseDto, Long.class, msg);
+    }
+
+    @NonNull
     public static CompletableFuture<Long> addExercise(ExerciseDto exerciseDto) {
         String msg = "Failed adding exercise: no response from server";
         return sendRequestAndHandleResponse(BASE_URL + "/register", exerciseDto, Long.class, msg);

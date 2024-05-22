@@ -125,13 +125,36 @@ public class AddTrainingWindow extends AppCompatActivity {
 
     private void createTraining(TrainingDto trainingDto) {
         BackendService.createTraining(trainingDto)
-                .thenAccept(resultDto -> {
+                .thenCompose(resultDto -> {
                     trainingDto.setTrainId(resultDto);
-                    Log.d("Creating Training", "resultDto: " + resultDto);
+                    Log.d("myTag", "training's id: " + resultDto);
+
+                    List<CompletableFuture<Long>> futures = new ArrayList<>();
+                    for (ExerciseDto exercise : trainingDto.getExercises()) {
+                        CompletableFuture<Long> future = addExerciseByTrain(exercise, resultDto);
+                        futures.add(future);
+                    }
+                    return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+                })
+                .thenAccept(voidResult -> {
+                    Log.d("myTag", "All exercises added successfully.");
                 })
                 .exceptionally(e -> {
-                    //Toast.makeText(AuthorizationWindow.this, "Authorization failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e("myTag", "Failed to create training or exercises.", e);
                     return null;
                 }).join();
     }
+
+    private CompletableFuture<Long> addExerciseByTrain(ExerciseDto exerciseDto, Long trainId) {
+        return BackendService.addExerciseByTrain(exerciseDto, trainId)
+                .thenApply(resultDto -> {
+                    Log.d("myTag", "exercise's id: " + resultDto);
+                    exerciseDto.setId(resultDto);
+                    return resultDto;
+                }).exceptionally(e -> {
+                    //Toast.makeText(AuthorizationWindow.this, "Authorization failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    return null;
+                });
+    }
+
 }
