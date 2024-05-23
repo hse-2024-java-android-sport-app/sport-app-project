@@ -7,8 +7,7 @@ public class TrainingDto implements Serializable {
     private String name;
     private long trainId;
     private List<ExerciseDto> exercises;
-    private long coachId;
-    private long sportsmanId;
+    private long userId;
 
     public TrainingDto() {
     }
@@ -26,12 +25,12 @@ public class TrainingDto implements Serializable {
         this.exercises = exercises;
     }
 
-    public long getCoachId() {
-        return coachId;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setCoachId(long coachId) {
-        this.coachId = coachId;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public long getTrainId() {
@@ -42,13 +41,6 @@ public class TrainingDto implements Serializable {
         this.trainId = trainId;
     }
 
-    public long getSportsmanId() {
-        return sportsmanId;
-    }
-
-    public void setSportsmanId(long sportsmanId) {
-        this.sportsmanId = sportsmanId;
-    }
 
     public String getName() {
         return name;

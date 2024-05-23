@@ -117,10 +117,10 @@ public class AddTrainingWindow extends AppCompatActivity {
     private void saveTrainingEvent() {
         TrainingDto trainingDto = new TrainingDto();
         trainingDto.setExercises(exercises);
-        trainingDto.setSportsmanId(UserManager.getInstance().getUserId());
+        trainingDto.setUserId(UserManager.getInstance().getUserId());
         createTraining(trainingDto);
         Toast.makeText(this, "Your training saved!", Toast.LENGTH_SHORT).show();
-        Log.d("myTag", "user's id in training " + trainingDto.getSportsmanId());
+        Log.d("myTag", "user's id in training " + trainingDto.getUserId());
     }
 
     private void createTraining(TrainingDto trainingDto) {

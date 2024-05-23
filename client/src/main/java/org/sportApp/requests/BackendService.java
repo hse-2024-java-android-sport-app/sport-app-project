@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import okhttp3.*;
 
@@ -16,6 +17,7 @@ import org.sportApp.training.TrainingDto;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class BackendService {
@@ -78,6 +80,23 @@ public class BackendService {
             } else {
                 Log.d("BackendService", "Failed to find user's type.");
                 future.completeExceptionally(new IOException("Failed to find user's type."));
+            }
+        });
+        return future;
+    }
+
+    @NonNull
+    public static CompletableFuture<List<TrainingDto>> getAllTrainings(Long userId) {
+        CompletableFuture<List<TrainingDto>> future = new CompletableFuture<>();
+        Request request = new Request.Builder().url(BASE_URL + "/getAllTrainings/" + userId).get().build();
+        Type type = new TypeToken<List<TrainingDto>>(){}.getType();
+        sendAsyncPostRequest(request, future, type, (response, result) -> {
+            Log.d("BackendService", "Send Request:" + (response != null) + " " + result);
+            if (response != null) {
+                future.complete(result);
+            } else {
+                Log.d("backendServiceTag", "Failed to get all trainings.");
+                future.completeExceptionally(new IOException("Failed to get all trainings."));
             }
         });
         return future;
