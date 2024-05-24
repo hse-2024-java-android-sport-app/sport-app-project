@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -20,6 +21,7 @@ import org.sportApp.requests.BackendService;
 import org.sportApp.training.TrainingDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.training.PlanDto;
+import org.sportApp.userInterface.sportsman.ui.trainings.AddTrainingWindow;
 import org.sportApp.userInterface.sportsman.ui.trainings.OneTrainingWindow;
 import org.sportApp.utils.UserManager;
 
@@ -69,6 +71,11 @@ public class AllPlansWindow extends Fragment {
             @Override
             public void onItemClick(int position) {
             }
+        });
+        ImageButton add = view.findViewById(R.id.addTrainingButton);
+        add.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), EditPlanWindow.class);
+            startActivity(intent);
         });
         currentPlanRecyclerView.setAdapter(currentAdapter);
         currentPlanRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));

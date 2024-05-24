@@ -44,4 +44,17 @@
         android:layout_gravity="center"
         android:gravity="center_vertical|center_horizontal"
         android:layout_marginBottom="80dp" />
+
+    <ImageButton
+        android:id="@+id/addTrainingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="27dp"
+        android:layout_marginBottom="42dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/todo"
+        android:padding="16dp"
+        android:src="@drawable/ic_add" />
 </RelativeLayout>
