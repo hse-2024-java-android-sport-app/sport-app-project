@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_plans"
-        android:name="org.sportApp.userInterface.sportsman.ui.plans.PlanWindow"
+        android:name="org.sportApp.userInterface.sportsman.ui.plans.AllPlansWindow"
         android:label="@string/menu_plans"
         tools:layout="@layout/fragment_plans" />
 

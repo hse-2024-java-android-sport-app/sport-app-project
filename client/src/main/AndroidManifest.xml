@@ -37,6 +37,7 @@
         <activity android:name=".sportsman.ui.trainings.AddTrainingWindow" />
         <activity android:name=".sportsman.ui.trainingEvents.CreatingTypeSelectionWindow" />
         <activity android:name=".sportsman.ui.trainings.FindTraining" />
+        <activity android:name=".sportsman.ui.plans.OnePlanWindow" />
         <activity
             android:name=".coach.MainActivity"
             android:exported="true"
