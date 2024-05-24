@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 public class TrainingDto implements Serializable {
-    private String name;
     private long trainId;
     private List<ExerciseDto> exercises;
     private long userId;
@@ -13,7 +12,6 @@ public class TrainingDto implements Serializable {
     }
 
     public TrainingDto(String name, List<ExerciseDto> exercises) {
-        this.name = name;
         this.exercises = exercises;
     }
 
@@ -39,15 +37,6 @@ public class TrainingDto implements Serializable {
 
     public void setTrainId(long trainId) {
         this.trainId = trainId;
-    }
-
-
-    public String getName() {
-        return name;
-    }
-
-    private void setName(String name) {
-        this.name = name;
     }
 
 }
