@@ -37,6 +37,10 @@ public class PlanDto implements Serializable {
         trainings.add(trainingEventDto);
     }
 
+    public List<TrainingEventDto> getTrainings() {
+        return trainings;
+    }
+
     public long getPlanId() {
         return planId;
     }

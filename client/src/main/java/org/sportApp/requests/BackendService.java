@@ -54,53 +54,47 @@ public class BackendService {
 
     @NonNull
     public static CompletableFuture<Boolean> isLoginExist(String login) {
-        CompletableFuture<Boolean> future = new CompletableFuture<>();
-        Request request = new Request.Builder().url(BASE_URL + "/isLoginExist/" + login).get().build();
-        sendAsyncPostRequest(request, future, Boolean.class, (response, result) -> {
-            Log.d("backendServiceTag", "Send Request:" + (response != null) + " " + result);
-            if (response != null) {
-                future.complete(result);
-            } else {
-                Log.d("backendServiceTag", "Failed to check login existence.");
-                future.completeExceptionally(new IOException("Failed to check login existence."));
-            }
-        });
-        return future;
+        String url = BASE_URL + "/isLoginExist/" + login;
+        return sendAsyncGetRequest(url, Boolean.class, "Failed to check login existence.");
     }
-
 
     @NonNull
     public static CompletableFuture<UserRegistrationDto.Kind> getType(Long id) {
-        CompletableFuture<UserRegistrationDto.Kind> future = new CompletableFuture<>();
-        Request request = new Request.Builder().url(BASE_URL + "/getUserType/" + id).get().build();
-        sendAsyncPostRequest(request, future, UserRegistrationDto.Kind.class, (response, result) -> {
-            Log.d("BackendService", "Get request: " + (response != null) + " " + result);
-            if (response != null) {
-                future.complete(result);
-            } else {
-                Log.d("BackendService", "Failed to find user's type.");
-                future.completeExceptionally(new IOException("Failed to find user's type."));
-            }
-        });
-        return future;
+        String url = BASE_URL + "/getUserType/" + id;
+        return sendAsyncGetRequest(url, UserRegistrationDto.Kind.class, "Failed to find user's type.");
     }
 
     @NonNull
     public static CompletableFuture<List<TrainingDto>> getAllTrainings(Long userId) {
-        CompletableFuture<List<TrainingDto>> future = new CompletableFuture<>();
-        Request request = new Request.Builder().url(BASE_URL + "/getAllTrainings/" + userId).get().build();
+        String url = BASE_URL + "/getAllTrainings/" + userId;
         Type type = new TypeToken<List<TrainingDto>>(){}.getType();
-        sendAsyncPostRequest(request, future, type, (response, result) -> {
-            Log.d("BackendService", "Send Request:" + (response != null) + " " + result);
-            if (response != null) {
-                future.complete(result);
-            } else {
-                Log.d("backendServiceTag", "Failed to get all trainings.");
-                future.completeExceptionally(new IOException("Failed to get all trainings."));
-            }
-        });
-        return future;
+        return sendAsyncGetRequest(url, type, "Failed to get all trainings.");
     }
+
+    @NonNull
+    public static CompletableFuture<List<PlanDto>> getAllPlans(Long userId) {
+        String url = BASE_URL + "/getAllPlans/" + userId;
+        Type type = new TypeToken<List<PlanDto>>(){}.getType();
+        return sendAsyncGetRequest(url, type, "Failed to get all trainings.");
+    }
+
+//    @NonNull
+//    public static CompletableFuture<List<PlanDto>> getAllPlans(Long userId) {
+//        CompletableFuture<List<PlanDto>> future = new CompletableFuture<>();
+//        Request request = new Request.Builder().url(BASE_URL + "/getAllPlans/" + userId).get().build();
+//        Type type = new TypeToken<List<PlanDto>>(){}.getType();
+//        sendAsyncRequest(request, future, type, (response, result) -> {
+//            Log.d("BackendService", "Send Request:" + (response != null) + " " + result);
+//            if (response != null) {
+//                future.complete(result);
+//            } else {
+//                Log.d("backendServiceTag", "Failed to get all trainings.");
+//                future.completeExceptionally(new IOException("Failed to get all trainings."));
+//            }
+//        });
+//        return future;
+//    }
+
 
 
     @NonNull
@@ -164,7 +158,7 @@ public class BackendService {
         Log.d("myTag", "sendRequestAndHandleResponse1");
         try {
             Log.d("myTag", "sendRequestAndHandleResponse2");
-            sendAsyncPostRequest(request, future, responseType, (response, result) -> {
+            sendAsyncRequest(request, future, responseType, (response, result) -> {
                 Log.d("myTag", "sendRequestAndHandleResponse3");
                 Log.d("sendRequest", "sendRequest");
                 Log.d("backendServiceTag", "Send Request:" + (response != null) + " " + result);
@@ -183,7 +177,7 @@ public class BackendService {
     }
 
 
-    private static <T> void sendAsyncPostRequest(@NotNull Request request, CompletableFuture<T> future, Type responseClass, ResponseHandler<T> responseHandler) {
+    private static <T> void sendAsyncRequest(@NotNull Request request, CompletableFuture<T> future, Type responseClass, ResponseHandler<T> responseHandler) {
         Log.d("BackendService", "Starting async request");
         Log.d("BackendService", "Request URL: " + request.url());
         Log.d("BackendService", "Request Headers: " + request.headers());
@@ -207,4 +201,42 @@ public class BackendService {
 
         Log.d("BackendService", "Async request initiated");
     }
+
+
+    @NonNull
+    private static <T> CompletableFuture<T> sendAsyncGetRequest(String url, Class<T> responseType, String errorMsg) {
+        CompletableFuture<T> future = new CompletableFuture<>();
+        Request request = new Request.Builder().url(url).get().build();
+
+        sendAsyncRequest(request, future, responseType, (response, result) -> {
+            Log.d("backendServiceTag", "Send Request:" + (response != null) + " " + result);
+            if (response != null) {
+                future.complete(result);
+            } else {
+                Log.d("backendServiceTag", errorMsg);
+                future.completeExceptionally(new IOException(errorMsg));
+            }
+        });
+
+        return future;
+    }
+
+    @NonNull
+    public static <T> CompletableFuture<T> sendAsyncGetRequest(String url, Type responseType, String errorMsg) {
+        CompletableFuture<T> future = new CompletableFuture<>();
+        Request request = new Request.Builder().url(url).get().build();
+
+        sendAsyncRequest(request, future, responseType, (response, result) -> {
+            Log.d("backendServiceTag", "Send Request:" + (response != null) + " " + result);
+            if (response != null) {
+                future.complete(result);
+            } else {
+                Log.d("backendServiceTag", errorMsg);
+                future.completeExceptionally(new IOException(errorMsg));
+            }
+        });
+
+        return future;
+    }
+
 }
