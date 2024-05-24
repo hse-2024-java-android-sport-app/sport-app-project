@@ -1,5 +1,7 @@
 package org.sportApp.userInterface.sportsman.ui.trainings;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -17,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.sportApp.requests.BackendService;
 import org.sportApp.testData.TestData;
+import org.sportApp.training.ExerciseDto;
 import org.sportApp.training.TrainingDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.registration.AuthorizationWindow;
@@ -71,7 +76,7 @@ public class TrainingsWindow extends Fragment {
     private void showTraining(int position) {
         if (position != RecyclerView.NO_POSITION) {
             TrainingDto training = trainings.get(position);
-            Log.d("training", training.getName());
+            Log.d("training", String.valueOf(trainings.size()));
             Intent intent = new Intent(requireContext(), OneTrainingWindow.class);
             intent.putExtra("trainingDto", training);
             startActivity(intent);

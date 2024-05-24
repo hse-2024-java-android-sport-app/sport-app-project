@@ -72,7 +72,6 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Trai
             int minutes = (totalDuration % 3600) / 60;
             int seconds = totalDuration % 60;
 
-            trainingNameTextView.setText(training.getName());
             numberOfExercisesTextView.setText("Total number of exercises: " + training.getExercises().size() + ".");
             if (hours > 0) {
                 totalDurationTextView.setText("Total duration of training: " + hours + " h " + minutes + " min " + seconds + " sec ");
