@@ -1,16 +1,30 @@
 package org.sportApp.training;
 
-import java.io.Serializable;
-import java.time.Duration;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class ExerciseDto implements Serializable {
+import androidx.annotation.NonNull;
+
+import java.io.Serializable;
+public class ExerciseDto implements Serializable{
+    private String name;
     private String description;
     private int repetitions;
     private int duration;
     private int sets;
     private String videoUrl;
+    private Long id;
 
     public ExerciseDto(){}
+
+    public ExerciseDto(String name, String description, int repetitions, int duration, int sets) {
+        this.name = name;
+        this.description = description;
+        this.repetitions = repetitions;
+        this.duration = duration;
+        this.sets = sets;
+    }
+
 
     public void setDescription(String description) {
         this.description = description;
@@ -53,4 +67,19 @@ public class ExerciseDto implements Serializable {
         return videoUrl;
     }
 
+    public void setName (String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId(){
+        return id;
+    }
 }

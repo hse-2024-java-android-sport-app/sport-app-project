@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_plans"
+            android:icon="@drawable/main"
+            android:title="@string/menu_plans" />
+
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/search"
+            android:title="@string/menu_search" />
+
+        <item
+            android:id="@+id/nav_trainings"
+            android:icon="@drawable/trainings"
+            android:title="@string/menu_my_trainings" />
+
+        <item
+            android:id="@+id/nav_training_events"
+            android:icon="@drawable/trainings"
+            android:title="@string/menu_training_events" />
+    </group>
+</menu>

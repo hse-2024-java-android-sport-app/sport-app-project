@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@drawable/completed_item_background">
+
+    <TextView
+        android:id="@+id/planNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/plan_title"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp"/>
+
+</LinearLayout>

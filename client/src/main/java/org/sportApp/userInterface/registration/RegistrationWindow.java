@@ -1,14 +1,22 @@
 package org.sportApp.userInterface.registration;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.sportApp.registration.UserRegistrationDto;
+import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
 
+import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -76,6 +84,19 @@ public class RegistrationWindow extends AppCompatActivity {
             return false;
         }
 
+        CompletableFuture<Boolean> future = BackendService.isLoginExist(userName.getText().toString());
+        boolean exist;
+        try {
+            exist = future.get();
+            if (exist) {
+                Toast.makeText(RegistrationWindow.this, "This username is already taken.", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        } catch (ExecutionException | InterruptedException e) {
+            Log.d("myTag", Objects.requireNonNull(e.getMessage()));
+            Toast.makeText(RegistrationWindow.this, "Failed to check user existence: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
         if (password.length() == 0) {
             password.setError("Password is required");
             return false;
@@ -96,5 +117,10 @@ public class RegistrationWindow extends AppCompatActivity {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(passwordString);
         return matcher.matches() && !passwordString.contains("\\");
+    }
+
+    public void onAlreadyHaveAccountClicked(View view) {
+        Intent intent = new Intent(this, AuthorizationWindow.class);
+        startActivity(intent);
     }
 }

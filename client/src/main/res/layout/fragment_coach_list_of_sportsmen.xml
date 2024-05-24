@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.listOfSportsmen.CoachListOfSportsmenFragment">
+    tools:context=".coach.ui.listOfSportsmen.CoachListOfSportsmenFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/user_recycler_view"

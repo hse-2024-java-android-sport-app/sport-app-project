@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".userInterface.registration.RegistrationWindow">
+    tools:context=".registration.RegistrationWindow">
+
     <TextView
         android:id="@+id/idHeader"
         android:layout_width="match_parent"
@@ -40,13 +41,13 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
+        android:autofillHints=""
+        android:background="@drawable/frame"
+        android:gravity="center_vertical"
         android:hint="@string/enter_secondname"
         android:inputType="text"
-        android:autofillHints=""
         android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:gravity="center_vertical"
-        android:background="@drawable/frame"/>
+        android:paddingEnd="10dp" />
 
     <EditText
         android:id="@+id/userName"
@@ -56,13 +57,13 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
+        android:autofillHints=""
+        android:background="@drawable/frame"
+        android:gravity="center_vertical"
         android:hint="@string/enter_username"
         android:inputType="text"
-        android:autofillHints=""
         android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:gravity="center_vertical"
-        android:background="@drawable/frame"/>
+        android:paddingEnd="10dp" />
 
     <EditText
         android:id="@+id/password"
@@ -72,37 +73,52 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
+        android:autofillHints=""
+        android:background="@drawable/frame"
+        android:gravity="center_vertical"
         android:hint="@string/enter_password"
         android:inputType="textPassword"
-        android:autofillHints=""
         android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:gravity="center_vertical"
-        android:background="@drawable/frame"/>
+        android:paddingEnd="10dp" />
 
-        <Button
-            android:id="@+id/cancelButton"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/password"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginEnd="10dp"
-            android:text="@string/cancel"
-            android:textColor="@color/violet" />
+    <Button
+        android:id="@+id/cancelButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/password"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/cancel"
+        android:textColor="@color/violet" />
 
-        <Button
-            android:id="@+id/registrationButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/password"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="@color/violet"
-            android:text="@string/sign_in"
-            android:textColor="@android:color/white"
-            tools:ignore="ButtonStyle" />
+    <Button
+        android:id="@+id/registrationButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/password"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="@color/violet"
+        android:text="@string/register"
+        android:textColor="@android:color/white"
+        tools:ignore="ButtonStyle" />
+
+    <TextView
+        android:id="@+id/alreadyHaveAccountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/registrationButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="onAlreadyHaveAccountClicked"
+        android:text="@string/already_have_an_account"
+        android:textColor="@color/violet"
+        android:textStyle="bold" />
+
 
 </RelativeLayout>

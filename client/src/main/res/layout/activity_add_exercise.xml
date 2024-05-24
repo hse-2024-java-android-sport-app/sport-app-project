@@ -13,12 +13,22 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp" />
 
+
+    <EditText
+        android:id="@+id/nameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/name"
+        android:layout_below="@id/titleTextView"
+        android:layout_marginTop="16dp"
+        android:autofillHints="" />
+
     <EditText
         android:id="@+id/descriptionEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/description"
-        android:layout_below="@id/titleTextView"
+        android:layout_below="@id/nameEditText"
         android:layout_marginTop="16dp" />
 
     <EditText

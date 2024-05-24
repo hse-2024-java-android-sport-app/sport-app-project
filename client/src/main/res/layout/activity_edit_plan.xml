@@ -8,7 +8,7 @@
         android:id="@+id/dialogTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add_training"
+        android:text="@string/create_training"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"

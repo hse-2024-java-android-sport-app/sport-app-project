@@ -48,4 +48,5 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.okhttp)
     implementation (libs.threetenabp)
+    implementation (libs.activity.ktx)
 }

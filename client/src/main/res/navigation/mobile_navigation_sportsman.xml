@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation_sportsman"
+    app:startDestination="@+id/nav_plans">
+
+    <fragment
+        android:id="@+id/nav_plans"
+        android:name="org.sportApp.userInterface.sportsman.ui.plans.AllPlansWindow"
+        android:label="@string/menu_plans"
+        tools:layout="@layout/fragment_plans" />
+
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="org.sportApp.userInterface.sportsman.ui.account.SearchWindow"
+        android:label="@string/menu_search"
+        tools:layout="@layout/fragment_search" />
+
+    <fragment
+        android:id="@+id/nav_trainings"
+        android:name="org.sportApp.userInterface.sportsman.ui.trainings.TrainingsWindow"
+        android:label="@string/menu_my_trainings"
+        tools:layout="@layout/fragment_trainings" />
+
+    <fragment
+        android:id="@+id/nav_training_events"
+        android:name="org.sportApp.userInterface.sportsman.ui.trainingEvents.TrainingEventsWindow"
+        android:label="@string/menu_training_events"
+        tools:layout="@layout/fragment_training_events" />
+
+</navigation>

@@ -13,25 +13,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.sportApp.requests.BackendService;
 import org.sportApp.training.ExerciseDto;
 import org.sportApp.training.TrainingDto;
-import org.sportApp.training.TrainingEventDto;
 import org.sportApp.userInterface.R;
-import org.sportApp.utils.SessionManager;
+import org.sportApp.userInterface.sportsman.ui.exercise.AddExerciseWindow;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import okhttp3.internal.concurrent.TaskRunner;
-
 public class AddTrainingWindow extends AppCompatActivity {
 
     private LocalDate selectedDate;
-    private ArrayList<ExerciseDto> exercises = new ArrayList<>();
+    private final ArrayList<ExerciseDto> exercises = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_training);
+        setContentView(R.layout.activity_add_event_training);
 
         Button selectDateButton = findViewById(R.id.datePickerButton);
         selectDateButton.setOnClickListener(v -> showDatePickerDialog());
@@ -88,11 +85,8 @@ public class AddTrainingWindow extends AppCompatActivity {
 
         TrainingDto trainingDto = new TrainingDto();
         trainingDto.setExercises(exercises);
-        BackendService backendService = new BackendService();
-        SessionManager sessionManager = new SessionManager(getApplicationContext());
-        long userId = sessionManager.getUserId();
-        trainingDto.setUserId(userId);
-        backendService.addTraining(trainingDto);
+        //trainingDto.setSportsmanId(userId);
+        BackendService.createTraining(trainingDto);
         Toast.makeText(this, "Your training saved!", Toast.LENGTH_SHORT).show();
     }
 

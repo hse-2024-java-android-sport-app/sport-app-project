@@ -15,7 +15,7 @@
     <string name="coach">Coach</string>
     <string name="type">Choose your type</string>
     <string name="next">Continue</string>
-    <string name="add_training">Add training</string>
+    <string name="create_training">Create training</string>
     <string name="title_profile">profile</string>
     <string name="add_plan">Add plan</string>
     <string name="my_plans">My plans</string>
@@ -58,6 +58,41 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_coachListOfSportsmen">Coach list of sportsmen</string>
     <string name="menu_myAccount">My account</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="authorization">Login</string>
+    <string name="register">Register</string>
+    <string name="current_plan">Current plan</string>
+    <string name="completed_plans">Completed plans</string>
+    <string name="plan_title">Plan Title</string>
+    <string name="todo">TODO</string>
+    <string name="menu_add_training">Add training</string>
+    <string name="menu_notifications">Notifications</string>
+    <string name="menu_plans">Plans</string>
+    <string name="menu_search">Search</string>
+    <string name="enter_coach_s_login">Enter coach\'s  login or coach\'s surname and firstname</string>
+    <string name="search">Search</string>
+    <string name="menu_one_training">One training</string>
+    <string name="current_training">Current training</string>
+    <string name="exercise_title">Exercise title</string>
+    <string name="exercise_description">Exercise description</string>
+    <string name="exercise_repetitions">Exercise repetitions</string>
+    <string name="exercise">Exercise</string>
+    <string name="choose_an_existing_exercise">Choose an existing exercise</string>
+    <string name="my_training_events">My training events</string>
+    <string name="menu_training_events">My training Events</string>
+    <string name="training_title">Training Title</string>
+    <string name="total_number_of_exercises">Total number of exercises</string>
+    <string name="total_duration">Total duration</string>
+    <string name="enter_training_name">Enter training name</string>
+    <string name="name">Write exercise\'s name</string>
+    <string name="menu_my_trainings">My trainings</string>
+    <string name="my_trainings">My trainings</string>
+    <string name="create_event">Create training event</string>
+    <string name="choose_event">Choose an existing training</string>
+    <string name="_1_select_date">1. Select date</string>
+    <string name="_2_choose_a_way_to_create_a_training">2. Choose a way to create a training</string>
+    <string name="or">or</string>
+    <string name="enter_training_s_name">Enter training\'s name</string>
 
 
 </resources>

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -11,8 +12,7 @@ import org.sportApp.registration.UserRegistrationDto;
 import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.coach.MainActivity;
-import org.sportApp.userInterface.sportsman.SportsmanWindow;
-import org.sportApp.utils.SessionManager;
+
 
 public class TypeSelectionWindow extends AppCompatActivity {
 
@@ -32,7 +32,7 @@ public class TypeSelectionWindow extends AppCompatActivity {
             assert userDto != null;
             userDto.setType(UserRegistrationDto.Kind.sportsman);
             registerUser(userDto);
-            Intent sportsmanIntent = new Intent(TypeSelectionWindow.this, SportsmanWindow.class);
+            Intent sportsmanIntent = new Intent(TypeSelectionWindow.this, org.sportApp.userInterface.sportsman.MainActivity.class);
             sportsmanIntent.putExtra("userDto", userDto);
             startActivity(sportsmanIntent);
         });
@@ -50,11 +50,11 @@ public class TypeSelectionWindow extends AppCompatActivity {
     }
 
     private void registerUser(UserRegistrationDto userDto) {
-        BackendService backendService = new BackendService();
-        backendService.registerUser(userDto)
+        BackendService.registerUser(userDto)
                 .thenAccept(resultDto -> {
-                    SessionManager sessionManager = new SessionManager(getApplicationContext());
-                    sessionManager.saveUserId(resultDto);
+                    userDto.setId(resultDto);
+
+                    Log.d("id", resultDto.toString());
                     Toast.makeText(TypeSelectionWindow.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
                 })
                 .exceptionally(e -> {

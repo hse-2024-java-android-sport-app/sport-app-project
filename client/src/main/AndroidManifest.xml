@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SportApp"
         android:networkSecurityConfig="@xml/network_security_config"
-        tools:targetApi="31">
+        android:enableOnBackInvokedCallback="true"
+        tools:targetApi="tiramisu">
         <activity
             android:name=".registration.RegistrationWindow"
             android:exported="true"
@@ -27,17 +28,26 @@
         <activity android:name=".registration.BirthDateWindow" />
         <activity android:name=".sportsman.SportsmanWindow" />
         <activity android:name=".trainings.AddTrainingWindow" />
-        <activity android:name=".sportsman.EditPlanWindow" />
-        <activity android:name=".trainings.AddExerciseWindow" />
+        <activity android:name=".sportsman.ui.plans.EditPlanWindow" />
+        <activity android:name=".sportsman.ui.exercise.AddExerciseWindow" />
+        <activity android:name=".registration.AuthorizationWindow" />
+        <activity android:name=".sportsman.ui.exercise.ExerciseWindow" />
+        <activity android:name=".sportsman.ui.trainings.OneTrainingWindow" />
+        <activity android:name=".sportsman.ui.trainingEvents.AddTrainingEventWindow" />
+        <activity android:name=".sportsman.ui.trainings.AddTrainingWindow" />
+        <activity android:name=".sportsman.ui.trainingEvents.CreatingTypeSelectionWindow" />
+        <activity android:name=".sportsman.ui.trainings.FindTraining" />
+        <activity android:name=".sportsman.ui.plans.OnePlanWindow" />
         <activity
             android:name=".coach.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.SportApp.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        </activity>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity
+            android:name=".sportsman.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.SportApp.NoActionBar">
         </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET"
