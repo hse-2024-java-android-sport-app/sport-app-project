@@ -1,5 +1,6 @@
 package org.sportApp.userInterface.coach;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -16,7 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.sportApp.model.User;
 import org.sportApp.userInterface.R;
-import org.sportApp.userInterface.databinding.ActivityMainCoachBinding;
+import org.sportApp.userInterface.databinding.ActivityMainBinding;
+import org.sportApp.userInterface.trainings.AddTrainingWindow;
 
 public class MainActivity extends AppCompatActivity {
     public static User mainUser;
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         mainUser = new User("Admin Adminov", 0);
 
-        binding = ActivityMainCoachBinding.inflate(getLayoutInflater());
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMainCoach.toolbar);
@@ -66,5 +68,10 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main_coach);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void openTrainingWindowCoach(View view) {
+        Intent intent = new Intent(this, AddTrainingWindow.class);
+        startActivity(intent);
     }
 }

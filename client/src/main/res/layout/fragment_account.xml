@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".coach.ui.account.MainAccountFragment">
+    tools:context=".coach.MainActivity">
 
     <ImageView
         android:id="@+id/imageViewAccount"
@@ -36,5 +36,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userNameAccount" />
+
+    <Button
+        android:id="@+id/addTrainingButtonCoach"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_training"
+        android:layout_marginTop="15dp"
+        android:onClick="openTrainingWindowCoach"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userTypeAccount"
+        tools:layout_editor_absoluteX="155dp"
+        tools:layout_editor_absoluteY="405dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

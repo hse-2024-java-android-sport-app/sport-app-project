@@ -1,9 +1,11 @@
 package org.sportApp.userInterface.coach.ui.account;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import org.sportApp.userInterface.databinding.FragmentAccountBinding;
+import org.sportApp.userInterface.trainings.AddTrainingWindow;
 
 public class AccountFragment extends Fragment {
     private FragmentAccountBinding binding;
