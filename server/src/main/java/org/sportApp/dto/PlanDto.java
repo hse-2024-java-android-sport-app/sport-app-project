@@ -1,12 +1,14 @@
 package org.sportApp.dto;
 
+import org.sportApp.entities.TrainingEvent;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlanDto {
     private long planId;
     private String name;
-    private final List<TrainingEventDto> trainings = new ArrayList<>();
+    private List<TrainingEventDto> trainings = new ArrayList<>();
     private long coachId;
     private long sportsmanId;
 
@@ -61,5 +63,13 @@ public class PlanDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<TrainingEventDto> getTrainings() {
+        return this.trainings;
+    }
+
+    public void setTrainings(List<TrainingEventDto> trainings) {
+        this.trainings = trainings;
     }
 }

@@ -42,6 +42,10 @@ public class UserService {
         return userRepository.findById(userId).map(User::getType);
     }
 
+    public Optional<User> getUser(long userId) {
+        return userRepository.findById(userId);
+    }
+
     public Iterable<User> findAll() {
         return userRepository.findAll();
     }

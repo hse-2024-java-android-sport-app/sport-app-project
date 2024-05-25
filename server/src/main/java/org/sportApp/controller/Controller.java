@@ -90,6 +90,15 @@ public class Controller {
                         () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required userId doesn't found")));
     }
 
+    @GetMapping("getUserById/{userId}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> getUser(@PathVariable(value = "userId") long userId) {
+        return userService.getUser(userId)
+                .<CompletableFuture<ResponseEntity<?>>>map(user -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.OK).body(user)))
+                .orElseGet(() -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required userId doesn't found")));
+    }
+
     @GetMapping("getSportsmenByCoachId/{coachId}")
     public @ResponseBody CompletableFuture<ResponseEntity<?>> getSportsmenByCoachId(@PathVariable(value = "coachId") long coachId) {
         List<User> sportsmenList = new ArrayList<>();
@@ -245,12 +254,11 @@ public class Controller {
 
     @GetMapping("getAllPlans/{sportsmanId}")
     public @ResponseBody CompletableFuture<ResponseEntity<?>> getAllPlansBySportsmanId(@PathVariable(value = "sportsmanId") long sportsmanId) {
-        Iterable<Plan> planDtos = planService.findAllPlansBySportsmanId(sportsmanId);
-//        planDtos.forEach(plan -> this.mapper.map(plan, PlanDto.class));
-        //TODO
-        List<Long> ids = new ArrayList<>();
-        planDtos.forEach(pl -> ids.add(pl.getPlanId()));
-        return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.OK).body(ids));
+        return CompletableFuture.supplyAsync(
+                () -> ResponseEntity.status(HttpStatus.OK).body(
+                        planService.findAllPlansBySportsmanId(sportsmanId).stream()
+                                .map(plan -> mapper.map(plan, PlanDto.class))
+                                .toList()));
     }
 
     @GetMapping("getPlan/{planId}")
@@ -265,9 +273,11 @@ public class Controller {
 
     @GetMapping("getAllNotCompletedPlans/{sportsmanId}")
     public @ResponseBody CompletableFuture<ResponseEntity<?>> getAllNotCompletedPlans(@PathVariable(value = "sportsmanId") long sportsmanId) {
-        List<Plan> planEnt = planService.findAllNotCompletedPlansBySportsmanId(sportsmanId);
-        planEnt.forEach(plan -> this.mapper.map(plan, PlanDto.class));
-        return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.OK).body(planEnt));
+        return CompletableFuture.supplyAsync(
+                () -> ResponseEntity.status(HttpStatus.OK).body(
+                        planService.findAllNotCompletedPlansBySportsmanId(sportsmanId).stream()
+                                .map(plan -> mapper.map(plan, PlanDto.class))
+                                .toList()));
     }
 
     @GetMapping("getPlanIsCompleted/{planId}")

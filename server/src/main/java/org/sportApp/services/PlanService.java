@@ -46,18 +46,12 @@ public class PlanService {
         return Optional.empty();
     }
 
-    public Iterable<Plan> findAllPlansBySportsmanId(long sportsmanId) {
-        return planRepository.getAllBySportsmanId(sportsmanId);
+    public List<Plan> findAllPlansBySportsmanId(long sportsmanId) {
+        return planRepository.findBySportsmanId(sportsmanId);
     }
 
     public List<Plan> findAllNotCompletedPlansBySportsmanId(long sportsmanId) {
-        List<Plan> result = new ArrayList<>();
-        for (Plan plan : planRepository.getAllBySportsmanId(sportsmanId)) {
-            if (!plan.isCompleted()) {
-                result.add(plan);
-            }
-        }
-        return result;
+        return planRepository.findBySportsmanId(sportsmanId).stream().filter(Plan::isCompleted).toList();
     }
 
     public Optional<Plan> findPlanByPlanId(long planId) {
