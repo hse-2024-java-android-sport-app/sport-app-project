@@ -101,13 +101,42 @@ public class Controller {
 
     @GetMapping("getSportsmenByCoachId/{coachId}")
     public @ResponseBody CompletableFuture<ResponseEntity<?>> getSportsmenByCoachId(@PathVariable(value = "coachId") long coachId) {
-        List<User> sportsmenList = new ArrayList<>();
-        userService.getAllSportsmenByCoachId(coachId).forEach(sportsmenList::add);
         return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.OK).body(
-                sportsmenList.stream()
+                userService.getAllSportsmenByCoachId(coachId).stream()
                         .map(user -> mapper.map(user, UserRegistrationDto.class))
                         .toList()
         ));
+    }
+
+    @GetMapping("getIsCoachSet/{sportsmanId}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> getIsCoachSet(@PathVariable(value = "sportsmanId") long sportsmanId) {
+        //TODO check that it is sportsmanId not coachId
+        return userService.getIsCoachSet(sportsmanId)
+                .<CompletableFuture<ResponseEntity<?>>>map(isCoachSet -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.OK).body(isCoachSet)))
+                .orElseGet(() -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required sportsmanId doesn't found")));
+    }
+
+    @GetMapping("searchCoaches")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> searchCoaches(@RequestBody String searchString) {
+        List<User> coachesList = userService.searchCoaches(searchString);
+        return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.OK).body(
+                coachesList.stream()
+                        .map(user -> mapper.map(user, UserRegistrationDto.class))
+                        .toList()
+        ));
+    }
+
+    @PostMapping("editCoach/{sportsmanId}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> editCoach(@PathVariable(value = "sportsmanId") long sportsmanId, @RequestBody String coachId) {
+        System.out.println("sportsmanId=" + sportsmanId + " coachId=" + coachId);
+        return userService.editCoach(sportsmanId, Long.parseLong(coachId))
+                .<CompletableFuture<ResponseEntity<?>>>map(userId -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.OK).body(userId)))
+                .orElseGet(() -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required sportsmanId or coachId doesn't found")));
+
     }
 
     /** TODO
@@ -150,10 +179,8 @@ public class Controller {
         if (userService.notExistsById(userId)) {
             return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required userId doesn't found"));
         }
-        List<Training> trainingList = new ArrayList<>();
-        trainingService.findAllByUserId(userId).forEach(trainingList::add);
         return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.OK).body(
-                trainingList.stream()
+                trainingService.findAllByUserId(userId).stream()
                         .map(training -> mapper.map(training, TrainingDto.class))
                         .toList()));
     }

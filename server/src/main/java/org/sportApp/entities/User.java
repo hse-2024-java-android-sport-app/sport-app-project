@@ -1,6 +1,7 @@
 package org.sportApp.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Entity
+@DynamicUpdate
 @Table(name = "Users")
 public class User {
     @Id
@@ -20,6 +22,22 @@ public class User {
     private String password;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateOfBirth;
+
+    public User getCoach() {
+        return coach;
+    }
+
+    public void setCoach(User coach) {
+        this.coach = coach;
+    }
+
+    public List<User> getSportsmen() {
+        return sportsmen;
+    }
+
+    public void setSportsmen(List<User> sportsmen) {
+        this.sportsmen = sportsmen;
+    }
 
     public enum Kind {sportsman, coach}
     @Enumerated(EnumType.STRING)

@@ -7,6 +7,7 @@ import org.sportApp.repo.TrainingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,7 +32,7 @@ public class TrainingService {
         return savedTraining;
     }
 
-    public Iterable<Training> findAllByUserId(long userId) {
+    public List<Training> findAllByUserId(long userId) {
         return trainingRepository.findAllByUserId(userId);
     }
 
