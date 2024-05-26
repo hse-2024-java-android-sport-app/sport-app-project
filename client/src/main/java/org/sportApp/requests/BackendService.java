@@ -10,7 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import okhttp3.*;
 
 import org.jetbrains.annotations.NotNull;
-import org.sportApp.registration.UserRegistrationDto;
+import org.sportApp.registration.UserDto;
 import org.sportApp.training.ExerciseDto;
 import org.sportApp.training.PlanDto;
 import org.sportApp.training.TrainingDto;
@@ -41,13 +41,13 @@ public class BackendService {
     }
 
     @NonNull
-    public static CompletableFuture<Long> registerUser(UserRegistrationDto userDto) {
+    public static CompletableFuture<Long> registerUser(UserDto userDto) {
         String msg = "Registration failed: no response from server";
         return sendRequestAndHandleResponse(BASE_URL + "/register", userDto, Long.class, msg);
     }
 
     @NonNull
-    public static CompletableFuture<Long> signInUser(UserRegistrationDto userDto) {
+    public static CompletableFuture<Long> signInUser(UserDto userDto) {
         String msg = "Authorization failed: no response from server";
         return sendRequestAndHandleResponse(BASE_URL + "/authorization", userDto, Long.class, msg);
     }
@@ -59,9 +59,9 @@ public class BackendService {
     }
 
     @NonNull
-    public static CompletableFuture<UserRegistrationDto.Kind> getType(Long id) {
+    public static CompletableFuture<UserDto.Kind> getType(Long id) {
         String url = BASE_URL + "/getUserType/" + id;
-        return sendAsyncGetRequest(url, UserRegistrationDto.Kind.class, "Failed to find user's type.");
+        return sendAsyncGetRequest(url, UserDto.Kind.class, "Failed to find user's type.");
     }
 
     @NonNull
@@ -128,10 +128,16 @@ public class BackendService {
     }
 
     @NonNull
-    public static CompletableFuture<Long> addCoach(UserRegistrationDto userDto) {
-        String msg = "Failed finding coach: no response from server";
-        return sendRequestAndHandleResponse(BASE_URL + "/findCoach", userDto, Long.class, msg);
+    public static CompletableFuture<List<UserDto>> searchCoaches(String name) {
+        String url = BASE_URL + "/searchCoaches/" + name;
+        Type type = new TypeToken<List<UserDto>>(){}.getType();
+        return sendAsyncGetRequest(url, type, "Failed to find coaches by name: " + name);
     }
+//    @NonNull
+//    public static CompletableFuture<Long> searchCoaches(String name) {
+//        String msg = "Failed finding coach: no response from server";
+//        return sendRequestAndHandleResponse(BASE_URL + "/findCoach", name, Long.class, msg);
+//    }
 
 
     private static <T> void handleResponse(@NotNull Response response, CompletableFuture<T> future, Type responseClass, ResponseHandler<T> responseHandler) throws IOException {
