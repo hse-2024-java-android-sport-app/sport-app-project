@@ -1,6 +1,5 @@
 package org.sportApp.userInterface.sportsman.ui.account;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,10 +18,12 @@ import androidx.fragment.app.Fragment;
 
 import org.sportApp.userInterface.R;
 
+import java.util.List;
+
 
 public class SearchWindow extends Fragment {
 
-    private EditText editTextSearch;
+    private EditText name;
 
     public SearchWindow() {
     }
@@ -37,13 +38,12 @@ public class SearchWindow extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        editTextSearch = view.findViewById(R.id.editTextSearch);
+        name = view.findViewById(R.id.editTextSearch);
         Button buttonSearch = view.findViewById(R.id.buttonSearch);
         buttonSearch.setOnClickListener(
                 v -> {
-                    UserRegistrationDto userDto = performSearch();
-                    if (userDto != null) {
-                        addCoach(userDto);
+                    if (name != null) {
+                        searchCoaches(name.getText().toString());
                     } else {
                         Toast.makeText(getContext(), "Enter the coach's first name and second name or login", Toast.LENGTH_SHORT).show();
                     }
@@ -51,30 +51,30 @@ public class SearchWindow extends Fragment {
 
     }
 
-    @SuppressLint("SetTextI18n")
-    private UserRegistrationDto performSearch() {
-        String query = editTextSearch.getText().toString().trim();
-        UserRegistrationDto userDto = new UserRegistrationDto();
-        String[] words = query.split("\\s+");
-        if (words.length == 1) {
-            String login = words[0];
-            userDto.setLogin(login);
-        } else if (words.length == 2) {
-            String firstName = words[0];
-            String secondName = words[1];
-            userDto.setFirstName(firstName);
-            userDto.setSecondName(secondName);
-        } else {
-            return null;
-        }
-        return userDto;
-    }
+//    @SuppressLint("SetTextI18n")
+//    private UserRegistrationDto performSearch() {
+//        String query = editTextSearch.getText().toString().trim();
+//        UserRegistrationDto userDto = new UserRegistrationDto();
+//        String[] words = query.split("\\s+");
+//        if (words.length == 1) {
+//            String login = words[0];
+//            userDto.setLogin(login);
+//        } else if (words.length == 2) {
+//            String firstName = words[0];
+//            String secondName = words[1];
+//            userDto.setFirstName(firstName);
+//            userDto.setSecondName(secondName);
+//        } else {
+//            return null;
+//        }
+//        return userDto;
+//    }
 
-    private void addCoach(UserRegistrationDto userDto) {
-        BackendService.addCoach(userDto)
+    private void searchCoaches(String userName) {
+        BackendService.searchCoaches(userName)
                 .thenAccept(resultDto -> {
                     if (resultDto != null) {
-                        // add coach's id to sportsman's information
+                        List<UserRegistrationDto> coaches = resultDto;
                     } else {
                         Toast.makeText(getContext(), "Coach not found", Toast.LENGTH_SHORT).show();
                     }
