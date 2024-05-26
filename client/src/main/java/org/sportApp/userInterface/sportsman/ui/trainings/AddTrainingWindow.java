@@ -17,14 +17,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.sportApp.registration.UserRegistrationDto;
 import org.sportApp.requests.BackendService;
 import org.sportApp.training.ExerciseDto;
 import org.sportApp.training.TrainingDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.sportsman.ui.exercise.AddExerciseWindow;
 import org.sportApp.userInterface.sportsman.ui.exercise.ExerciseWindow;
-import org.sportApp.userInterface.sportsman.ui.exercise.ExercisesAdapter;
+import org.sportApp.userInterface.adapters.ExercisesAdapter;
 import org.sportApp.utils.UserManager;
 
 import java.util.ArrayList;

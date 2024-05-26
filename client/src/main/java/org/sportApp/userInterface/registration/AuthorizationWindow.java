@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.sportApp.registration.UserRegistrationDto;
+import org.sportApp.registration.UserDto;
 import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
 import org.sportApp.utils.UserManager;
@@ -38,18 +38,18 @@ public class AuthorizationWindow extends AppCompatActivity {
             isAllFieldsChecked = CheckAllFields();
             String uName = userName.getText().toString();
             String pass = password.getText().toString();
-            UserRegistrationDto userDto = new UserRegistrationDto();
+            UserDto userDto = new UserDto();
             userDto.setLogin(uName);
             userDto.setPassword(pass);
             if (isAllFieldsChecked) {
-                userDto.setType(UserRegistrationDto.Kind.sportsman);
+                userDto.setType(UserDto.Kind.sportsman);
                 signInUser(userDto)
                         .thenAccept(resultDto -> getType(userDto.getId(), userDto))
                         .exceptionally(e -> {
                             Toast.makeText(AuthorizationWindow.this, "Authorization failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             return null;
                         });
-                if (userDto.getType().equals(UserRegistrationDto.Kind.sportsman)) {
+                if (userDto.getType().equals(UserDto.Kind.sportsman)) {
                     Intent sportsmanIntent = new Intent(AuthorizationWindow.this, org.sportApp.userInterface.sportsman.MainActivity.class);
                     sportsmanIntent.putExtra("userDto", userDto);
                     startActivity(sportsmanIntent);
@@ -91,7 +91,7 @@ public class AuthorizationWindow extends AppCompatActivity {
         return matcher.matches() && !passwordString.contains("\\");
     }
 
-    private CompletableFuture<Void> signInUser(UserRegistrationDto userDto) {
+    private CompletableFuture<Void> signInUser(UserDto userDto) {
         return BackendService.signInUser(userDto)
                 .thenAccept(resultDto -> {
                     userDto.setId(resultDto);
@@ -104,7 +104,7 @@ public class AuthorizationWindow extends AppCompatActivity {
                 });
     }
 
-    private void getType(Long id, UserRegistrationDto userDto){
+    private void getType(Long id, UserDto userDto){
         BackendService.getType(id).thenAccept(resultDto -> {
                     userDto.setType(resultDto);
                     Log.d("UserType", "resultDto: " + resultDto);

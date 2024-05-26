@@ -2,7 +2,6 @@ package org.sportApp.userInterface.sportsman.ui.plans;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +16,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.sportApp.requests.BackendService;
-import org.sportApp.training.TrainingDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.training.PlanDto;
-import org.sportApp.userInterface.sportsman.ui.trainings.AddTrainingWindow;
-import org.sportApp.userInterface.sportsman.ui.trainings.OneTrainingWindow;
-import org.sportApp.utils.UserManager;
+import org.sportApp.userInterface.adapters.PlanAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

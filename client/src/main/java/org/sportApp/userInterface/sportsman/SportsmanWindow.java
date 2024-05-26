@@ -15,7 +15,7 @@ import org.sportApp.requests.BackendService;
 import org.sportApp.training.PlanDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.sportsman.ui.plans.EditPlanWindow;
-import org.sportApp.userInterface.sportsman.ui.plans.PlanAdapter;
+import org.sportApp.userInterface.adapters.PlanAdapter;
 import org.sportApp.userInterface.trainings.AddTrainingWindow;
 
 import java.util.ArrayList;

@@ -8,7 +8,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
-import org.sportApp.registration.UserRegistrationDto;
+import org.sportApp.registration.UserDto;
 import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.coach.MainActivity;
@@ -23,14 +23,14 @@ public class TypeSelectionWindow extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_type);
         Intent intent = getIntent();
-        UserRegistrationDto userDto = (UserRegistrationDto) intent.getSerializableExtra("userDto");
+        UserDto userDto = (UserDto) intent.getSerializableExtra("userDto");
         bSportsman = findViewById(R.id.sportsmanButton);
         bCoach = findViewById(R.id.coachButton);
 
         bSportsman.setOnClickListener(v -> {
             Toast.makeText(TypeSelectionWindow.this, "You are sportsman!", Toast.LENGTH_SHORT).show();
             assert userDto != null;
-            userDto.setType(UserRegistrationDto.Kind.sportsman);
+            userDto.setType(UserDto.Kind.sportsman);
             registerUser(userDto);
             Intent sportsmanIntent = new Intent(TypeSelectionWindow.this, org.sportApp.userInterface.sportsman.MainActivity.class);
             sportsmanIntent.putExtra("userDto", userDto);
@@ -41,7 +41,7 @@ public class TypeSelectionWindow extends AppCompatActivity {
         bCoach.setOnClickListener(v -> {
             Toast.makeText(TypeSelectionWindow.this, "You are coach!", Toast.LENGTH_SHORT).show();
             assert userDto != null;
-            userDto.setType(UserRegistrationDto.Kind.coach);
+            userDto.setType(UserDto.Kind.coach);
             registerUser(userDto);
             Intent coachIntent = new Intent(TypeSelectionWindow.this, MainActivity.class);
             coachIntent.putExtra("userDto", userDto);
@@ -49,7 +49,7 @@ public class TypeSelectionWindow extends AppCompatActivity {
         });
     }
 
-    private void registerUser(UserRegistrationDto userDto) {
+    private void registerUser(UserDto userDto) {
         BackendService.registerUser(userDto)
                 .thenAccept(resultDto -> {
                     userDto.setId(resultDto);
