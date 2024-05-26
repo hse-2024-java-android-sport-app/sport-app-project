@@ -93,6 +93,7 @@
     <string name="_2_choose_a_way_to_create_a_training">2. Choose a way to create a training</string>
     <string name="or">or</string>
     <string name="enter_training_s_name">Enter training\'s name</string>
+    <string name="add_training" />
 
 
 </resources>
