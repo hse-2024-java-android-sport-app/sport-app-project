@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_search"
-        android:name="org.sportApp.userInterface.sportsman.ui.account.SearchWindow"
+        android:name="org.sportApp.userInterface.sportsman.ui.interaction.FindCoach"
         android:label="@string/menu_search"
         tools:layout="@layout/fragment_search" />
 

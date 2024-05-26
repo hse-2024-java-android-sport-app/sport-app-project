@@ -94,6 +94,9 @@
     <string name="or">or</string>
     <string name="enter_training_s_name">Enter training\'s name</string>
     <string name="add_training" />
+    <string name="coach_name">Coach\'s Name</string>
+    <string name="coach_age">Coach\'s age</string>
+    <string name="add_to_friend">+</string>
 
 
 </resources>

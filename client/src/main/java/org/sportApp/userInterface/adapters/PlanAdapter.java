@@ -1,4 +1,4 @@
-package org.sportApp.userInterface.sportsman.ui.plans;
+package org.sportApp.userInterface.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;

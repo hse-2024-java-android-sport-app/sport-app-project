@@ -23,4 +23,13 @@
         android:layout_marginTop="16dp"
         android:text="@string/search" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCoaches"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/buttonSearch"
+        android:paddingTop="10dp"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp" />
+
 </RelativeLayout>
