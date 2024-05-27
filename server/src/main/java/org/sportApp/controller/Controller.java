@@ -120,9 +120,9 @@ public class Controller {
 
     @GetMapping("searchCoaches")
     public @ResponseBody CompletableFuture<ResponseEntity<?>> searchCoaches(@RequestBody String searchString) {
-        List<User> coachesList = userService.searchCoaches(searchString);
+        //TODO filter only coaches
         return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.OK).body(
-                coachesList.stream()
+                userService.searchCoaches(searchString).stream()
                         .map(user -> mapper.map(user, UserRegistrationDto.class))
                         .toList()
         ));
@@ -138,12 +138,6 @@ public class Controller {
                         () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required sportsmanId or coachId doesn't found")));
 
     }
-
-    /** TODO
-     *  isUserExist or isCoachExist
-     *  addCoach
-     *
-     */
 
 
     // TRAINING

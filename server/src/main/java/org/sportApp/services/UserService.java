@@ -64,6 +64,18 @@ public class UserService {
     }
 
     public List<User> searchCoaches(String searchString) {
+        return searchUser(searchString).stream()
+                .filter(u -> u.getType() == User.Kind.coach)
+                .toList();
+    }
+
+    public List<User> searchSportsman(String searchString) {
+        return searchUser(searchString).stream()
+                .filter(u -> u.getType() == User.Kind.sportsman)
+                .toList();
+    }
+
+    private List<User> searchUser(String searchString) {
         Stream<User> result = Stream.empty();
         for (String word : searchString.split("\\s+")) {
             List<User> foundCoaches = userRepository.findAllByFirstNameContainsIgnoreCaseOrSecondNameContainsIgnoreCaseOrLoginContainsIgnoreCase(word, word, word);
@@ -71,6 +83,7 @@ public class UserService {
         }
         return result.toList();
     }
+
     public Optional<Long> editCoach(long sportsmanId, long coachId) {
         Optional<User> sportsman = getUser(sportsmanId).filter(sp -> sp.getType() == User.Kind.sportsman);
         Optional<User> coach = getUser(coachId).filter(sp -> sp.getType() == User.Kind.coach);
