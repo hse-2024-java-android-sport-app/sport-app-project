@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.sportApp.model.User;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.databinding.ActivityMainCoachBinding;
+import org.sportApp.userInterface.sportsman.ui.plans.AllPlansWindow;
 import org.sportApp.userInterface.trainings.AddTrainingWindow;
 
 public class MainActivity extends AppCompatActivity {
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openTrainingWindowCoach(View view) {
-        Intent intent = new Intent(this, AddTrainingWindow.class);
+        Intent intent = new Intent(this, AllPlansWindow.class);
         startActivity(intent);
     }
 }
