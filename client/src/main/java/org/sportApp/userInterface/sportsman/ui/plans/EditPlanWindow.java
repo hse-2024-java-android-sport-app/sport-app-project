@@ -1,89 +1,116 @@
 package org.sportApp.userInterface.sportsman.ui.plans;
 
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.sportApp.requests.BackendService;
+import org.sportApp.training.ExerciseDto;
+import org.sportApp.training.PlanDto;
+import org.sportApp.training.TrainingEventDto;
 import org.sportApp.userInterface.R;
+import org.sportApp.userInterface.sportsman.ui.exercise.AddExerciseWindow;
+import org.sportApp.userInterface.sportsman.ui.trainingEvents.AddTrainingEventWindow;
+import org.sportApp.userInterface.sportsman.ui.trainingEvents.CreatingTypeSelectionWindow;
+import org.sportApp.userInterface.sportsman.ui.trainings.AddTrainingWindow;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class EditPlanWindow extends AppCompatActivity {
-    private LocalDate selectedDate;
-    private CheckBox completedCheckBox;
-
+    private final PlanDto planDto = new PlanDto();
+    private final List<TrainingEventDto> trainings = new ArrayList<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_plan);
+        Button saveChangesButton = findViewById(R.id.buttonSaveChanges);
 
-        Button selectDateButton = findViewById(R.id.datePickerButton);
-        selectDateButton.setOnClickListener(v -> showDatePickerDialog());
+        EditText nameEditText = findViewById(R.id.editTextName);
+        nameEditText.setOnEditorActionListener((textView, actionId, keyEvent) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                String planName = textView.getText().toString().trim();
+                if (!planName.isEmpty()) {
+                    textView.setEnabled(false);
+                    saveChangesButton.requestFocus();
+                    return true;
+                }
+            }
+            return false;
+        });
+        planDto.setName(nameEditText.getText().toString());
+        Log.d("myTag", "planDto name " + planDto.getName());
 
-        Button addExerciseButton = findViewById(R.id.addExerciseButton);
-        addExerciseButton.setOnClickListener(v -> showExerciseSelectionDialog());
-
-        completedCheckBox = findViewById(R.id.completedCheckBox);
-
-        Button deletePlanButton = findViewById(R.id.deletePlanButton);
-        deletePlanButton.setOnClickListener(v -> deletePlan());
-
-        Button saveChangesButton = findViewById(R.id.saveChangesButton);
-        saveChangesButton.setOnClickListener(v -> saveChanges());
+        Button addEvent = findViewById(R.id.buttonAddTraining);
+        addEvent.setOnClickListener(v -> openAddEventWindow());
+        saveChangesButton.setOnClickListener(v -> saveChanges(planDto));
     }
 
-    private void showDatePickerDialog() {
-        final Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                this,
-                (view, year1, monthOfYear, dayOfMonth) -> {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        selectedDate = LocalDate.of(year1, monthOfYear + 1, dayOfMonth);
-                    }
-                    Toast.makeText(EditPlanWindow.this, "Date saved", Toast.LENGTH_SHORT).show();
-                },
-                year, month, day);
-        datePickerDialog.show();
+    private void openAddEventWindow() {
+        Intent intent = new Intent(this, CreatingTypeSelectionWindow.class);
+        addEventLauncher.launch(intent);
     }
 
-    private void showExerciseSelectionDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select Exercise Option")
-                .setItems(R.array.exercise_options, (dialog, which) -> {
-                    switch (which) {
-                        case 0:
-                            Toast.makeText(EditPlanWindow.this, "New Exercise", Toast.LENGTH_SHORT).show();
-                            break;
-                        case 1:
-                            Toast.makeText(EditPlanWindow.this, "Existing Exercise", Toast.LENGTH_SHORT).show();
-                            break;
-                    }
-                });
-        builder.create().show();
+    private final ActivityResultLauncher<Intent> addEventLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == RESULT_OK) {
+            assert result.getData() != null;
+            TrainingEventDto trainingEventDto = (TrainingEventDto) result.getData().getSerializableExtra("trainingEventDto");
+            assert trainingEventDto != null;
+            Log.d("myTag", "training Event Dto " + trainingEventDto.getTrainingDto().toString());
+        }
+    });
+
+    @SuppressLint("NotifyDataSetChanged")
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && data != null) {
+            TrainingEventDto exerciseDto = (TrainingEventDto) data.getSerializableExtra("trainingEventDto");
+            if (exerciseDto != null) {
+                trainings.add(exerciseDto);
+                //adapter.notifyDataSetChanged();
+            }
+        }
     }
 
     private void deletePlan() {
         finish();
     }
 
-    private void saveChanges() {
-        boolean isCompleted = completedCheckBox.isChecked();
-        Toast.makeText(this, "Changes saved!", Toast.LENGTH_SHORT).show();
+    private void saveChanges(PlanDto planDto) {
+        createPlan(planDto);
         Intent resultIntent = new Intent();
-//        resultIntent.putExtra("planDto", planDto);
+        resultIntent.putExtra("planDto", planDto);
 
         setResult(RESULT_OK, resultIntent);
         finish();
+    }
+
+    private void createPlan(PlanDto planDto) {
+        BackendService.createPlan(planDto).thenAccept(resultDto -> {
+            planDto.setPlanId(resultDto);
+            Log.d("myTag", "plan's id: " + resultDto);
+        }).exceptionally(e -> {
+            Log.e("myTag", "Failed to create plan.", e);
+            return null;
+        }).join();
     }
 }
