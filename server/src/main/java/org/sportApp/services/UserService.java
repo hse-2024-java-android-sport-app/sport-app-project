@@ -31,11 +31,10 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public long authorizeUser(String login, String password) {
-        if (userRepository.existsByLoginAndPassword(login, password)) {
-            return userRepository.getByLogin(login).getId();
-        }
-        return notExist;
+    public Optional<User> authorizeUser(String login, String password) {
+        return userRepository
+                .getByLogin(login)
+                .filter(user -> passwordEncoder.matches(password, user.getPassword()));
     }
 
     public boolean existsByLogin(String login) {

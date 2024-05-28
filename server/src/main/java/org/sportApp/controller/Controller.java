@@ -2,11 +2,13 @@ package org.sportApp.controller;
 
 import org.sportApp.entities.*;
 import org.sportApp.services.*;
+import org.sportApp.securingWeb.*;
 import org.sportApp.dto.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import org.modelmapper.*;
 
@@ -68,17 +70,14 @@ public class Controller {
 
     @PostMapping("authorization")
     public @ResponseBody CompletableFuture<ResponseEntity<?>> authorizeUser(@RequestBody UserRegistrationDto userDto) {
-
         if (!userService.existsByLogin(userDto.getLogin())) {
             return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User with this login doesn't exist"));
         }
-
-        long aufUserId = userService.authorizeUser(userDto.getLogin(), userDto.getPassword());
-        CompletableFuture<Long> future = CompletableFuture.supplyAsync(() -> aufUserId);
-        if (aufUserId < 0) {
-            return future.thenApply(result -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User with this password doesn't exist"));
-        }
-        return future.thenApply(result -> ResponseEntity.status(HttpStatus.OK).body(aufUserId));
+        return userService.authorizeUser(userDto.getLogin(), userDto.getPassword())
+                .<CompletableFuture<ResponseEntity<?>>>map(user -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.OK).body(user.getId())))
+                .orElseGet(() -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User with this password doesn't exist")));
     }
 
     @GetMapping("getUserType/{userId}")
