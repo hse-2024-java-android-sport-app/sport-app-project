@@ -11,20 +11,19 @@ public class Training {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long trainId;
-    @OneToMany(mappedBy="training")
+    @OneToMany(mappedBy="training", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Exercise> exercises;
     private long userId;
 
-    public Training(long trainId, List<Exercise> excersises, long userId) {
-        this.trainId = trainId;
-        this.exercises = excersises;
-        this.userId = userId;
-    }
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="eventId")
+    private TrainingEvent event;
+
 
     protected Training() {}
 
     public long getTrainId() {
-        return this.trainId;
+        return trainId;
     }
 
     public void setTrainId(long trainId) {
@@ -32,15 +31,23 @@ public class Training {
     }
 
     public List<Exercise> getExercises() {
-        return this.exercises;
+        return exercises;
     }
 
     public void setExercises(List<Exercise> exercises) {
         this.exercises = exercises;
     }
 
+    public TrainingEvent getEvent() {
+        return event;
+    }
+
+    public void setEvent(TrainingEvent event) {
+        this.event = event;
+    }
+
     public long getUserId() {
-        return this.userId;
+        return userId;
     }
 
     public void setUserId(long userId) {
@@ -49,8 +56,11 @@ public class Training {
 
     @Override
     public String toString() {
-        return String.format(Locale.GERMANY,
-                "Training[id=%d, exercises='%s', userId='%d']",
-                this.trainId, this.exercises, this.userId);
+        return "Training{" +
+                "trainId=" + trainId +
+                ", exercises=" + exercises +
+                ", userId=" + userId +
+                ", event=" + event +
+                '}';
     }
 }

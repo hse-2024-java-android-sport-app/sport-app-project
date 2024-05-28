@@ -11,16 +11,18 @@ public class Exercise {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+    private String name;
     private String description;
     private int repetitions;
-    private Duration duration;
+    private int duration;
     private int sets;
     private String videoUrl;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="trainId", nullable=false)
     private Training training;
 
-    public Exercise(String description, int repetitions, Duration duration, int sets, String videoUrl, Training training) {
+    public Exercise(String name, String description, int repetitions, int duration, int sets, String videoUrl, Training training) {
+        this.name = name;
         this.description = description;
         this.repetitions = repetitions;
         this.duration = duration;
@@ -51,11 +53,11 @@ public class Exercise {
         this.repetitions = repetitions;
     }
 
-    public Duration getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(Duration duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
@@ -83,10 +85,11 @@ public class Exercise {
         this.training = training;
     }
 
-    @Override
-    public String toString() {
-        return String.format(Locale.GERMANY,
-                "Exercise[id=%d, description='%s', repetitions='%d', duration='%s', sets='%d', videoUrl='%s', training='%s']",
-                this.id, this.description, this.repetitions, this.duration, this.sets, this.videoUrl, this.training);
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

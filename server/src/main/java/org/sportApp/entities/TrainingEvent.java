@@ -1,36 +1,43 @@
 package org.sportApp.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import org.sportApp.dto.TrainingDto;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Locale;
 
 @Entity
 @Table(name="TrainingEvents")
 public class TrainingEvent {
     @Id
-    private int id;
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private int eventId;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDate date;
+    private Date date;
     private boolean completed;
-    private int userId;
     private String comment;
-    private long trainId;
+    @OneToOne(mappedBy = "event", cascade = CascadeType.ALL)
+    private Training training;
 
-    protected TrainingEvent() {}
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="planId", nullable=false)
+    private Plan plan;
 
-    public int getId() {
-        return id;
+    public int getEventId() {
+        return eventId;
     }
 
-    public LocalDate getDate() {
+    public void setEventId(int eventId) {
+        this.eventId = eventId;
+    }
+
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -42,14 +49,6 @@ public class TrainingEvent {
         this.completed = completed;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     public String getComment() {
         return comment;
     }
@@ -58,22 +57,31 @@ public class TrainingEvent {
         this.comment = comment;
     }
 
-    public long getTrainId() {
-        return trainId;
+    public Plan getPlan() {
+        return plan;
     }
 
-    public void setTrainId(long trainId) {
-        this.trainId = trainId;
+    public void setPlan(Plan plan) {
+        this.plan = plan;
     }
 
-    public void setTrainId(Training training) {
-        this.trainId = training.getTrainId();
+    public Training getTraining() {
+        return training;
+    }
+
+    public void setTraining(Training training) {
+        this.training = training;
     }
 
     @Override
     public String toString() {
-        return String.format(Locale.GERMANY,
-                "Training[id=%d, date='%s', completed='%b', userId='%d', comment='%s', trainId='%d']",
-                this.trainId, this.date, this.completed, this.userId, this.comment, this.trainId);
+        return "TrainingEvent{" +
+                "eventId=" + eventId +
+                ", date=" + date +
+                ", completed=" + completed +
+                ", comment='" + comment + '\'' +
+                ", training=" + (training==null) +
+                ", planId=" + plan.getPlanId() +
+                '}';
     }
 }

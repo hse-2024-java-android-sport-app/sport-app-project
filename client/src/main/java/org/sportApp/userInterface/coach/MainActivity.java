@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.sportApp.model.User;
 import org.sportApp.userInterface.R;
-import org.sportApp.userInterface.databinding.ActivityMainBinding;
+import org.sportApp.userInterface.databinding.ActivityMainCoachBinding;
 import org.sportApp.userInterface.trainings.AddTrainingWindow;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         mainUser = new User("Admin Adminov", 0);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityMainCoachBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMainCoach.toolbar);
