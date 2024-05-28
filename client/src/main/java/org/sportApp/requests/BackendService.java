@@ -34,10 +34,7 @@ public class BackendService {
     private static Request createPostRequest(String url, String json) {
         MediaType JSON = MediaType.get("application/json; charset=utf-8");
         RequestBody body = RequestBody.create(json, JSON);
-        return new Request.Builder()
-                .url(url)
-                .post(body)
-                .build();
+        return new Request.Builder().url(url).post(body).build();
     }
 
     @NonNull
@@ -67,14 +64,16 @@ public class BackendService {
     @NonNull
     public static CompletableFuture<List<TrainingDto>> getAllTrainings(Long userId) {
         String url = BASE_URL + "/getAllTrainings/" + userId;
-        Type type = new TypeToken<List<TrainingDto>>(){}.getType();
+        Type type = new TypeToken<List<TrainingDto>>() {
+        }.getType();
         return sendAsyncGetRequest(url, type, "Failed to get all trainings.");
     }
 
     @NonNull
     public static CompletableFuture<List<PlanDto>> getAllPlans(Long userId) {
         String url = BASE_URL + "/getAllPlans/" + userId;
-        Type type = new TypeToken<List<PlanDto>>(){}.getType();
+        Type type = new TypeToken<List<PlanDto>>() {
+        }.getType();
         return sendAsyncGetRequest(url, type, "Failed to get all trainings.");
     }
 
@@ -94,7 +93,6 @@ public class BackendService {
 //        });
 //        return future;
 //    }
-
 
 
     @NonNull
@@ -130,7 +128,8 @@ public class BackendService {
     @NonNull
     public static CompletableFuture<List<UserDto>> searchCoaches(String name) {
         String url = BASE_URL + "/searchCoaches/" + name;
-        Type type = new TypeToken<List<UserDto>>(){}.getType();
+        Type type = new TypeToken<List<UserDto>>() {
+        }.getType();
         return sendAsyncGetRequest(url, type, "Failed to find coaches by name: " + name);
     }
 //    @NonNull
@@ -143,18 +142,25 @@ public class BackendService {
     private static <T> void handleResponse(@NotNull Response response, CompletableFuture<T> future, Type responseClass, ResponseHandler<T> responseHandler) throws IOException {
         Log.d("BackendService", "handleResponse");
         if (!response.isSuccessful()) {
-            future.completeExceptionally(new IOException("The request wasn't successful: " +
-                    response.code() + " " + response.message()));
+            future.completeExceptionally(new IOException("The request wasn't successful: " + response.code() + " " + response.message()));
             return;
         }
-        assert response.body() != null;
-        String responseBody = response.body().string();
-        Log.d("BackendService", "Response body in handleResponse: " + responseBody);
-        T result = gson.fromJson(responseBody, responseClass);
-        responseHandler.handleResponse(response, result);
-        future.complete(result);
-        Log.d("BackendService", "Future completed with result " + result);
+        try (ResponseBody responseBody = response.body()) {
+            if (responseBody == null) {
+                future.completeExceptionally(new IOException("Response body is null"));
+                return;
+            }
+            String responseBodyString = responseBody.string();
+            Log.d("BackendService", "Response body in handleResponse: " + responseBodyString);
+            T result = gson.fromJson(responseBodyString, responseClass);
+            responseHandler.handleResponse(response, result);
+            future.complete(result);
+            Log.d("BackendService", "Future completed with result " + result);
+        } catch (IOException e) {
+            future.completeExceptionally(e);
+        }
     }
+
 
     @NonNull
     public static <T> CompletableFuture<T> sendRequestAndHandleResponse(String url, Object dto, Class<T> responseType, String msg) {
@@ -175,8 +181,7 @@ public class BackendService {
                     future.completeExceptionally(new IOException(msg));
                 }
             });
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Log.d("Exception", e.getMessage());
         }
         return future;
