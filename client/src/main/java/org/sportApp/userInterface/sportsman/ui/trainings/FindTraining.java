@@ -66,10 +66,15 @@ public class FindTraining extends AppCompatActivity {
 
 
     private void saveTraining() {
-        TrainingDto trainingDto = trainings.get(finalPosition);
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra("trainingDto", trainingDto);
-        Toast.makeText(this, "Your training saved!", Toast.LENGTH_SHORT).show();
-        Log.d("myTag", "user's id in training " + trainingDto.getUserId());
+        if (finalPosition >= 0 && finalPosition < trainings.size()) {
+            TrainingDto trainingDto = trainings.get(finalPosition);
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("trainingDto", trainingDto);
+            setResult(RESULT_OK, resultIntent);
+            Toast.makeText(this, "Your training saved!", Toast.LENGTH_SHORT).show();
+            Log.d("myTag", "user's id in training " + trainingDto.getUserId());
+        } else {
+            Toast.makeText(this, "No training selected", Toast.LENGTH_SHORT).show();
+        }
     }
 }

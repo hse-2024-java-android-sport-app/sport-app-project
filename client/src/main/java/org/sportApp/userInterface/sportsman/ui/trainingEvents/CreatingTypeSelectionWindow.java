@@ -16,10 +16,12 @@ import android.widget.Toast;
 
 import org.sportApp.requests.BackendService;
 import org.sportApp.training.ExerciseDto;
+import org.sportApp.training.PlanDto;
 import org.sportApp.training.TrainingDto;
 import org.sportApp.training.TrainingEventDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.sportsman.ui.exercise.AddExerciseWindow;
+import org.sportApp.userInterface.sportsman.ui.plans.EditPlanWindow;
 import org.sportApp.userInterface.sportsman.ui.trainings.AddTrainingWindow;
 import org.sportApp.userInterface.sportsman.ui.trainings.FindTraining;
 import org.sportApp.utils.UserManager;
@@ -32,7 +34,6 @@ import java.util.concurrent.CompletableFuture;
 
 public class CreatingTypeSelectionWindow extends AppCompatActivity {
     private TrainingEventDto trainingEventDto;
-    private Long planId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         trainingEventDto = new TrainingEventDto();
@@ -44,7 +45,7 @@ public class CreatingTypeSelectionWindow extends AppCompatActivity {
 
         DatePicker datePicker = findViewById(R.id.datePicker);
 
-        trainingEventDto.setDate(getSelectedDate(datePicker));
+        //trainingEventDto.setDate(getSelectedDate(datePicker));
 
         createEvent.setOnClickListener(v -> {
             Log.d("myTag", "create Event");
@@ -56,8 +57,21 @@ public class CreatingTypeSelectionWindow extends AppCompatActivity {
         });
 
         Button saveChanges = findViewById(R.id.saveChanges);
-        saveChanges.setOnClickListener(v -> saveTrainingEvent());
+        saveChanges.setOnClickListener(v -> {
+            if (trainingEventDto.getTrainingDto() != null) {
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("trainingEventDto", trainingEventDto);
+                //Log.d("myTag", "Returning TrainingEventDto: " + trainingEventDto.getDate().toString());
+                setResult(RESULT_OK, resultIntent);
+                finish();
+            } else {
+                Log.d("myTag", "trainingDto is null, cannot return");
+                Toast.makeText(this, "Please select a training", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
+
     @NonNull
     private Date getSelectedDate(@NonNull DatePicker datePicker) {
         int year = datePicker.getYear();
@@ -70,43 +84,16 @@ public class CreatingTypeSelectionWindow extends AppCompatActivity {
 
     private void openAddTrainingWindow() {
         Intent intent = new Intent(this, FindTraining.class);
-        addTrainingLauncher.launch(intent);
+        addEventLauncher.launch(intent);
     }
 
-    private final ActivityResultLauncher<Intent> addTrainingLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+    private final ActivityResultLauncher<Intent> addEventLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == RESULT_OK) {
             assert result.getData() != null;
             TrainingDto trainingDto = (TrainingDto) result.getData().getSerializableExtra("trainingDto");
             assert trainingDto != null;
             Log.d("myTag", "TrainingDto: " + trainingDto);
+            trainingEventDto.setTrainingDto(trainingDto);
         }
     });
-
-    @SuppressLint("NotifyDataSetChanged")
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && data != null) {
-            TrainingDto trainingDto = (TrainingDto) data.getSerializableExtra("trainingDto");
-            if (trainingDto != null) {
-                trainingEventDto.setTrainingDto(trainingDto);
-            }
-        }
-    }
-
-    private void saveTrainingEvent() {
-        createTrainingEvent(trainingEventDto);
-        Toast.makeText(this, "Your training event saved!", Toast.LENGTH_SHORT).show();
-        Log.d("myTag", "user's id in training " + trainingEventDto);
-    }
-
-    private void createTrainingEvent(TrainingEventDto trainingEventDto) {
-        BackendService.addEvent(trainingEventDto, planId).thenAccept(resultDto -> {
-            trainingEventDto.setEventId(resultDto);
-            Log.d("myTag", "training event's id: " + resultDto);
-        }).exceptionally(e -> {
-            Log.e("myTag", "Failed to create training or exercises.", e);
-            return null;
-        }).join();
-    }
 }

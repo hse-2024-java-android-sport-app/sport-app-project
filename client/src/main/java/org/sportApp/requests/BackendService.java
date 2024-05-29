@@ -121,6 +121,12 @@ public class BackendService {
     }
 
     @NonNull
+    public static CompletableFuture<Long> addEventByPlan(TrainingEventDto eventDto, Long planId) {
+        String msg = "Saving exercise failed: no response from server";
+        return sendRequestAndHandleResponse(BASE_URL + "/addEvent/" + planId, eventDto, Long.class, msg);
+    }
+
+    @NonNull
     public static CompletableFuture<Long> addEvent(TrainingEventDto trainingEventDto, Long planId) {
         String msg = "Failed adding Event: no response from server";
         return sendRequestAndHandleResponse(BASE_URL + "/addEvent/" + planId, trainingEventDto, Long.class, msg);
