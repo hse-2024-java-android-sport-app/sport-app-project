@@ -2,6 +2,7 @@ package org.sportApp.userInterface.sportsman.ui.plans;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
 import org.sportApp.training.PlanDto;
 import org.sportApp.userInterface.adapters.PlanAdapter;
+import org.sportApp.utils.UserManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +71,8 @@ public class AllPlansWindow extends Fragment {
             }
         });
         ImageButton add = view.findViewById(R.id.addTrainingButton);
+        PlanDto planDto = new PlanDto();
+        planDto.setSportsmanId(UserManager.getInstance().getUserId());
         add.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), EditPlanWindow.class);
             startActivity(intent);

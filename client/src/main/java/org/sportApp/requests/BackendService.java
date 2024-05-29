@@ -14,6 +14,7 @@ import org.sportApp.registration.UserDto;
 import org.sportApp.training.ExerciseDto;
 import org.sportApp.training.PlanDto;
 import org.sportApp.training.TrainingDto;
+import org.sportApp.training.TrainingEventDto;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -98,7 +99,7 @@ public class BackendService {
     @NonNull
     public static CompletableFuture<Long> createPlan(@NonNull PlanDto planDto) {
         String msg = "Failed to add training to plan: no response from server";
-        return sendRequestAndHandleResponse(BASE_URL + "/create-plan", planDto, Long.class, msg);
+        return sendRequestAndHandleResponse(BASE_URL + "/createPlan", planDto, Long.class, msg);
     }
 
     @NonNull
@@ -120,9 +121,9 @@ public class BackendService {
     }
 
     @NonNull
-    public static CompletableFuture<Long> addExercise(ExerciseDto exerciseDto) {
-        String msg = "Failed adding exercise: no response from server";
-        return sendRequestAndHandleResponse(BASE_URL + "/register", exerciseDto, Long.class, msg);
+    public static CompletableFuture<Long> addEvent(TrainingEventDto trainingEventDto, Long planId) {
+        String msg = "Failed adding Event: no response from server";
+        return sendRequestAndHandleResponse(BASE_URL + "/addEvent/" + planId, trainingEventDto, Long.class, msg);
     }
 
     @NonNull
