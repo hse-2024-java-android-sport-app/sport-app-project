@@ -63,15 +63,15 @@ public class BackendService {
     }
 
     @NonNull
-    public static CompletableFuture<UserRegistrationDto> getUserById(Long id) {
+    public static CompletableFuture<UserDto> getUserById(Long id) {
         String url = BASE_URL + "/getUserById/" + id;
-        return sendAsyncGetRequest(url, UserRegistrationDto.class, "Failed to find user by id.");
+        return sendAsyncGetRequest(url, UserDto.class, "Failed to find user by id.");
     }
 
     @NonNull
-    public static CompletableFuture<List<UserRegistrationDto>> getSportsmenByCoachId(Long id) {
+    public static CompletableFuture<List<UserDto>> getSportsmenByCoachId(Long id) {
         String url = BASE_URL + "/getSportsmenByCoachId/" + id;
-        Type type = new TypeToken<List<UserRegistrationDto>>(){}.getType();
+        Type type = new TypeToken<List<UserDto>>(){}.getType();
         return sendAsyncGetRequest(url, type, "Failed to get sportsmen list by coach id.");
     }
 
