@@ -3,16 +3,18 @@ package org.sportApp.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import org.sportApp.registration.UserDto;
+
 public class UserManager {
-    private static UserManager instance;
+    private static UserDto instance;
     private Long userId = (long) -1;
 
     private UserManager() {
     }
 
-    public static synchronized UserManager getInstance() {
+    public static synchronized UserDto getInstance() {
         if (instance == null) {
-            instance = new UserManager();
+            instance = new UserDto();
         }
         return instance;
     }

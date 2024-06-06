@@ -28,7 +28,7 @@ public class FindTraining extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_training);
         RecyclerView recyclerView = findViewById(R.id.trainingRecyclerView);
-        getAllTrainings(UserManager.getInstance().getUserId());
+        getAllTrainings(UserManager.getInstance().getId());
         currentAdapter = new FindTrainingAdapter(trainings, new FindTrainingAdapter.OnItemClickListener() {
             @Override
             public void onItemLongClick(int position) {
