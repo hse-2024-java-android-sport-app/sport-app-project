@@ -75,7 +75,23 @@ public class BackendService {
         String url = BASE_URL + "/getAllPlans/" + userId;
         Type type = new TypeToken<List<PlanDto>>() {
         }.getType();
-        return sendAsyncGetRequest(url, type, "Failed to get all trainings.");
+        return sendAsyncGetRequest(url, type, "Failed to get all planfs.");
+    }
+
+    @NonNull
+    public static CompletableFuture<List<UserDto>> getSubscribers(Long userId) {
+        String url = BASE_URL + "/getSubscribers/" + userId;
+        Type type = new TypeToken<List<UserDto>>() {
+        }.getType();
+        return sendAsyncGetRequest(url, type, "Failed to get subscribers.");
+    }
+
+    @NonNull
+    public static CompletableFuture<List<UserDto>> getFollowings(Long userId) {
+        String url = BASE_URL + "/getFollowings/" + userId;
+        Type type = new TypeToken<List<UserDto>>() {
+        }.getType();
+        return sendAsyncGetRequest(url, type, "Failed to get followings.");
     }
 
 //    @NonNull
