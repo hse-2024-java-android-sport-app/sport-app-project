@@ -1,28 +1,37 @@
 package org.sportApp.services;
 
+import org.sportApp.entities.Subscriber;
 import org.sportApp.entities.User;
+import org.sportApp.repo.SubscriberRepository;
 import org.sportApp.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+    private final SubscriberRepository subscriberRepository;
     private final PasswordEncoder passwordEncoder;
     private final long notExist = -1;
 
     @Autowired
-    public UserService (UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService (UserRepository userRepository, SubscriberRepository subscriberRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.subscriberRepository = subscriberRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -94,5 +103,35 @@ public class UserService {
             return Optional.of(userRepository.save(sportsman.get()).getId());
         }
         return Optional.empty();
+    }
+
+    public boolean addSubscription(long userId, long followToId) {
+        Optional<User> user = getUser(userId);
+        Optional<User> followToUser = getUser(followToId);
+        if (user.isPresent() && followToUser.isPresent()) {
+            Subscriber subscriber = new Subscriber();
+            subscriber.setFollower(user.get());
+            subscriber.setMainUser(followToUser.get());
+            subscriberRepository.save(subscriber);
+            return true;
+        }
+        return false;
+    }
+
+    public List<User> getFollowers(long userId) {
+        return getSubscribersByUser(userId, User::getFollowers, Subscriber::getFollower);
+    }
+
+    public List<User> getSubscriptions(long userId) {
+        return getSubscribersByUser(userId, User::getSubscriptions, Subscriber::getMainUser);
+    }
+
+    private List<User> getSubscribersByUser(long userId, Function<User, List<Subscriber>> mapper, Function<Subscriber, User> convert) {
+        return userRepository.findById(userId)
+                .map(user -> mapper.apply(user)
+                        .stream()
+                        .map(convert)
+                        .toList())
+                .orElseGet(List::of);
     }
 }

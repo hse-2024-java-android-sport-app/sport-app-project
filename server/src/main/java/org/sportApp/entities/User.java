@@ -23,22 +23,6 @@ public class User {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateOfBirth;
 
-    public User getCoach() {
-        return coach;
-    }
-
-    public void setCoach(User coach) {
-        this.coach = coach;
-    }
-
-    public List<User> getSportsmen() {
-        return sportsmen;
-    }
-
-    public void setSportsmen(List<User> sportsmen) {
-        this.sportsmen = sportsmen;
-    }
-
     public enum Kind {sportsman, coach}
     @Enumerated(EnumType.STRING)
     private Kind type;
@@ -49,6 +33,13 @@ public class User {
 
     @OneToMany(mappedBy = "coach", cascade = CascadeType.ALL)
     private List<User> sportsmen = new ArrayList<>();
+
+    @OneToMany(mappedBy = "mainUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Subscriber> followers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Subscriber> subscriptions = new ArrayList<>();
+
 
     protected User() {}
 
@@ -111,5 +102,37 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public User getCoach() {
+        return coach;
+    }
+
+    public void setCoach(User coach) {
+        this.coach = coach;
+    }
+
+    public List<User> getSportsmen() {
+        return sportsmen;
+    }
+
+    public void setSportsmen(List<User> sportsmen) {
+        this.sportsmen = sportsmen;
+    }
+
+    public List<Subscriber> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<Subscriber> followers) {
+        this.followers = followers;
+    }
+
+    public List<Subscriber> getSubscriptions() {
+        return subscriptions;
+    }
+
+    public void setSubscriptions(List<Subscriber> subscriptions) {
+        this.subscriptions = subscriptions;
     }
 }

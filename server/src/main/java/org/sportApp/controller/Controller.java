@@ -2,18 +2,14 @@ package org.sportApp.controller;
 
 import org.sportApp.entities.*;
 import org.sportApp.services.*;
-import org.sportApp.securingWeb.*;
 import org.sportApp.dto.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import org.modelmapper.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -54,7 +50,7 @@ public class Controller {
 
     @PostMapping("register")
     public @ResponseBody
-    CompletableFuture<ResponseEntity<?>> registerUser(@RequestBody UserRegistrationDto userDto) {
+    CompletableFuture<ResponseEntity<?>> registerUser(@RequestBody UserDto userDto) {
         User user = this.mapper.map(userDto, User.class);
         if (userService.existsByLogin(user.getLogin())) {
             return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.CONFLICT).body("User with this login already exists"));
@@ -69,7 +65,7 @@ public class Controller {
     }
 
     @PostMapping("authorization")
-    public @ResponseBody CompletableFuture<ResponseEntity<?>> authorizeUser(@RequestBody UserRegistrationDto userDto) {
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> authorizeUser(@RequestBody UserDto userDto) {
         if (!userService.existsByLogin(userDto.getLogin())) {
             return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User with this login doesn't exist"));
         }
@@ -102,7 +98,7 @@ public class Controller {
     public @ResponseBody CompletableFuture<ResponseEntity<?>> getSportsmenByCoachId(@PathVariable(value = "coachId") long coachId) {
         return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.OK).body(
                 userService.getAllSportsmenByCoachId(coachId).stream()
-                        .map(user -> mapper.map(user, UserRegistrationDto.class))
+                        .map(user -> mapper.map(user, UserDto.class))
                         .toList()
         ));
     }
@@ -122,14 +118,13 @@ public class Controller {
         //TODO filter only coaches
         return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.OK).body(
                 userService.searchCoaches(searchString).stream()
-                        .map(user -> mapper.map(user, UserRegistrationDto.class))
+                        .map(user -> mapper.map(user, UserDto.class))
                         .toList()
         ));
     }
 
     @PostMapping("editCoach/{sportsmanId}")
     public @ResponseBody CompletableFuture<ResponseEntity<?>> editCoach(@PathVariable(value = "sportsmanId") long sportsmanId, @RequestBody String coachId) {
-        System.out.println("sportsmanId=" + sportsmanId + " coachId=" + coachId);
         return userService.editCoach(sportsmanId, Long.parseLong(coachId))
                 .<CompletableFuture<ResponseEntity<?>>>map(userId -> CompletableFuture.supplyAsync(
                         () -> ResponseEntity.status(HttpStatus.OK).body(userId)))
@@ -137,6 +132,39 @@ public class Controller {
                         () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required sportsmanId or coachId doesn't found")));
 
     }
+
+
+    // FOLLOWERS
+    @PostMapping("addSubscription/{userId}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> addSubscription(@PathVariable(value = "userId") long userId, @RequestBody long followToId) {
+        if (userService.addSubscription(userId, followToId)) {
+            return CompletableFuture.supplyAsync(() ->
+                    ResponseEntity.status(HttpStatus.OK).body("Successfully add subscription"));
+        }
+        return CompletableFuture.supplyAsync(() ->
+                ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required userId or followToId doesn't found"));
+    }
+
+    @GetMapping("getFollowings/{userId}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> getFollowings(@PathVariable(value = "userId") long userId) {
+        if (userService.notExistsById(userId)) {
+            return CompletableFuture.supplyAsync(() ->
+                    ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required userId doesn't found"));
+        }
+        return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.OK).body(
+                userService.getFollowers(userId).stream()
+                        .map(user -> mapper.map(user, UserDto.class))
+                        .toList()));
+    }
+
+    @GetMapping("getSubscriptions/{userId}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> getSubscriptions(@PathVariable(value = "userId") long userId) {
+        return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.OK).body(
+                userService.getSubscriptions(userId).stream()
+                        .map(user -> mapper.map(user, UserDto.class))
+                        .toList()));
+    }
+
 
 
     // TRAINING

@@ -42,31 +42,9 @@ public class WebSecurityConfig  {
     private String[] getOpenedResources() {
         return new String[]{
                 "/sport_app/register",
-                "/sport_app/authorization",
                 "/sport_app/isLoginExist/**"
         };
     }
-//
-//    @Bean
-//    public DaoAuthenticationProvider authenticationProvider() {
-//        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-//        provider.setUserDetailsService(userDetailsServiceImp);
-//        provider.setPasswordEncoder(passwordEncoder());
-//        return provider;
-//    }
-//
-//    @Bean
-//    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-//        return http.getSharedObject(AuthenticationManagerBuilder.class)
-//                .authenticationProvider(authenticationProvider())
-//                .build();
-//    }
-//
-//    @Bean
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userDetailsServiceImp);
-//    }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {
