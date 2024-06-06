@@ -43,7 +43,7 @@ public class AllPlansWindow extends Fragment {
             getAllPlans(UserManager.getInstance().getId());
         }
         else {
-            //getAllPlans(UserManager.getInstance().getLastId());
+            getAllPlans(UserManager.getLastUser().getId());
         }
         RecyclerView currentPlanRecyclerView = view.findViewById(R.id.currentPlanRecyclerView);
 //        List<PlanDto> currentPlans = plans.stream()

@@ -48,6 +48,10 @@ public class UserDto implements Serializable {
         this.secondName = secondName;
     }
 
+    public String getFullName() {
+        return getFirstName() + " " + getSecondName();
+    }
+
     public String getLogin() {
         return login;
     }

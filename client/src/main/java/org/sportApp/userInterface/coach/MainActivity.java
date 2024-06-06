@@ -1,6 +1,5 @@
 package org.sportApp.userInterface.coach;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -10,27 +9,20 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.sportApp.model.User;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.databinding.ActivityMainCoachBinding;
-import org.sportApp.userInterface.sportsman.ui.plans.AllPlansWindow;
-import org.sportApp.userInterface.trainings.AddTrainingWindow;
 
 public class MainActivity extends AppCompatActivity {
-    public static User mainUser;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainCoachBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mainUser = new User("Admin Adminov", 0);
 
         binding = ActivityMainCoachBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

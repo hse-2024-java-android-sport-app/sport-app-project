@@ -14,20 +14,16 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
-import org.sportApp.model.User;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.databinding.ActivityMainSportsmanBinding;
 
 public class MainActivity extends AppCompatActivity {
-    public static User mainUser;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainSportsmanBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mainUser = new User("Admin Adminov", 0);
 
         binding = ActivityMainSportsmanBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

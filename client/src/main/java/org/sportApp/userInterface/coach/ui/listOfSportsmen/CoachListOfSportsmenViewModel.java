@@ -1,21 +1,16 @@
 package org.sportApp.userInterface.coach.ui.listOfSportsmen;
 
-import android.view.ViewGroup;
-
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.recyclerview.widget.RecyclerView;
 
-import org.sportApp.model.User;
+import org.sportApp.registration.UserDto;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 public class CoachListOfSportsmenViewModel extends ViewModel {
-    private final ArrayList<User> userList;
+    private final ArrayList<UserDto> userList;
     private MutableLiveData<UserAdapter> mUserAdapter;
     private final static ArrayList<String> nameExamples =
             new ArrayList<>(Arrays.asList("Arina", "Diana", "Misha", "James", "Mary"));
@@ -26,8 +21,12 @@ public class CoachListOfSportsmenViewModel extends ViewModel {
         userList = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < 50; ++i) {
-            userList.add(new User(nameExamples.get(random.nextInt(nameExamples.size()))
-                    + " " + surnameExamples.get(random.nextInt(surnameExamples.size())), 1));
+            UserDto user = new UserDto();
+            user.setFirstName(nameExamples.get(random.nextInt(nameExamples.size())));
+            user.setSecondName(surnameExamples.get(random.nextInt(surnameExamples.size())));
+            user.setType(UserDto.Kind.sportsman);
+            user.setId((long) (i + 1));
+            userList.add(user);
         }
     }
 
@@ -36,7 +35,7 @@ public class CoachListOfSportsmenViewModel extends ViewModel {
         mUserAdapter.setValue(new UserAdapter(context, userList));
     }
 
-    public ArrayList<User> getUserList() {
+    public ArrayList<UserDto> getUserList() {
         return userList;
     }
 

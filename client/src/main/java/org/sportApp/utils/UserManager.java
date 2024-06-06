@@ -8,6 +8,7 @@ import org.sportApp.registration.UserDto;
 public class UserManager {
     private static UserDto instance;
     private Long userId = (long) -1;
+    private static UserDto lastUser;
 
     private UserManager() {
     }
@@ -17,6 +18,14 @@ public class UserManager {
             instance = new UserDto();
         }
         return instance;
+    }
+
+    public static void setLastUser(UserDto user) {
+        lastUser = user;
+    }
+
+    public static UserDto getLastUser() {
+        return lastUser;
     }
 
     public void setUserId(Long userId) {

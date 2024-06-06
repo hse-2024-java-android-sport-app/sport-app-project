@@ -10,18 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.sportApp.model.User;
+import org.sportApp.registration.UserDto;
 import org.sportApp.userInterface.R;
-import org.sportApp.userInterface.coach.ui.account.AccountViewModel;
+import org.sportApp.utils.UserManager;
 
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public static NavController navController;
-    private List<User> userList;
+    private List<UserDto> userList;
     private Context context;
 
-    public UserAdapter(Context context, List<User> userList) {
+    public UserAdapter(Context context, List<UserDto> userList) {
         this.userList = userList;
         this.context = context;
     }
@@ -35,8 +35,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull UserAdapter.ViewHolder holder, int position) {
-        User user = userList.get(position);
-        holder.nameTextView.setText(user.getName());
+        UserDto user = userList.get(position);
+        holder.nameTextView.setText(user.getFullName());
         holder.user = user;
     }
 
@@ -47,7 +47,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTextView;
-        public User user;
+        public UserDto user;
 
         public ViewHolder(View itemView, Context context) {
             super(itemView);
@@ -73,7 +73,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             nameTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AccountViewModel.lastOpenedAccount = user;
+                    //AccountViewModel.lastOpenedAccount = user;
+                    UserManager.setLastUser(user);
                     navController.navigate(R.id.nav_account);
                 }
             });
