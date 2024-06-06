@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:background="@drawable/completed_item_background">
+    android:background="@drawable/one_training_background"
+    android:gravity="center_horizontal">
 
     <TextView
         android:id="@+id/planNameTextView"
@@ -13,10 +13,38 @@
         android:text="@string/plan_title"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textAlignment="center"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="30dp"
-        android:paddingBottom="30dp"/>
+        android:textColor="@color/violet"
+        android:gravity="center"
+        android:padding="8dp" />
+
+    <TextView
+        android:id="@+id/numberOfEvents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/total_number_of_training_events"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        android:textColor="@android:color/black"
+        android:padding="8dp" />
+
+    <TextView
+        android:id="@+id/firstDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/first_training_event"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        android:textColor="@android:color/black"
+        android:padding="8dp" />
+
+    <TextView
+        android:id="@+id/lastDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/last_training_event"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        android:textColor="@android:color/black"
+        android:padding="8dp" />
 
 </LinearLayout>

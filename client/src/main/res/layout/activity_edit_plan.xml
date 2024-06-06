@@ -1,63 +1,79 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/dialogTitle"
+        android:id="@+id/textViewEnterName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/create_training"
-        android:textSize="20sp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/plan_name"
+        android:textColor="@color/violet"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewEnterName"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:autofillHints=""
+        android:hint="@string/enter_plan_name"
+        android:inputType="text" /> />
+
+    <TextView
+        android:id="@+id/textViewAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextName"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="37dp"
+        android:textColor="@color/violet"
+        android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp" />
+        android:text="@string/create_training_event" />
 
     <Button
-        android:id="@+id/datePickerButton"
+        android:id="@+id/buttonAddTraining"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/select_plan_date"
-        android:layout_below="@id/dialogTitle"
-        android:layout_centerHorizontal="true"
+        android:layout_below="@id/textViewAdd"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="135dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="135dp"
+        android:text="@string/add"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/violet"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/trainingEventRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonAddTraining"
         android:layout_marginTop="16dp" />
 
     <Button
-        android:id="@+id/addExerciseButton"
+        android:id="@+id/buttonSaveChanges"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add_exercise"
-        android:layout_below="@id/datePickerButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
-
-    <!-- Completed CheckBox -->
-    <CheckBox
-        android:id="@+id/completedCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/completed"
-        android:layout_below="@id/addExerciseButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
-
-    <Button
-        android:id="@+id/deletePlanButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/delete_plan"
-        android:layout_below="@id/completedCheckBox"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
-
-    <Button
-        android:id="@+id/saveChangesButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_below="@id/trainingEventRecyclerView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="135dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="135dp"
+        android:backgroundTint="@color/violet"
         android:text="@string/save_changes"
-        android:layout_below="@id/deletePlanButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        android:textColor="@color/white" />
 
 </RelativeLayout>

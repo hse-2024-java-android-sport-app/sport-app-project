@@ -38,9 +38,8 @@ public class AddTrainingWindow extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_training);
 
+        super.onCreate(savedInstanceState);
         RecyclerView currentTrainingRecyclerView = findViewById(R.id.addTrainingsRecyclerView);
         adapter = new ExercisesAdapter(exercises, new BaseAdapter.OnItemClickListener<ExerciseDto>() {
             @Override
@@ -60,7 +59,7 @@ public class AddTrainingWindow extends AppCompatActivity {
         addButton.setOnClickListener(v -> openAddExerciseWindow());
 
         Button saveTrainingButton = findViewById(R.id.saveTrainingButton);
-        saveTrainingButton.setOnClickListener(v -> saveTrainingEvent());
+        saveTrainingButton.setOnClickListener(v -> saveTraining());
 
         EditText trainingNameEditText = findViewById(R.id.trainingNameEditText);
 
@@ -114,7 +113,7 @@ public class AddTrainingWindow extends AppCompatActivity {
         }
     }
 
-    private void saveTrainingEvent() {
+    private void saveTraining() {
         TrainingDto trainingDto = new TrainingDto();
         trainingDto.setExercises(exercises);
         trainingDto.setUserId(UserManager.getInstance().getUserId());
@@ -136,9 +135,7 @@ public class AddTrainingWindow extends AppCompatActivity {
                     }
                     return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
                 })
-                .thenAccept(voidResult -> {
-                    Log.d("myTag", "All exercises added successfully.");
-                })
+                .thenAccept(voidResult -> Log.d("myTag", "All exercises added successfully."))
                 .exceptionally(e -> {
                     Log.e("myTag", "Failed to create training or exercises.", e);
                     return null;

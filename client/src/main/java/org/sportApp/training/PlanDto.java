@@ -10,7 +10,7 @@ import java.util.List;
 public class PlanDto implements Serializable {
     private long planId;
     private String name;
-    private final List<TrainingEventDto> trainings = new ArrayList<>();
+    private List<TrainingEventDto> trainings = new ArrayList<>();
     private long coachId;
     private long sportsmanId;
 
@@ -75,6 +75,10 @@ public class PlanDto implements Serializable {
 
     public void setSportsmanId(long sportsmanId) {
         this.sportsmanId = sportsmanId;
+    }
+
+    public void setTrainings(List<TrainingEventDto> trainings) {
+        this.trainings = trainings;
     }
 
 }

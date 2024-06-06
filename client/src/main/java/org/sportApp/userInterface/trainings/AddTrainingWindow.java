@@ -28,16 +28,16 @@ public class AddTrainingWindow extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_event_training);
+        setContentView(R.layout.activity_create_event);
 
-        Button selectDateButton = findViewById(R.id.datePickerButton);
-        selectDateButton.setOnClickListener(v -> showDatePickerDialog());
-
-        Button addExerciseButton = findViewById(R.id.addExerciseButton);
-        addExerciseButton.setOnClickListener(v -> showExerciseSelectionDialog());
-
-        Button saveTrainingButton = findViewById(R.id.saveTrainingButton);
-        saveTrainingButton.setOnClickListener(v -> saveTrainingEvent());
+//        Button selectDateButton = findViewById(R.id.datePickerButton);
+//        selectDateButton.setOnClickListener(v -> showDatePickerDialog());
+//
+//        Button addExerciseButton = findViewById(R.id.addExerciseButton);
+//        addExerciseButton.setOnClickListener(v -> showExerciseSelectionDialog());
+//
+//        Button saveTrainingButton = findViewById(R.id.saveTrainingButton);
+//        saveTrainingButton.setOnClickListener(v -> saveTrainingEvent());
     }
 
     private void showDatePickerDialog() {
