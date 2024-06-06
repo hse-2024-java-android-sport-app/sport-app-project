@@ -64,7 +64,7 @@ public class EditPlanWindow extends AppCompatActivity {
             addEventLauncher.launch(intent);
         });
         saveChangesButton.setOnClickListener(v -> {
-            planDto.setSportsmanId(UserManager.getInstance().getUserId());
+            planDto.setSportsmanId(UserManager.getInstance().getId());
             planDto.setName(nameEditText.getText().toString());
             saveChanges(planDto);
         });

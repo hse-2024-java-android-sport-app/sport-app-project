@@ -37,7 +37,7 @@ public class BirthDateWindow extends AppCompatActivity {
                 Intent intent = getIntent();
                 UserDto userDto = (UserDto) intent.getSerializableExtra("userDto");
                 assert userDto != null;
-                userDto.setDateOfBirth(selectedCalendar.getTime());
+                //userDto.setDateOfBirth(selectedCalendar.getTime());
                 Intent nextIntent = new Intent(BirthDateWindow.this, TypeSelectionWindow.class);
                 nextIntent.putExtra("userDto", userDto);
                 startActivity(nextIntent);

@@ -8,15 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.sportApp.registration.UserDto;
 import org.sportApp.requests.BackendService;
 import org.sportApp.training.PlanDto;
 import org.sportApp.userInterface.R;
@@ -40,7 +38,13 @@ public class AllPlansWindow extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getAllPlans(UserManager.getInstance().getUserId());
+        UserDto currentUser = UserManager.getInstance();
+        if (currentUser.getType().equals(UserDto.Kind.sportsman)) {
+            getAllPlans(UserManager.getInstance().getId());
+        }
+        else {
+            //getAllPlans(UserManager.getInstance().getLastId());
+        }
         RecyclerView currentPlanRecyclerView = view.findViewById(R.id.currentPlanRecyclerView);
 //        List<PlanDto> currentPlans = plans.stream()
 //                .filter(plan -> !plan.isCompleted())
@@ -65,7 +69,7 @@ public class AllPlansWindow extends Fragment {
 
         ImageButton add = view.findViewById(R.id.addTrainingButton);
         PlanDto planDto = new PlanDto();
-        planDto.setSportsmanId(UserManager.getInstance().getUserId());
+        planDto.setSportsmanId(UserManager.getInstance().getId());
         add.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), EditPlanWindow.class);
             startActivity(intent);

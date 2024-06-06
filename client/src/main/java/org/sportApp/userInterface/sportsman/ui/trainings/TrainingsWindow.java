@@ -40,7 +40,7 @@ public class TrainingsWindow extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (!isWindowOpened) {
-            getAllTrainings(UserManager.getInstance().getUserId());
+            getAllTrainings(UserManager.getInstance().getId());
             isWindowOpened = true;
         }
 
