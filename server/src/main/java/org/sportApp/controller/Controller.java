@@ -165,6 +165,15 @@ public class Controller {
                         .toList()));
     }
 
+    @GetMapping("searchSportsman")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> searchSportsman(@RequestBody String searchString) {
+        return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.OK).body(
+                userService.searchSportsman(searchString).stream()
+                        .map(user -> mapper.map(user, UserDto.class))
+                        .toList()
+        ));
+    }
+
 
 
     // TRAINING
