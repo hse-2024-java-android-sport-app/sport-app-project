@@ -1,6 +1,5 @@
 package org.sportApp.userInterface.sportsman.ui.trainings;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,12 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.sportApp.testData.TestData;
 import org.sportApp.training.ExerciseDto;
 import org.sportApp.training.TrainingDto;
 import org.sportApp.userInterface.R;
+import org.sportApp.userInterface.adapters.BaseAdapter;
 import org.sportApp.userInterface.sportsman.ui.exercise.ExerciseWindow;
-import org.sportApp.userInterface.sportsman.ui.exercise.ExercisesAdapter;
+import org.sportApp.userInterface.adapters.ExercisesAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,13 +44,13 @@ public class OneTrainingWindow extends AppCompatActivity {
         }
 
         RecyclerView currentTrainingRecyclerView = findViewById(R.id.availableTrainingsRecyclerView);
-        ExercisesAdapter currentAdapter = new ExercisesAdapter(exercises, new ExercisesAdapter.OnItemClickListener() {
+        ExercisesAdapter currentAdapter = new ExercisesAdapter(exercises, new BaseAdapter.OnItemClickListener<ExerciseDto>() {
             @Override
-            public void onItemLongClick(int position) {
+            public void onItemLongClick(int position, ExerciseDto item) {
             }
 
             @Override
-            public void onItemClick(int position) {
+            public void onItemClick(int position, ExerciseDto item) {
                 showExercise(position);
             }
         });

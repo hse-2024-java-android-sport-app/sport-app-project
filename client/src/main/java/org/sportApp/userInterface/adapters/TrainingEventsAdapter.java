@@ -1,4 +1,4 @@
-package org.sportApp.userInterface.sportsman.ui.trainingEvents;
+package org.sportApp.userInterface.adapters;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;

@@ -15,8 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.sportApp.training.TrainingEventDto;
 import org.sportApp.userInterface.R;
-import org.sportApp.userInterface.sportsman.ui.trainingEvents.CreatingTypeSelectionWindow;
-import org.sportApp.userInterface.sportsman.ui.trainingEvents.TrainingEventsAdapter;
+import org.sportApp.userInterface.adapters.TrainingEventsAdapter;
 import org.sportApp.userInterface.sportsman.ui.trainings.OneTrainingWindow;
 
 import java.util.ArrayList;

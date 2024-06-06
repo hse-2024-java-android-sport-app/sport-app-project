@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.sportApp.registration.UserRegistrationDto;
+import org.sportApp.registration.UserDto;
 import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
 
@@ -41,7 +41,7 @@ public class RegistrationWindow extends AppCompatActivity {
         bRegister.setOnClickListener(v -> {
             isAllFieldsChecked = CheckAllFields();
             if (isAllFieldsChecked) {
-                UserRegistrationDto userDto = new UserRegistrationDto();
+                UserDto userDto = new UserDto();
                 registerUser(userDto);
             }
         });
@@ -52,7 +52,7 @@ public class RegistrationWindow extends AppCompatActivity {
         });
     }
 
-    private void registerUser(UserRegistrationDto userDto) {
+    private void registerUser(UserDto userDto) {
         String fName = firstName.getText().toString();
         String sName = lastName.getText().toString();
         String uName = userName.getText().toString();

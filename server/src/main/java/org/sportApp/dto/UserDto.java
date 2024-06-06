@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.util.Date;
 
-public class UserRegistrationDto implements Serializable {
+public class UserDto implements Serializable {
     private String firstName;
     private String secondName;
     private String login;
@@ -66,6 +66,6 @@ public class UserRegistrationDto implements Serializable {
         this.dateOfBirth = date;
     }
 
-    public UserRegistrationDto() {
+    public UserDto() {
     }
 }

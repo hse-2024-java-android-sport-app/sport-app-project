@@ -1,7 +1,5 @@
 package org.sportApp.userInterface.sportsman.ui.trainings;
 
-import static android.app.Activity.RESULT_OK;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,10 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -20,16 +15,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.sportApp.requests.BackendService;
-import org.sportApp.testData.TestData;
-import org.sportApp.training.ExerciseDto;
 import org.sportApp.training.TrainingDto;
 import org.sportApp.userInterface.R;
-import org.sportApp.userInterface.registration.AuthorizationWindow;
+import org.sportApp.userInterface.adapters.TrainingsAdapter;
 import org.sportApp.utils.UserManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 public class TrainingsWindow extends Fragment {
     private boolean isWindowOpened = false;

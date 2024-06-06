@@ -17,20 +17,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.sportApp.registration.UserRegistrationDto;
 import org.sportApp.requests.BackendService;
 import org.sportApp.training.ExerciseDto;
 import org.sportApp.training.TrainingDto;
 import org.sportApp.userInterface.R;
+import org.sportApp.userInterface.adapters.BaseAdapter;
 import org.sportApp.userInterface.sportsman.ui.exercise.AddExerciseWindow;
 import org.sportApp.userInterface.sportsman.ui.exercise.ExerciseWindow;
-import org.sportApp.userInterface.sportsman.ui.exercise.ExercisesAdapter;
+import org.sportApp.userInterface.adapters.ExercisesAdapter;
 import org.sportApp.utils.UserManager;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-
+//
 public class AddTrainingWindow extends AppCompatActivity {
 
     private final List<ExerciseDto> exercises = new ArrayList<>();
@@ -42,14 +42,14 @@ public class AddTrainingWindow extends AppCompatActivity {
         setContentView(R.layout.activity_add_training);
 
         RecyclerView currentTrainingRecyclerView = findViewById(R.id.addTrainingsRecyclerView);
-        adapter = new ExercisesAdapter(exercises, new ExercisesAdapter.OnItemClickListener() {
+        adapter = new ExercisesAdapter(exercises, new BaseAdapter.OnItemClickListener<ExerciseDto>() {
             @Override
-            public void onItemLongClick(int position) {
+            public void onItemLongClick(int position, ExerciseDto item) {
                 showExercise(position);
             }
 
             @Override
-            public void onItemClick(int position) {
+            public void onItemClick(int position, ExerciseDto item) {
                 showExercise(position);
             }
         });

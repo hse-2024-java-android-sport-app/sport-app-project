@@ -1,6 +1,5 @@
 package org.sportApp.userInterface.sportsman.ui.plans;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,17 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.sportApp.testData.TestData;
 import org.sportApp.training.ExerciseDto;
 import org.sportApp.training.PlanDto;
-import org.sportApp.training.TrainingDto;
 import org.sportApp.training.TrainingEventDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.sportsman.ui.exercise.ExerciseWindow;
-import org.sportApp.userInterface.sportsman.ui.exercise.ExercisesAdapter;
-import org.sportApp.userInterface.sportsman.ui.trainingEvents.TrainingEventsAdapter;
-import org.sportApp.userInterface.sportsman.ui.trainings.TrainingsAdapter;
-import org.sportApp.utils.UserManager;
+import org.sportApp.userInterface.adapters.TrainingEventsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
