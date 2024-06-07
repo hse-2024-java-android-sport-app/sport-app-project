@@ -2,8 +2,8 @@ package org.sportApp.testData;
 
 import androidx.annotation.NonNull;
 
-import org.sportApp.training.ExerciseDto;
-import org.sportApp.training.TrainingDto;
+import org.sportApp.dto.ExerciseDto;
+import org.sportApp.dto.TrainingDto;
 
 import java.util.ArrayList;
 import java.util.List;

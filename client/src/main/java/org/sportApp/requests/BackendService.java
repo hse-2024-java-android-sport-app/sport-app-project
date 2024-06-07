@@ -10,11 +10,11 @@ import com.google.gson.reflect.TypeToken;
 import okhttp3.*;
 
 import org.jetbrains.annotations.NotNull;
-import org.sportApp.registration.UserDto;
-import org.sportApp.training.ExerciseDto;
-import org.sportApp.training.PlanDto;
-import org.sportApp.training.TrainingDto;
-import org.sportApp.training.TrainingEventDto;
+import org.sportApp.dto.UserDto;
+import org.sportApp.dto.ExerciseDto;
+import org.sportApp.dto.PlanDto;
+import org.sportApp.dto.TrainingDto;
+import org.sportApp.dto.TrainingEventDto;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -78,13 +78,7 @@ public class BackendService {
         return sendAsyncGetRequest(url, type, "Failed to get all planfs.");
     }
 
-    @NonNull
-    public static CompletableFuture<List<UserDto>> getSubscribers(Long userId) {
-        String url = BASE_URL + "/getSubscribers/" + userId;
-        Type type = new TypeToken<List<UserDto>>() {
-        }.getType();
-        return sendAsyncGetRequest(url, type, "Failed to get subscribers.");
-    }
+
 
     @NonNull
     public static CompletableFuture<List<UserDto>> getFollowings(Long userId) {

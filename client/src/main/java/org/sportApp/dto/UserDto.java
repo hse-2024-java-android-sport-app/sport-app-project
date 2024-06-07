@@ -1,4 +1,4 @@
-package org.sportApp.registration;
+package org.sportApp.dto;
 
 import java.io.Serializable;
 import java.util.Calendar;

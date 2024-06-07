@@ -1,7 +1,4 @@
-package org.sportApp.training;
-
-import org.sportApp.requests.BackendService;
-import org.threeten.bp.LocalDate;
+package org.sportApp.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;

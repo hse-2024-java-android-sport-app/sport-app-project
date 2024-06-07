@@ -1,4 +1,4 @@
-package org.sportApp.training;
+package org.sportApp.dto;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import org.sportApp.training.ExerciseDto;
+import org.sportApp.dto.ExerciseDto;
 import org.sportApp.userInterface.R;
 
 import java.util.List;
@@ -16,31 +16,6 @@ public class ExercisesAdapter extends BaseAdapter<ExerciseDto, BaseAdapter.BaseV
     public ExercisesAdapter(List<ExerciseDto> items, OnItemClickListener<ExerciseDto> listener) {
         super(items, R.layout.item_exercises, listener, ExercisesViewHolder::new);
     }
-
-//    @NonNull
-//    @Override
-//    public ExercisesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_exercises, parent, false);
-//        return new ExercisesViewHolder(itemView);
-//    }
-//
-//    @Override
-//    public void onBindViewHolder(@NonNull ExercisesViewHolder holder, int position) {
-//        ExerciseDto exercise = trainingList.get(position);
-//        holder.bind(exercise, listener);
-//    }
-//
-//    @Override
-//    public int getItemCount() {
-//        return trainingList.size();
-//    }
-//
-//    public interface OnItemClickListener {
-//        void onItemLongClick(int position);
-//
-//        void onItemClick(int position);
-//    }
-//
 
     public static class ExercisesViewHolder extends BaseViewHolder<ExerciseDto> {
         private final TextView exerciseNameTextView;
@@ -63,18 +38,6 @@ public class ExercisesAdapter extends BaseAdapter<ExerciseDto, BaseAdapter.BaseV
             exerciseDescriptionTextView.setText("In this exercise: " + exercise.getDescription() + ".");
             exerciseRepetitionsTextView.setText("Number of repetitions: " + exercise.getRepetitions() + " times.");
 
-//            itemView.setOnLongClickListener(v -> {
-//                if (listener != null) {
-//                    listener.onItemLongClick(getAdapterPosition());
-//                }
-//                return true;
-//            });
-//
-//            itemView.setOnClickListener(v -> {
-//                if (listener != null) {
-//                    listener.onItemClick(getAdapterPosition());
-//                }
-//            });
         }
     }
 }

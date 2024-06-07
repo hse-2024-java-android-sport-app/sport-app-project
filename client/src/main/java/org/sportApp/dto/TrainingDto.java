@@ -1,4 +1,6 @@
-package org.sportApp.training;
+package org.sportApp.dto;
+
+import org.sportApp.dto.ExerciseDto;
 
 import java.io.Serializable;
 import java.util.List;

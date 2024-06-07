@@ -50,9 +50,9 @@ public class BaseAdapter<T, VH extends BaseAdapter.BaseViewHolder<T>> extends Re
     }
 
     public interface OnItemClickListener<T> {
-        void onItemLongClick(int position, T item);
+        default void onItemLongClick(int position) {}
 
-        void onItemClick(int position, T item);
+        default void onItemClick(int position){}
     }
 
     public interface ViewHolderFactory<VH> {
@@ -69,14 +69,14 @@ public class BaseAdapter<T, VH extends BaseAdapter.BaseViewHolder<T>> extends Re
         public void bind(@NonNull T item, OnItemClickListener<T> listener) {
             itemView.setOnLongClickListener(v -> {
                 if (listener != null) {
-                    listener.onItemLongClick(getAdapterPosition(), item);
+                    listener.onItemLongClick(getAdapterPosition());
                 }
                 return true;
             });
 
             itemView.setOnClickListener(v -> {
                 if (listener != null) {
-                    listener.onItemClick(getAdapterPosition(), item);
+                    listener.onItemClick(getAdapterPosition());
                 }
             });
         }
