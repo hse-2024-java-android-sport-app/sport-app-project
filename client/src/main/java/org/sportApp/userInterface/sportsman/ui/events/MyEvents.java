@@ -1,81 +1,84 @@
 package org.sportApp.userInterface.sportsman.ui.events;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import org.sportApp.dto.TrainingEventDto;
+import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
-import org.sportApp.userInterface.adapters.TrainingEventsAdapter;
-import org.sportApp.userInterface.sportsman.ui.trainings.OneTrainingWindow;
+import org.sportApp.userInterface.adapters.BaseAdapter;
+import org.sportApp.userInterface.adapters.EventsAdapter;
+import org.sportApp.userInterface.sportsman.ui.overview.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyEvents extends Fragment {
-    private boolean isWindowOpened = false;
-    private List<TrainingEventDto> trainings = new ArrayList<>();
+public class MyEvents extends BaseFragment<TrainingEventDto> {
+    private List<TrainingEventDto> events = new ArrayList<>();
 
-    //Button createEvent, chooseEvent;
+    @Override
+    protected Class<?> getAddWindowClass() {
+        return TypeSelection.class;
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.fragment_training_events;
+    }
+
+    @Override
+    protected int getRecyclerView() {
+        return R.id.trainingEventRecyclerView;
+    }
+
+    @Override
+    protected int getAddButtonId() {
+        return R.id.addTrainingEventButton;
+    }
+
+    @Override
+    protected Class<?> getShowWindowClass() {
+        return OneEvent.class;
+    }
+
+    @Override
+    protected BaseAdapter<TrainingEventDto, ? extends BaseAdapter.BaseViewHolder<TrainingEventDto>> createAdapter() {
+        return new EventsAdapter(events, new EventsAdapter.OnItemClickListener<TrainingEventDto>() {
+            @Override
+            public void onItemClick(int position) {
+                showEvent(position);
+            }
+        });
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_training_events, container, false);
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        //getAllTrainingEvents...
         super.onViewCreated(view, savedInstanceState);
-
-        if (!isWindowOpened) {
-//            trainings = TestData.getTrainings();
-            isWindowOpened = true;
-        }
-
-        RecyclerView currentTrainingRecyclerView = view.findViewById(R.id.trainingEventRecyclerView);
-        TrainingEventsAdapter currentAdapter = new TrainingEventsAdapter(trainings, new TrainingEventsAdapter.OnItemClickListener<TrainingEventDto>() {
-            @Override
-            public void onItemClick(int position) {
-                showTraining(position);
-            }
-        });
-        currentTrainingRecyclerView.setAdapter(currentAdapter);
-        currentTrainingRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-
-        ImageButton add = view.findViewById(R.id.addTrainingEventButton);
-        add.setOnClickListener(v -> {
-            Intent intent = new Intent(requireContext(), TypeSelection.class);
-            startActivity(intent);
-        });
-//        createEvent = view.findViewById(R.id.createEvent);
-//        chooseEvent = view.findViewById(R.id.choseEvent);
-//        createEvent.setOnClickListener(v -> {
-//            Intent intent = new Intent(requireContext(), AddTrainingWindow.class);
-//            startActivity(intent);
-//        });
-//        chooseEvent.setOnClickListener(v -> {
-//            Intent intent = new Intent(requireContext(), AddTrainingWindow.class);
-//            startActivity(intent);
-//        });
+        super.startAddButton(view);
     }
 
-    private void showTraining(int position) {
-        if (position != RecyclerView.NO_POSITION) {
-            TrainingEventDto event = trainings.get(position);
-            //Log.d("training", training.getName());
-            Intent intent = new Intent(requireContext(), OneTrainingWindow.class);
-            intent.putExtra("trainingEventDto", event);
-            startActivity(intent);
-        }
+    private void showEvent(int position) {
+        super.showItem(position, events, "eventDto");
+    }
+
+    private void getAllEvents(Long userId) {
+        BackendService.getAllTrainings(userId).thenAccept(resultDto -> {
+                    //events = resultDto;
+                    Log.d("UserType", "resultDto: " + resultDto);
+                })
+                .exceptionally(e -> null).join();
     }
 }

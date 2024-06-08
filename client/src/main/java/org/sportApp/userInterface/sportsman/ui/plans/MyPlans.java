@@ -1,6 +1,5 @@
 package org.sportApp.userInterface.sportsman.ui.plans;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,8 +8,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import org.sportApp.dto.PlanDto;
 import org.sportApp.dto.UserDto;
@@ -18,14 +15,14 @@ import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.adapters.BaseAdapter;
 import org.sportApp.userInterface.adapters.PlanAdapter;
-import org.sportApp.userInterface.sportsman.ui.overview.BaseListFragment;
+import org.sportApp.userInterface.sportsman.ui.overview.BaseFragment;
 import org.sportApp.utils.UserManager;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MyPlansWindow extends BaseListFragment<PlanDto> {
+public class MyPlans extends BaseFragment<PlanDto> {
     private List<PlanDto> currentPlans = new ArrayList<>();
     private List<PlanDto> completedPlans = new ArrayList<>();
     private List<PlanDto> allPlans = new ArrayList<>();
@@ -102,31 +99,16 @@ public class MyPlansWindow extends BaseListFragment<PlanDto> {
         if (type == 0) {
             super.showItem(position, currentPlans, "planDto");
             Log.d("currentPlans", String.valueOf(currentPlans.size()));
-        }
-        else {
+        } else {
             super.showItem(position, completedPlans, "planDto");
             Log.d("completedPlans", String.valueOf(completedPlans.size()));
         }
-//        if (position != RecyclerView.NO_POSITION) {
-//            PlanDto plan;
-//            if (type == 0) {
-//                plan = currentPlans.get(position);
-//                Log.d("currentPlans", String.valueOf(currentPlans.size()));
-//            }
-//            else {
-//                plan = completedPlans.get(position);
-//                Log.d("completedPlans", String.valueOf(completedPlans.size()));
-//            }
-//            Intent intent = new Intent(requireContext(), OnePlanWindow.class);
-//            intent.putExtra("planDto", plan);
-//            startActivity(intent);
-//        }
     }
 
     private void getAllPlans(Long userId) {
         BackendService.getAllPlans(userId).thenAccept(resultDto -> {
                     allPlans = resultDto;
                     Log.d("UserType", "resultDto: " + resultDto);
-                }).exceptionally(e -> null).join();
+        }).exceptionally(e -> null).join();
     }
 }
