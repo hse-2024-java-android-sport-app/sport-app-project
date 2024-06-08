@@ -33,7 +33,6 @@
         <activity android:name=".registration.AuthorizationWindow" />
         <activity android:name=".sportsman.ui.exercise.ExerciseWindow" />
         <activity android:name=".sportsman.ui.trainings.OneTraining" />
-        <activity android:name=".sportsman.ui.events.AddEventWindow" />
         <activity android:name=".sportsman.ui.trainings.CreateTraining" />
         <activity android:name=".sportsman.ui.events.TypeSelection" />
         <activity android:name=".sportsman.ui.trainings.FindTraining" />

@@ -47,10 +47,21 @@ public class AddExerciseWindow extends AppCompatActivity {
             Toast.makeText(this, "Please fill in all required fields", Toast.LENGTH_SHORT).show();
             return;
         }
+        int repetitions = 0, duration = 0, sets = 0;
+        try {
+            repetitions = Integer.parseInt(repetitionsText);
+            duration = Integer.parseInt(durationText);
+            sets = Integer.parseInt(setsText);
+        }
+        catch(NumberFormatException e){
+            Toast.makeText(this, "Please enter a number greater than or equal to 1", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        int repetitions = Integer.parseInt(repetitionsText);
-        int duration = Integer.parseInt(durationText);
-        int sets = Integer.parseInt(setsText);
+        if (repetitions * duration * sets == 0) {
+            Toast.makeText(this, "Please enter a number greater than or equal to 1", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         ExerciseDto exerciseDto = new ExerciseDto();
         exerciseDto.setName(name);
