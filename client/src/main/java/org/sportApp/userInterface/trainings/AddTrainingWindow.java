@@ -4,15 +4,14 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.sportApp.requests.BackendService;
-import org.sportApp.training.ExerciseDto;
-import org.sportApp.training.TrainingDto;
+import org.sportApp.dto.ExerciseDto;
+import org.sportApp.dto.TrainingDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.sportsman.ui.exercise.AddExerciseWindow;
 

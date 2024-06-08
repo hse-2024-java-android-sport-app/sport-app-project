@@ -18,8 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.sportApp.requests.BackendService;
-import org.sportApp.training.ExerciseDto;
-import org.sportApp.training.TrainingDto;
+import org.sportApp.dto.ExerciseDto;
+import org.sportApp.dto.TrainingDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.adapters.BaseAdapter;
 import org.sportApp.userInterface.sportsman.ui.exercise.AddExerciseWindow;
@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 //
-public class CreateTrainingWindow extends AppCompatActivity {
+public class CreateTraining extends AppCompatActivity {
 
     private final List<ExerciseDto> exercises = new ArrayList<>();
     private ExercisesAdapter adapter;
@@ -114,6 +114,9 @@ public class CreateTrainingWindow extends AppCompatActivity {
         trainingDto.setExercises(exercises);
         trainingDto.setUserId(UserManager.getInstance().getId());
         createTraining(trainingDto);
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("trainingDto", trainingDto);
+        setResult(RESULT_OK, resultIntent);
         Toast.makeText(this, "Your training saved!", Toast.LENGTH_SHORT).show();
         Log.d("myTag", "user's id in training " + trainingDto.getUserId());
         finish();

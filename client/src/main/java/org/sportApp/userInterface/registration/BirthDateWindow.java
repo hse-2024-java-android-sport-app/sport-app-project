@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.sportApp.registration.UserDto;
+import org.sportApp.dto.UserDto;
 import org.sportApp.userInterface.R;
 
 import java.util.Calendar;
@@ -37,7 +37,7 @@ public class BirthDateWindow extends AppCompatActivity {
                 Intent intent = getIntent();
                 UserDto userDto = (UserDto) intent.getSerializableExtra("userDto");
                 assert userDto != null;
-                //userDto.setDateOfBirth(selectedCalendar.getTime());
+                userDto.setDateOfBirth(selectedCalendar.getTime());
                 Intent nextIntent = new Intent(BirthDateWindow.this, TypeSelectionWindow.class);
                 nextIntent.putExtra("userDto", userDto);
                 startActivity(nextIntent);

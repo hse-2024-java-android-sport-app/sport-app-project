@@ -4,16 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.sportApp.training.ExerciseDto;
-import org.sportApp.training.PlanDto;
-import org.sportApp.training.TrainingEventDto;
+import org.sportApp.dto.PlanDto;
+import org.sportApp.dto.TrainingEventDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.sportsman.ui.exercise.ExerciseWindow;
 import org.sportApp.userInterface.adapters.TrainingEventsAdapter;
@@ -35,7 +32,7 @@ public class OnePlanWindow extends AppCompatActivity {
             PlanDto planDto = (PlanDto) intent.getSerializableExtra("planDto");
             assert planDto != null;
             trainings = planDto.getTrainings();
-            Log.d("myTag", "in one training window exercises' size is " + trainings.size());
+            Log.d("myTag", "in one plan window exercises' size is " + trainings.size());
         }
 
         if (!isWindowOpened) {
@@ -44,36 +41,32 @@ public class OnePlanWindow extends AppCompatActivity {
         }
 
         RecyclerView currentTrainingRecyclerView = findViewById(R.id.availableTrainingsRecyclerView);
-        TrainingEventsAdapter currentAdapter = new TrainingEventsAdapter(trainings, new TrainingEventsAdapter.OnItemClickListener() {
-            @Override
-            public void onItemLongClick(int position) {
-            }
-
+        TrainingEventsAdapter currentAdapter = new TrainingEventsAdapter(trainings, new TrainingEventsAdapter.OnItemClickListener<TrainingEventDto>() {
             @Override
             public void onItemClick(int position) {
-                showExercise(position);
+                showTrainings(position);
             }
         });
         currentTrainingRecyclerView.setAdapter(currentAdapter);
         currentTrainingRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private final ActivityResultLauncher<Intent> oneExerciseLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-        if (result.getResultCode() == RESULT_OK) {
-            assert result.getData() != null;
-            ExerciseDto exerciseDto = (ExerciseDto) result.getData().getSerializableExtra("exerciseDto");
-            assert exerciseDto != null;
-            Log.d("exerciseDescription", exerciseDto.getDescription());
-        }
-    });
+//    private final ActivityResultLauncher<Intent> oneTrainingLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+//        if (result.getResultCode() == RESULT_OK) {
+//            assert result.getData() != null;
+//            ExerciseDto exerciseDto = (ExerciseDto) result.getData().getSerializableExtra("exerciseDto");
+//            assert exerciseDto != null;
+//            Log.d("exerciseDescription", exerciseDto.getDescription());
+//        }
+//    });
 
 
-    private void showExercise(int position) {
+    private void showTrainings(int position) {
         if (position != RecyclerView.NO_POSITION) {
-            TrainingEventDto training = trainings.get(position);
-            Log.d("training", String.valueOf(training.getEventId()));
+            TrainingEventDto event = trainings.get(position);
+            Log.d("training", String.valueOf(event.getEventId()));
             Intent intent = new Intent(this, ExerciseWindow.class);
-            intent.putExtra("trainingDto", training);
+            intent.putExtra("trainingDto", event);
             startActivity(intent);
         }
     }

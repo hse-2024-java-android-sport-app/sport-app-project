@@ -5,17 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.sportApp.requests.BackendService;
-import org.sportApp.training.PlanDto;
+import org.sportApp.dto.PlanDto;
 import org.sportApp.userInterface.R;
-import org.sportApp.userInterface.sportsman.ui.plans.EditPlanWindow;
 import org.sportApp.userInterface.adapters.PlanAdapter;
+import org.sportApp.userInterface.sportsman.ui.plans.EditPlanWindow;
 import org.sportApp.userInterface.trainings.AddTrainingWindow;
 
 import java.util.ArrayList;
@@ -37,17 +36,7 @@ public class SportsmanWindow extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         planDtoList = new ArrayList<>();
-        planAdapter = new PlanAdapter(planDtoList, new PlanAdapter.OnItemClickListener() {
-            @Override
-            public void onItemLongClick(int position) {
-                Toast.makeText(SportsmanWindow.this, "Long click on item at position: " + position, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onItemClick(int position) {
-                editPlan(position);
-            }
-        });
+        planAdapter = new PlanAdapter(planDtoList, R.layout.item_current_plan, new PlanAdapter.OnItemClickListener<PlanDto>() {});
         recyclerView.setAdapter(planAdapter);
     }
 

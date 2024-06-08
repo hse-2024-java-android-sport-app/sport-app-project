@@ -11,8 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.sportApp.requests.BackendService;
-import org.sportApp.training.TrainingDto;
+import org.sportApp.dto.TrainingDto;
 import org.sportApp.userInterface.R;
+import org.sportApp.userInterface.adapters.BaseAdapter;
 import org.sportApp.userInterface.adapters.FindTrainingAdapter;
 import org.sportApp.utils.UserManager;
 
@@ -29,11 +30,7 @@ public class FindTraining extends AppCompatActivity {
         setContentView(R.layout.activity_find_training);
         RecyclerView recyclerView = findViewById(R.id.trainingRecyclerView);
         getAllTrainings(UserManager.getInstance().getId());
-        currentAdapter = new FindTrainingAdapter(trainings, new FindTrainingAdapter.OnItemClickListener() {
-            @Override
-            public void onItemLongClick(int position) {
-            }
-
+        currentAdapter = new FindTrainingAdapter(trainings, new BaseAdapter.OnItemClickListener<TrainingDto>() {
             @Override
             public void onItemClick(int position) {
                 currentAdapter.setSelectedPosition(position);

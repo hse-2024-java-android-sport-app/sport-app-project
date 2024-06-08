@@ -1,13 +1,9 @@
 package org.sportApp.utils;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
-import org.sportApp.registration.UserDto;
+import org.sportApp.dto.UserDto;
 
 public class UserManager {
     private static UserDto instance;
-    private Long userId = (long) -1;
 
     private UserManager() {
     }
@@ -20,10 +16,18 @@ public class UserManager {
     }
 
     public void setUserId(Long userId) {
-        this.userId = userId;
+        getInstance().setId(userId);
     }
 
     public Long getUserId() {
-        return userId;
+        return getInstance().getId();
+    }
+
+    public void setUserType(UserDto.Kind type) {
+        getInstance().setType(type);
+    }
+
+    public UserDto.Kind getUserType() {
+        return getInstance().getType();
     }
 }

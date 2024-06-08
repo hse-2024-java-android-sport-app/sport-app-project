@@ -12,8 +12,8 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
-import org.sportApp.training.TrainingDto;
-import org.sportApp.training.TrainingEventDto;
+import org.sportApp.dto.TrainingDto;
+import org.sportApp.dto.TrainingEventDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.sportsman.ui.trainings.CreateTraining;
 import org.sportApp.userInterface.sportsman.ui.trainings.FindTraining;
@@ -21,7 +21,7 @@ import org.sportApp.userInterface.sportsman.ui.trainings.FindTraining;
 import java.util.Calendar;
 import java.util.Date;
 
-public class CreatingTypeSelectionWindow extends AppCompatActivity {
+public class TypeSelection extends AppCompatActivity {
     private TrainingEventDto eventDto;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +78,7 @@ public class CreatingTypeSelectionWindow extends AppCompatActivity {
 
     private final ActivityResultLauncher<Intent> addEventLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == RESULT_OK) {
+            Log.d("myTag", "Added training event");
             assert result.getData() != null;
             TrainingDto trainingDto = (TrainingDto) result.getData().getSerializableExtra("trainingDto");
             assert trainingDto != null;

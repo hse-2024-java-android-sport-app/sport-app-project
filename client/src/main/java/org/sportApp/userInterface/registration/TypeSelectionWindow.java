@@ -8,10 +8,10 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
-import org.sportApp.registration.UserDto;
+import org.sportApp.dto.UserDto;
 import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
-import org.sportApp.userInterface.coach.MainActivity;
+import org.sportApp.utils.UserManager;
 
 
 public class TypeSelectionWindow extends AppCompatActivity {
@@ -31,6 +31,7 @@ public class TypeSelectionWindow extends AppCompatActivity {
             Toast.makeText(TypeSelectionWindow.this, "You are sportsman!", Toast.LENGTH_SHORT).show();
             assert userDto != null;
             userDto.setType(UserDto.Kind.sportsman);
+            UserManager.getInstance().setType(UserDto.Kind.sportsman);
             registerUser(userDto);
             Intent sportsmanIntent = new Intent(TypeSelectionWindow.this, org.sportApp.userInterface.sportsman.MainActivity.class);
             sportsmanIntent.putExtra("userDto", userDto);
@@ -53,8 +54,8 @@ public class TypeSelectionWindow extends AppCompatActivity {
         BackendService.registerUser(userDto)
                 .thenAccept(resultDto -> {
                     userDto.setId(resultDto);
-
-                    Log.d("id", resultDto.toString());
+                    UserManager.getInstance().setId(resultDto);
+                    Log.d("myTag", "id" + resultDto.toString());
                     Toast.makeText(TypeSelectionWindow.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
                 })
                 .exceptionally(e -> {

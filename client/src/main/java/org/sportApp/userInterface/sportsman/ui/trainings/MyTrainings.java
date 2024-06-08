@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.sportApp.requests.BackendService;
-import org.sportApp.training.TrainingDto;
+import org.sportApp.dto.TrainingDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.adapters.TrainingsAdapter;
 import org.sportApp.utils.UserManager;
@@ -23,7 +23,7 @@ import org.sportApp.utils.UserManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrainingsWindow extends Fragment {
+public class MyTrainingsWindow extends Fragment {
     private boolean isWindowOpened = false;
     private List<TrainingDto> trainings = new ArrayList<>();
 
@@ -56,7 +56,7 @@ public class TrainingsWindow extends Fragment {
 
         add = view.findViewById(R.id.addTrainingButton);
         add.setOnClickListener(v -> {
-            Intent intent = new Intent(requireContext(), AddTrainingWindow.class);
+            Intent intent = new Intent(requireContext(), CreateTraining.class);
             startActivity(intent);
         });
     }

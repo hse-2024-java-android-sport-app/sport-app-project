@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.sportApp.registration.UserDto;
+import org.sportApp.dto.UserDto;
 import org.sportApp.requests.BackendService;
 
 import androidx.annotation.NonNull;
@@ -22,8 +22,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.sportApp.userInterface.R;
+import org.sportApp.userInterface.adapters.BaseAdapter;
 import org.sportApp.userInterface.adapters.FindCoachAdapter;
-import org.sportApp.userInterface.adapters.TrainingsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,11 +65,7 @@ public class FindCoach extends Fragment {
             if (name != null) {
                 searchCoaches(name.getText().toString());
                 RecyclerView coachRecyclerView = view.findViewById(R.id.recyclerViewCoaches);
-                FindCoachAdapter currentAdapter = new FindCoachAdapter(coachs, new FindCoachAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemLongClick(int position) {
-                    }
-
+                FindCoachAdapter currentAdapter = new FindCoachAdapter(coachs, new BaseAdapter.OnItemClickListener<UserDto>() {
                     @Override
                     public void onItemClick(int position) {
                         //    showTraining(position);

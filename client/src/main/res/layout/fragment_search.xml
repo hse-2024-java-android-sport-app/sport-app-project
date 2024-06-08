@@ -8,11 +8,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:paddingStart="10dp"
+        android:autofillHints=""
         android:hint="@string/enter_coach_s_login"
         android:inputType="text"
-        android:autofillHints=""
-        tools:ignore="RtlSymmetry" />
+        android:minHeight="48dp"
+        android:paddingStart="10dp"
+        tools:ignore="RtlSymmetry,VisualLintTextFieldSize" />
 
     <Button
         android:id="@+id/buttonSearch"
@@ -21,7 +22,8 @@
         android:layout_below="@id/editTextSearch"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="@string/search" />
+        android:text="@string/search"
+        android:backgroundTint="@color/violet"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCoaches"

@@ -1,11 +1,10 @@
-package org.sportApp.userInterface.sportsman.ui.trainingEvents;
+package org.sportApp.userInterface.sportsman.ui.events;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -14,8 +13,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.sportApp.requests.BackendService;
-import org.sportApp.training.ExerciseDto;
-import org.sportApp.training.TrainingDto;
+import org.sportApp.dto.ExerciseDto;
+import org.sportApp.dto.TrainingDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.sportsman.ui.exercise.AddExerciseWindow;
 
@@ -23,7 +22,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class AddTrainingEventWindow extends AppCompatActivity {
+public class AddEventWindow extends AppCompatActivity {
 
     private LocalDate selectedDate;
     private final ArrayList<ExerciseDto> exercises = new ArrayList<>();
@@ -40,7 +39,7 @@ public class AddTrainingEventWindow extends AppCompatActivity {
 //        addExerciseButton.setOnClickListener(v -> showExerciseSelectionDialog());
 //
 //        Button saveTrainingButton = findViewById(R.id.saveTrainingButton);
-//        saveTrainingButton.setOnClickListener(v -> saveTrainingEvent());
+//        saveTrainingButton.setOnClickListener(v -> saveEvent());
     }
 
     private void showDatePickerDialog() {
@@ -83,7 +82,7 @@ public class AddTrainingEventWindow extends AppCompatActivity {
         builder.create().show();
     }
 
-    private void saveTrainingEvent() {
+    private void saveEvent() {
         if (selectedDate == null) {
             Toast.makeText(this, "You didn't select the date", Toast.LENGTH_SHORT).show();
             return;

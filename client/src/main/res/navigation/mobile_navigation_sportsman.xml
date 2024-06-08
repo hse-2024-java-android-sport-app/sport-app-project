@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_plans"
-        android:name="org.sportApp.userInterface.sportsman.ui.plans.AllPlansWindow"
+        android:name="org.sportApp.userInterface.sportsman.ui.plans.MyPlans"
         android:label="@string/menu_plans"
         tools:layout="@layout/fragment_plans" />
 
@@ -19,13 +19,13 @@
 
     <fragment
         android:id="@+id/nav_trainings"
-        android:name="org.sportApp.userInterface.sportsman.ui.trainings.TrainingsWindow"
+        android:name="org.sportApp.userInterface.sportsman.ui.trainings.MyTrainings"
         android:label="@string/menu_my_trainings"
         tools:layout="@layout/fragment_trainings" />
 
     <fragment
         android:id="@+id/nav_training_events"
-        android:name="org.sportApp.userInterface.sportsman.ui.trainingEvents.TrainingEventsWindow"
+        android:name="org.sportApp.userInterface.sportsman.ui.events.MyEvents"
         android:label="@string/menu_training_events"
         tools:layout="@layout/fragment_training_events" />
 

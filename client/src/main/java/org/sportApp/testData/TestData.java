@@ -20,11 +20,4 @@ public class TestData {
         return exercises1;
     }
 
-    public static List<TrainingDto> getTrainings() {
-        List<TrainingDto> trainings = new ArrayList<>();
-        trainings.add(new TrainingDto("Leg workout", getExercises()));
-        trainings.add(new TrainingDto("Arm workout", getExercises()));
-        trainings.add(new TrainingDto("Abs workout", getExercises()));
-        return trainings;
-    }
 }

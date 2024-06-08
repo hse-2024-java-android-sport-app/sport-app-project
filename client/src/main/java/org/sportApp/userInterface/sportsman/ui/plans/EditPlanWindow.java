@@ -1,6 +1,5 @@
 package org.sportApp.userInterface.sportsman.ui.plans;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,10 +14,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.sportApp.requests.BackendService;
-import org.sportApp.training.PlanDto;
-import org.sportApp.training.TrainingEventDto;
+import org.sportApp.dto.PlanDto;
+import org.sportApp.dto.TrainingEventDto;
 import org.sportApp.userInterface.R;
-import org.sportApp.userInterface.sportsman.ui.trainingEvents.CreatingTypeSelectionWindow;
+import org.sportApp.userInterface.sportsman.ui.events.TypeSelection;
 import org.sportApp.utils.UserManager;
 
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class EditPlanWindow extends AppCompatActivity {
     private final PlanDto planDto = new PlanDto();
-    private final List<TrainingEventDto> trainingEvents = new ArrayList<>();
+    private final List<TrainingEventDto> events = new ArrayList<>();
     private ActivityResultLauncher<Intent> addEventLauncher;
 
     @Override
@@ -51,8 +50,8 @@ public class EditPlanWindow extends AppCompatActivity {
         addEventLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK) {
                 if (result.getData() != null) {
-                    TrainingEventDto trainingEventDto = (TrainingEventDto) result.getData().getSerializableExtra("trainingEventDto");
-                    trainingEvents.add(trainingEventDto);
+                    TrainingEventDto eventDto = (TrainingEventDto) result.getData().getSerializableExtra("eventDto");
+                    events.add(eventDto);
                 }
             }
         });
@@ -60,7 +59,7 @@ public class EditPlanWindow extends AppCompatActivity {
 
         Button addEvent = findViewById(R.id.buttonAddTraining);
         addEvent.setOnClickListener(v -> {
-            Intent intent = new Intent(EditPlanWindow.this, CreatingTypeSelectionWindow.class);
+            Intent intent = new Intent(EditPlanWindow.this, TypeSelection.class);
             addEventLauncher.launch(intent);
         });
         saveChangesButton.setOnClickListener(v -> {
@@ -71,7 +70,7 @@ public class EditPlanWindow extends AppCompatActivity {
     }
 
     private void saveChanges(@NonNull PlanDto planDto) {
-        planDto.setTrainings(trainingEvents);
+        planDto.setTrainings(events);
         createPlan(planDto);
         Intent resultIntent = new Intent();
         resultIntent.putExtra("planDto", planDto);
@@ -79,17 +78,9 @@ public class EditPlanWindow extends AppCompatActivity {
         finish();
     }
 
-//    private void createPlan(PlanDto planDto) {
-//        BackendService.createPlan(planDto).thenAccept(resultDto -> {
-//            planDto.setPlanId(resultDto);
-//            Log.d("myTag", "plan's id: " + resultDto);
-//        }).exceptionally(e -> {
-//            Log.e("myTag", "Failed to create plan.", e);
-//            return null;
-//        }).join();
-//    }
 
-    private void createPlan(PlanDto planDto) {
+    private void createPlan(@NonNull PlanDto planDto) {
+        Log.d("myTag", String.valueOf(planDto.getTrainings().size()));
         BackendService.createPlan(planDto)
                 .thenCompose(resultDto -> {
                     planDto.setPlanId(resultDto);
@@ -104,7 +95,8 @@ public class EditPlanWindow extends AppCompatActivity {
                 })
                 .thenAccept(voidResult -> Log.d("myTag", "All exercises added successfully."))
                 .exceptionally(e -> {
-                    Log.e("myTag", "Failed to create training or exercises.", e);
+                    Log.d("myTag", planDto.getTrainings().toString());
+                    Log.e("myTag", "Failed to create plan.", e);
                     return null;
                 }).join();
     }

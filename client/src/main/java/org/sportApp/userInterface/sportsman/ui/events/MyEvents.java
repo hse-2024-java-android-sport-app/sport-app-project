@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.sportApp.training.TrainingEventDto;
+import org.sportApp.dto.TrainingEventDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.adapters.TrainingEventsAdapter;
 import org.sportApp.userInterface.sportsman.ui.trainings.OneTrainingWindow;
@@ -21,7 +21,7 @@ import org.sportApp.userInterface.sportsman.ui.trainings.OneTrainingWindow;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyEventsWindow extends Fragment {
+public class MyEvents extends Fragment {
     private boolean isWindowOpened = false;
     private List<TrainingEventDto> trainings = new ArrayList<>();
 
@@ -54,7 +54,7 @@ public class MyEventsWindow extends Fragment {
 
         ImageButton add = view.findViewById(R.id.addTrainingEventButton);
         add.setOnClickListener(v -> {
-            Intent intent = new Intent(requireContext(), CreatingTypeSelectionWindow.class);
+            Intent intent = new Intent(requireContext(), TypeSelection.class);
             startActivity(intent);
         });
 //        createEvent = view.findViewById(R.id.createEvent);
