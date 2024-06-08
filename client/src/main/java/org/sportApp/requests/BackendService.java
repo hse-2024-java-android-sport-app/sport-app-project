@@ -15,10 +15,12 @@ import org.sportApp.dto.ExerciseDto;
 import org.sportApp.dto.PlanDto;
 import org.sportApp.dto.TrainingDto;
 import org.sportApp.dto.TrainingEventDto;
+import org.sportApp.model.User;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 public class BackendService {
@@ -143,6 +145,12 @@ public class BackendService {
     }
 
     @NonNull
+    public static CompletableFuture<Long> addCoach(UserDto userDto, Long planId) {
+        String msg = "Failed adding coach: no response from server";
+        return sendRequestAndHandleResponse(BASE_URL + "/addCoach/" + planId, userDto, Long.class, msg);
+    }
+
+    @NonNull
     public static CompletableFuture<List<UserDto>> searchCoaches(String name) {
         String url = BASE_URL + "/searchCoaches/" + name;
         Type type = new TypeToken<List<UserDto>>() {
@@ -199,7 +207,7 @@ public class BackendService {
                 }
             });
         } catch (Exception e) {
-            Log.d("Exception", e.getMessage());
+            Log.d("Exception", Objects.requireNonNull(e.getMessage()));
         }
         return future;
     }

@@ -2,44 +2,50 @@ package org.sportApp.userInterface.sportsman.ui.interaction;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.sportApp.dto.UserDto;
-import org.sportApp.requests.BackendService;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import org.sportApp.dto.UserDto;
+import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.adapters.BaseAdapter;
 import org.sportApp.userInterface.adapters.FindCoachAdapter;
+import org.sportApp.userInterface.sportsman.ui.overview.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class FindCoach extends Fragment {
+public class FindCoach extends BaseFragment<UserDto> {
 
     private EditText name;
-    List<UserDto> coachs = new ArrayList<>();
+    List<UserDto> coaches = new ArrayList<>();
 
-    public FindCoach() {
+    @Override
+    protected int getLayout() {
+        return R.layout.fragment_search;
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_search, container, false);
+    protected int getRecyclerView() {
+        return R.id.recyclerViewCoaches;
+    }
+
+
+    @Override
+    protected BaseAdapter<UserDto, ? extends BaseAdapter.BaseViewHolder<UserDto>> createAdapter() {
+        return new FindCoachAdapter(coaches, new BaseAdapter.OnItemClickListener<UserDto>() {
+        });
     }
 
     @Override
@@ -47,7 +53,55 @@ public class FindCoach extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Button buttonSearch = view.findViewById(R.id.buttonSearch);
+        editSearchField(view, buttonSearch);
+        buttonSearch.setOnClickListener(v -> {
+            if (name != null) {
+                searchCoaches(name.getText().toString());
+                for (int i = 0; i < 10; i++) {
+                    UserDto fakeCoach = new UserDto();
+                    fakeCoach.setFirstName("Fake");
+                    fakeCoach.setSecondName("Coach");
+                    coaches.add(fakeCoach);
+                }
+                name.setText("");
+                super.onViewCreated(view, savedInstanceState);
+            } else {
+                Toast.makeText(getContext(), "Enter the coach's first name and second name or login", Toast.LENGTH_SHORT).show();
+            }
+            buttonSearch.setVisibility(View.GONE);
+        });
+    }
+
+    private void searchCoaches(String userName) {
+        BackendService.searchCoaches(userName).thenAccept(resultDto -> {
+            if (resultDto != null) {
+                coaches = resultDto;
+            } else {
+                Toast.makeText(getContext(), "Coach not found", Toast.LENGTH_SHORT).show();
+            }
+        }).exceptionally(e -> {
+            Log.d("SearchWindow", "Search failed: " + e.getMessage(), e);
+            Toast.makeText(getContext(), "Search failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            return null;
+        });
+    }
+
+    private void editSearchField(@NonNull View view, Button buttonSearch) {
         name = view.findViewById(R.id.editTextSearch);
+        name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                buttonSearch.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
         name.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -58,40 +112,9 @@ public class FindCoach extends Fragment {
                     buttonSearch.requestFocus();
                     return true;
                 }
+                buttonSearch.setVisibility(View.VISIBLE);
             }
             return false;
-        });
-        buttonSearch.setOnClickListener(v -> {
-            if (name != null) {
-                searchCoaches(name.getText().toString());
-                RecyclerView coachRecyclerView = view.findViewById(R.id.recyclerViewCoaches);
-                FindCoachAdapter currentAdapter = new FindCoachAdapter(coachs, new BaseAdapter.OnItemClickListener<UserDto>() {
-                    @Override
-                    public void onItemClick(int position) {
-                        //    showTraining(position);
-                    }
-                });
-                coachRecyclerView.setAdapter(currentAdapter);
-                coachRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-            } else {
-                Toast.makeText(getContext(), "Enter the coach's first name and second name or login", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-    }
-
-    private void searchCoaches(String userName) {
-        BackendService.searchCoaches(userName).thenAccept(resultDto -> {
-            if (resultDto != null) {
-                coachs = resultDto;
-            } else {
-                Toast.makeText(getContext(), "Coach not found", Toast.LENGTH_SHORT).show();
-            }
-        }).exceptionally(e -> {
-            Log.d("SearchWindow", "Search failed: " + e.getMessage(), e);
-            Toast.makeText(getContext(), "Search failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-            return null;
         });
     }
 }

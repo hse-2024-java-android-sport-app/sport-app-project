@@ -12,6 +12,8 @@ public class UserDto implements Serializable {
 
     private Long id;
 
+    private Long coachId;
+
     public Long getId() {
         return id;
     }
@@ -19,6 +21,15 @@ public class UserDto implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Long getCoachId() {
+        return coachId;
+    }
+
+    public void setCoachId(Long coachId) {
+        this.coachId = coachId;
+    }
+
     public enum Kind {sportsman, coach}
 
     private Kind type;

@@ -15,6 +15,15 @@
         android:textStyle="bold"
         android:textColor="@android:color/black" />
 
+    <Button
+        android:id="@+id/addFriendButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|end|center_vertical"
+        android:backgroundTint="@color/violet"
+        android:text="@string/add_to_friend"
+        tools:ignore="RtlHardcoded" />
+
     <TextView
         android:id="@+id/coachAgeTextView"
         android:layout_width="wrap_content"
@@ -23,14 +32,5 @@
         android:textSize="16sp"
         android:textStyle="italic"
         android:textColor="@android:color/black" />
-
-    <Button
-        android:id="@+id/addFriendButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_to_friend"
-        android:layout_gravity="right"
-        android:background="@android:color/holo_blue_light"
-        tools:ignore="RtlHardcoded" />
 
 </LinearLayout>
