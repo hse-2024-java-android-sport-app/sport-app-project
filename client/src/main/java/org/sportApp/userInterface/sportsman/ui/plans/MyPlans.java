@@ -16,13 +16,14 @@ import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.adapters.BaseAdapter;
 import org.sportApp.userInterface.adapters.PlanAdapter;
 import org.sportApp.userInterface.sportsman.ui.overview.BaseFragment;
+import org.sportApp.userInterface.sportsman.ui.overview.FragmentWithAddButton;
 import org.sportApp.utils.UserManager;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MyPlans extends BaseFragment<PlanDto> {
+public class MyPlans extends FragmentWithAddButton<PlanDto> {
     private List<PlanDto> currentPlans = new ArrayList<>();
     private List<PlanDto> completedPlans = new ArrayList<>();
     private List<PlanDto> allPlans = new ArrayList<>();

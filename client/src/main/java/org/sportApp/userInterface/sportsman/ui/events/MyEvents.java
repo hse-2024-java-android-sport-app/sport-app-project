@@ -15,12 +15,13 @@ import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.adapters.BaseAdapter;
 import org.sportApp.userInterface.adapters.EventsAdapter;
 import org.sportApp.userInterface.sportsman.ui.overview.BaseFragment;
+import org.sportApp.userInterface.sportsman.ui.overview.FragmentWithAddButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyEvents extends BaseFragment<TrainingEventDto> {
-    private List<TrainingEventDto> events = new ArrayList<>();
+public class MyEvents extends FragmentWithAddButton<TrainingEventDto> {
+    private final List<TrainingEventDto> events = new ArrayList<>();
 
     @Override
     protected Class<?> getAddWindowClass() {

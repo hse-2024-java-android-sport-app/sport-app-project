@@ -15,12 +15,13 @@ import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.adapters.BaseAdapter;
 import org.sportApp.userInterface.adapters.TrainingsAdapter;
 import org.sportApp.userInterface.sportsman.ui.overview.BaseFragment;
+import org.sportApp.userInterface.sportsman.ui.overview.FragmentWithAddButton;
 import org.sportApp.utils.UserManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyTrainings extends BaseFragment<TrainingDto> {
+public class MyTrainings extends FragmentWithAddButton<TrainingDto> {
     private List<TrainingDto> trainings = new ArrayList<>();
 
     @Override
