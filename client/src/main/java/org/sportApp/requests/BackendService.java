@@ -15,7 +15,6 @@ import org.sportApp.dto.ExerciseDto;
 import org.sportApp.dto.PlanDto;
 import org.sportApp.dto.TrainingDto;
 import org.sportApp.dto.TrainingEventDto;
-import org.sportApp.model.User;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -77,10 +76,8 @@ public class BackendService {
         String url = BASE_URL + "/getAllPlans/" + userId;
         Type type = new TypeToken<List<PlanDto>>() {
         }.getType();
-        return sendAsyncGetRequest(url, type, "Failed to get all planfs.");
+        return sendAsyncGetRequest(url, type, "Failed to get all plans.");
     }
-
-
 
     @NonNull
     public static CompletableFuture<List<UserDto>> getFollowers(Long userId) {
@@ -98,28 +95,16 @@ public class BackendService {
         return sendAsyncGetRequest(url, type, "Failed to get subscriptions.");
     }
 
-//    @NonNull
-//    public static CompletableFuture<List<PlanDto>> getAllPlans(Long userId) {
-//        CompletableFuture<List<PlanDto>> future = new CompletableFuture<>();
-//        Request request = new Request.Builder().url(BASE_URL + "/getAllPlans/" + userId).get().build();
-//        Type type = new TypeToken<List<PlanDto>>(){}.getType();
-//        sendAsyncRequest(request, future, type, (response, result) -> {
-//            Log.d("BackendService", "Send Request:" + (response != null) + " " + result);
-//            if (response != null) {
-//                future.complete(result);
-//            } else {
-//                Log.d("backendServiceTag", "Failed to get all trainings.");
-//                future.completeExceptionally(new IOException("Failed to get all trainings."));
-//            }
-//        });
-//        return future;
-//    }
-
-
     @NonNull
     public static CompletableFuture<Long> createPlan(@NonNull PlanDto planDto) {
         String msg = "Failed to add training to plan: no response from server";
         return sendRequestAndHandleResponse(BASE_URL + "/createPlan", planDto, Long.class, msg);
+    }
+
+    @NonNull
+    public static CompletableFuture<Void> markEventCompleted(@NonNull Long eventId) {
+        String msg = "Failed to mark an event as completed: no response from server";
+        return sendRequestAndHandleResponse(BASE_URL + "/markEventCompleted", eventId, Void.class, msg);
     }
 
     @NonNull
@@ -165,11 +150,6 @@ public class BackendService {
         }.getType();
         return sendAsyncGetRequest(url, type, "Failed to find coaches by name: " + name);
     }
-//    @NonNull
-//    public static CompletableFuture<Long> searchCoaches(String name) {
-//        String msg = "Failed finding coach: no response from server";
-//        return sendRequestAndHandleResponse(BASE_URL + "/findCoach", name, Long.class, msg);
-//    }
 
 
     private static <T> void handleResponse(@NotNull Response response, CompletableFuture<T> future, Type responseClass, ResponseHandler<T> responseHandler) throws IOException {

@@ -6,13 +6,11 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.sportApp.dto.ExerciseDto;
-import org.sportApp.dto.PlanDto;
-import org.sportApp.dto.TrainingDto;
 import org.sportApp.dto.TrainingEventDto;
+import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.adapters.BaseAdapter;
 import org.sportApp.userInterface.adapters.ExercisesAdapter;
@@ -66,12 +64,11 @@ public class OneEvent extends BaseActivity<ExerciseDto, TrainingEventDto> {
         CheckBox isCompleted = findViewById(R.id.isCompleted);
         isCompleted.setOnCheckedChangeListener((buttonView, isChecked) -> {
             entity.setCompleted(isChecked);
+            markEventCompleted();
         });
 
         Button saveChangesButton = findViewById(R.id.buttonSaveChanges);
-        saveChangesButton.setOnClickListener(v -> {
-            saveChanges();
-        });
+        saveChangesButton.setOnClickListener(v -> saveChanges());
     }
 
     private void saveChanges() {
@@ -82,5 +79,10 @@ public class OneEvent extends BaseActivity<ExerciseDto, TrainingEventDto> {
     }
     private void showExercise(int position) {
         super.showItem(position, "exerciseDto");
+    }
+
+    private void markEventCompleted() {
+        BackendService.markEventCompleted(entity.getEventId()).thenAccept(resultDto -> {
+        }).exceptionally(e -> null);
     }
 }

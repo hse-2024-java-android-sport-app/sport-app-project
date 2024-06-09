@@ -10,11 +10,6 @@
             android:title="@string/menu_plans" />
 
         <item
-            android:id="@+id/nav_search"
-            android:icon="@drawable/search"
-            android:title="@string/menu_search" />
-
-        <item
             android:id="@+id/nav_trainings"
             android:icon="@drawable/trainings"
             android:title="@string/menu_my_trainings" />
@@ -26,7 +21,12 @@
 
         <item
             android:id="@+id/nav_friends"
-            android:icon="@drawable/search"
+            android:icon="@drawable/profile"
             android:title="@string/my_friends" />
+
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/search"
+            android:title="@string/menu_find_coach" />
     </group>
 </menu>
