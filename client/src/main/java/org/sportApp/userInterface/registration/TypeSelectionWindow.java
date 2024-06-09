@@ -1,12 +1,12 @@
 package org.sportApp.userInterface.registration;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.sportApp.dto.UserDto;
 import org.sportApp.requests.BackendService;

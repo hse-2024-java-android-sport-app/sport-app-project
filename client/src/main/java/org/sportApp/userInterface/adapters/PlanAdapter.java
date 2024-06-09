@@ -12,6 +12,7 @@ import org.sportApp.dto.PlanDto;
 import org.sportApp.dto.TrainingEventDto;
 import org.sportApp.userInterface.R;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -40,12 +41,15 @@ public class PlanAdapter extends BaseAdapter<PlanDto, BaseAdapter.BaseViewHolder
         private final TextView firstTrainingEvent;
         private final TextView lastTrainingEvent;
 
+        private final TextView creationTime;
+
         public PlanViewHolder(View itemView) {
             super(itemView);
             planNameTextView = itemView.findViewById(R.id.planNameTextView);
             numberOfEventsTextView = itemView.findViewById(R.id.numberOfEvents);
             firstTrainingEvent = itemView.findViewById(R.id.firstDate);
             lastTrainingEvent = itemView.findViewById(R.id.lastDate);
+            creationTime = itemView.findViewById(R.id.creationTime);
         }
 
         @SuppressLint("SetTextI18n")
@@ -70,6 +74,13 @@ public class PlanAdapter extends BaseAdapter<PlanDto, BaseAdapter.BaseViewHolder
                 lastTrainingEvent.setText("The first training event at: " + latest.getDate());
             } else {
                 lastTrainingEvent.setText("The first training event at: " + "10.05.2002");
+            }
+            DateTimeFormatter formatter;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O && plan.getCreationTime() != null) {
+                formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                creationTime.setText(plan.getCreationTime().format(formatter));
+            } else {
+                creationTime.setVisibility(View.GONE);
             }
         }
     }

@@ -1,6 +1,7 @@
 package org.sportApp.userInterface.sportsman.ui.plans;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
@@ -20,6 +21,7 @@ import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.sportsman.ui.events.TypeSelection;
 import org.sportApp.utils.UserManager;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -80,6 +82,9 @@ public class EditPlanWindow extends AppCompatActivity {
 
 
     private void createPlan(@NonNull PlanDto planDto) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            planDto.setCreationTime(LocalDate.now());
+        }
         Log.d("myTag", String.valueOf(planDto.getTrainings().size()));
         BackendService.createPlan(planDto)
                 .thenCompose(resultDto -> {

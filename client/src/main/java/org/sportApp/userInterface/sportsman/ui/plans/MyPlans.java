@@ -15,7 +15,6 @@ import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.adapters.BaseAdapter;
 import org.sportApp.userInterface.adapters.PlanAdapter;
-import org.sportApp.userInterface.sportsman.ui.overview.BaseFragment;
 import org.sportApp.userInterface.sportsman.ui.overview.FragmentWithAddButton;
 import org.sportApp.utils.UserManager;
 
@@ -50,7 +49,7 @@ public class MyPlans extends FragmentWithAddButton<PlanDto> {
 
     @Override
     protected Class<?> getShowWindowClass() {
-        return OnePlanWindow.class;
+        return OnePlan.class;
     }
 
     @Override

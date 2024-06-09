@@ -7,20 +7,27 @@ import androidx.annotation.NonNull;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import okhttp3.*;
-
 import org.jetbrains.annotations.NotNull;
-import org.sportApp.dto.UserDto;
 import org.sportApp.dto.ExerciseDto;
 import org.sportApp.dto.PlanDto;
 import org.sportApp.dto.TrainingDto;
 import org.sportApp.dto.TrainingEventDto;
+import org.sportApp.dto.UserDto;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class BackendService {
     static OkHttpClient client = new OkHttpClient();
@@ -151,6 +158,15 @@ public class BackendService {
         return sendAsyncGetRequest(url, type, "Failed to find coaches by name: " + name);
     }
 
+    // maybe we can combine with the method to find a trainer
+    @NonNull
+    public static CompletableFuture<List<UserDto>> searchFriends(String name) {
+        String url = BASE_URL + "/searchFriends/" + name;
+        Type type = new TypeToken<List<UserDto>>() {
+        }.getType();
+        return sendAsyncGetRequest(url, type, "Failed to find friends by name: " + name);
+    }
+
 
     private static <T> void handleResponse(@NotNull Response response, CompletableFuture<T> future, Type responseClass, ResponseHandler<T> responseHandler) throws IOException {
         Log.d("BackendService", "handleResponse");
@@ -180,29 +196,24 @@ public class BackendService {
         CompletableFuture<T> future = new CompletableFuture<>();
         String json = gson.toJson(dto);
         Request request = createPostRequest(url, json);
-        Log.d("myTag", "sendRequestAndHandleResponse1");
         try {
-            Log.d("myTag", "sendRequestAndHandleResponse2");
             sendAsyncRequest(request, future, responseType, (response, result) -> {
-                Log.d("myTag", "sendRequestAndHandleResponse3");
-                Log.d("sendRequest", "sendRequest");
-                Log.d("backendServiceTag", "Send Request:" + (response != null) + " " + result);
+                Log.d("BackendService", "Send Request:" + (response != null) + " " + result);
                 if (response != null) {
                     future.complete(result);
                 } else {
-                    Log.d("backendServiceError", msg);
+                    Log.e("BackendService", msg);
                     future.completeExceptionally(new IOException(msg));
                 }
             });
         } catch (Exception e) {
-            Log.d("Exception", Objects.requireNonNull(e.getMessage()));
+            Log.e("BackendService", Objects.requireNonNull(e.getMessage()));
         }
         return future;
     }
 
 
     private static <T> void sendAsyncRequest(@NotNull Request request, CompletableFuture<T> future, Type responseClass, ResponseHandler<T> responseHandler) {
-        Log.d("BackendService", "Starting async request");
         Log.d("BackendService", "Request URL: " + request.url());
         Log.d("BackendService", "Request Headers: " + request.headers());
         Log.d("BackendService", "Request Body: " + request.body());
@@ -222,8 +233,6 @@ public class BackendService {
                 future.completeExceptionally(e);
             }
         });
-
-        Log.d("BackendService", "Async request initiated");
     }
 
 
@@ -233,11 +242,11 @@ public class BackendService {
         Request request = new Request.Builder().url(url).get().build();
 
         sendAsyncRequest(request, future, responseType, (response, result) -> {
-            Log.d("backendServiceTag", "Send Request:" + (response != null) + " " + result);
+            Log.d("BackendService", "Send Request:" + (response != null) + " " + result);
             if (response != null) {
                 future.complete(result);
             } else {
-                Log.d("backendServiceTag", errorMsg);
+                Log.e("BackendService", errorMsg);
                 future.completeExceptionally(new IOException(errorMsg));
             }
         });
@@ -251,11 +260,11 @@ public class BackendService {
         Request request = new Request.Builder().url(url).get().build();
 
         sendAsyncRequest(request, future, responseType, (response, result) -> {
-            Log.d("backendServiceTag", "Send Request:" + (response != null) + " " + result);
+            Log.d("BackendService", "Send Request:" + (response != null) + " " + result);
             if (response != null) {
                 future.complete(result);
             } else {
-                Log.d("backendServiceTag", errorMsg);
+                Log.e("BackendService", errorMsg);
                 future.completeExceptionally(new IOException(errorMsg));
             }
         });

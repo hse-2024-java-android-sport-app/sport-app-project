@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:autofillHints=""
-        android:hint="@string/enter_coach_s_login"
+        android:hint="@string/enter_user_s_login"
         android:inputType="text"
         android:minHeight="48dp"
         android:paddingStart="10dp"

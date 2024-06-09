@@ -3,6 +3,7 @@ package org.sportApp.userInterface.adapters;
 import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 
 import org.sportApp.dto.TrainingDto;

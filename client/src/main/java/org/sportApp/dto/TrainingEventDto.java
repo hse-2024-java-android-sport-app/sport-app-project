@@ -1,7 +1,5 @@
 package org.sportApp.dto;
 
-import org.sportApp.dto.TrainingDto;
-
 import java.io.Serializable;
 import java.util.Date;
 

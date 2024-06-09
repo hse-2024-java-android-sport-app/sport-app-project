@@ -1,10 +1,5 @@
 package org.sportApp.dto;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import androidx.annotation.NonNull;
-
 import java.io.Serializable;
 public class ExerciseDto implements Serializable{
     private String name;

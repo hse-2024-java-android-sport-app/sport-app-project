@@ -68,15 +68,15 @@
     <string name="menu_add_training">Add training</string>
     <string name="menu_notifications">Notifications</string>
     <string name="menu_plans">Plans</string>
-    <string name="menu_find_coach">Find coach</string>
-    <string name="enter_coach_s_login">Enter coach\'s  login or name</string>
+    <string name="menu_add_coach">Add coach</string>
+    <string name="enter_user_s_login">Enter user\'s  login or name</string>
     <string name="search">Search</string>
     <string name="menu_one_training">One training</string>
     <string name="current_training">Current training</string>
     <string name="exercise_title">Exercise title</string>
     <string name="exercise_description">Exercise description</string>
     <string name="exercise_repetitions">Exercise repetitions</string>
-    <string name="exercise">Exercise</string>
+    <string name="exercise">Information about the exercise</string>
     <string name="choose_an_existing_exercise">Choose an existing exercise</string>
     <string name="my_training_events">My training events</string>
     <string name="menu_training_events">My training Events</string>
@@ -110,6 +110,8 @@
     <string name="subscriptions">Subscriptions</string>
     <string name="PlanTrain">Plan Train</string>
     <string name="my_friends">My friends</string>
+    <string name="menu_find_friends">Find friends</string>
+    <string name="creation_time">Creation time</string>
 
 
 </resources>

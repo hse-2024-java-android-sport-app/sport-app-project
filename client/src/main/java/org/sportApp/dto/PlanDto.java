@@ -1,6 +1,7 @@
 package org.sportApp.dto;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +12,9 @@ public class PlanDto implements Serializable {
     private long coachId;
     private long sportsmanId;
 
-    private boolean isCompleted;
+    private LocalDate creationTime;
 
+    private boolean isCompleted;
     public PlanDto() {
         //BackendService.createPlan(this);
     }
@@ -78,4 +80,11 @@ public class PlanDto implements Serializable {
         this.trainings = trainings;
     }
 
+    public LocalDate getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(LocalDate creationTime) {
+        this.creationTime = creationTime;
+    }
 }

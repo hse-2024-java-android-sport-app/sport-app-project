@@ -15,7 +15,7 @@ import org.sportApp.userInterface.sportsman.ui.overview.BaseActivity;
 
 import java.util.List;
 
-public class OnePlanWindow extends BaseActivity<TrainingEventDto, PlanDto> {
+public class OnePlan extends BaseActivity<TrainingEventDto, PlanDto> {
     @Override
     protected int getLayout() {
         return R.layout.activity_one_plan;

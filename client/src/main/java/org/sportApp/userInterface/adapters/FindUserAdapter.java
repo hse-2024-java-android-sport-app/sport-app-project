@@ -15,9 +15,9 @@ import org.sportApp.utils.UserManager;
 
 import java.util.List;
 
-public class FindCoachAdapter extends BaseAdapter<UserDto, BaseAdapter.BaseViewHolder<UserDto>> {
+public class FindUserAdapter extends BaseAdapter<UserDto, BaseAdapter.BaseViewHolder<UserDto>> {
 
-    public FindCoachAdapter(List<UserDto> items, OnItemClickListener<UserDto> listener) {
+    public FindUserAdapter(List<UserDto> items, OnItemClickListener<UserDto> listener) {
         super(items, R.layout.item_find_coach, listener, FindCoachViewHolder::new);
     }
 

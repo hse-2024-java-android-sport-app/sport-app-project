@@ -25,8 +25,13 @@
             android:title="@string/my_friends" />
 
         <item
-            android:id="@+id/nav_search"
+            android:id="@+id/nav_add_coach"
             android:icon="@drawable/search"
-            android:title="@string/menu_find_coach" />
+            android:title="@string/menu_add_coach" />
+
+        <item
+            android:id="@+id/nav_find_friends"
+            android:icon="@drawable/search"
+            android:title="@string/menu_find_friends" />
     </group>
 </menu>

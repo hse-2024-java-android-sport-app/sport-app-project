@@ -25,15 +25,22 @@
 
 
     <fragment
-        android:id="@+id/nav_search"
+        android:id="@+id/nav_add_coach"
         android:name="org.sportApp.userInterface.sportsman.ui.interaction.FindCoach"
-        android:label="@string/menu_find_coach"
-        tools:layout="@layout/fragment_search" />
+        android:label="@string/menu_add_coach"
+        tools:layout="@layout/fragment_find_user" />
 
     <fragment
         android:id="@+id/nav_friends"
         android:name="org.sportApp.userInterface.sportsman.ui.interaction.Friends"
         android:label="@string/my_friends"
         tools:layout="@layout/fragment_friends" />
+
+    <fragment
+        android:id="@+id/nav_find_friends"
+        android:name="org.sportApp.userInterface.sportsman.ui.interaction.FindFriends"
+        android:label="@string/menu_find_friends"
+        tools:layout="@layout/fragment_find_user" />
+
 
 </navigation>
