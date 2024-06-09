@@ -83,11 +83,19 @@ public class BackendService {
 
 
     @NonNull
-    public static CompletableFuture<List<UserDto>> getFollowings(Long userId) {
-        String url = BASE_URL + "/getFollowings/" + userId;
+    public static CompletableFuture<List<UserDto>> getFollowers(Long userId) {
+        String url = BASE_URL + "/getFollowers/" + userId;
         Type type = new TypeToken<List<UserDto>>() {
         }.getType();
-        return sendAsyncGetRequest(url, type, "Failed to get followings.");
+        return sendAsyncGetRequest(url, type, "Failed to get followers.");
+    }
+
+    @NonNull
+    public static CompletableFuture<List<UserDto>> getSubscriptions(Long userId) {
+        String url = BASE_URL + "/getSubscriptions/" + userId;
+        Type type = new TypeToken<List<UserDto>>() {
+        }.getType();
+        return sendAsyncGetRequest(url, type, "Failed to get subscriptions.");
     }
 
 //    @NonNull

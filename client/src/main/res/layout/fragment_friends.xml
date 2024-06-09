@@ -1,41 +1,35 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:id="@+id/topBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentTop="true"
-        android:background="@color/black"
-        tools:ignore="UselessParent">
 
-        <Button
-            android:id="@+id/buttonSubscribers"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/violet"
-            android:text="@string/subscribers"
-            android:textColor="@android:color/white"/>
 
-        <Button
-            android:id="@+id/buttonSubscriptions"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/subscriptions"
-            android:backgroundTint="@color/violet"
-            android:textColor="@android:color/white"
-            style="?android:attr/buttonBarButtonStyle" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/buttonSubscribers"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/violet"
+        android:text="@string/subscribers" />
+
+    <Button
+        android:id="@+id/buttonSubscriptions"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@id/buttonSubscribers"
+        android:backgroundTint="@color/violet"
+        android:text="@string/subscriptions" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewFriends"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone" />
+        android:layout_below="@id/buttonSubscribers"
+        android:paddingTop="10dp"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp" />
 
 </RelativeLayout>
