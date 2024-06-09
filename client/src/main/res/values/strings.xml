@@ -106,6 +106,10 @@
     <string name="last_training_event">Last training event</string>
     <string name="training_date">Training Date</string>
     <string name="event_title">Training Event</string>
+    <string name="subscribers">Subscribers</string>
+    <string name="subscriptions">Subscriptions</string>
+    <string name="PlanTrain">Plan Train</string>
+    <string name="my_friends">My friends</string>
 
 
 </resources>
