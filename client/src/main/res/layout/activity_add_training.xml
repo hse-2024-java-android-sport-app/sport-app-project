@@ -62,6 +62,6 @@
         android:gravity="center_vertical|center_horizontal"
         android:padding="16dp"
         android:text="@string/save_changes"
-        android:textColor="@color/white" />
+        android:textColor="@color/black" />
 
 </RelativeLayout>

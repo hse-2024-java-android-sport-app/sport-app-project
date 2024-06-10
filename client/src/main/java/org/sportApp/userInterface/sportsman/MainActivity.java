@@ -2,7 +2,6 @@ package org.sportApp.userInterface.sportsman;
 
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -12,35 +11,22 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
-import org.sportApp.model.User;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.databinding.ActivityMainSportsmanBinding;
 
 public class MainActivity extends AppCompatActivity {
-    public static User mainUser;
     private AppBarConfiguration mAppBarConfiguration;
-    private ActivityMainSportsmanBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mainUser = new User("Admin Adminov", 0);
 
-        binding = ActivityMainSportsmanBinding.inflate(getLayoutInflater());
+        org.sportApp.userInterface.databinding.ActivityMainSportsmanBinding binding = ActivityMainSportsmanBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMainSportsman.toolbar);
-        binding.appBarMainSportsman.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null)
-                        .setAnchorView(R.id.fab).show();
-            }
-        });
         DrawerLayout drawer = binding.drawerLayout2;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each

@@ -42,5 +42,11 @@
         android:label="@string/menu_find_friends"
         tools:layout="@layout/fragment_find_user" />
 
+    <fragment
+        android:id="@+id/nav_rating"
+        android:name="org.sportApp.userInterface.sportsman.ui.interaction.Rating"
+        android:label="@string/menu_rating"
+        tools:layout="@layout/fragment_rating" />
+
 
 </navigation>

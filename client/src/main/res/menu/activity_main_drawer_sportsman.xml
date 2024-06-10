@@ -26,12 +26,17 @@
 
         <item
             android:id="@+id/nav_add_coach"
-            android:icon="@drawable/search"
+            android:icon="@drawable/ic_add"
             android:title="@string/menu_add_coach" />
 
         <item
             android:id="@+id/nav_find_friends"
             android:icon="@drawable/search"
             android:title="@string/menu_find_friends" />
+
+        <item
+            android:id="@+id/nav_rating"
+            android:icon="@drawable/cup"
+            android:title="@string/menu_rating" />
     </group>
 </menu>

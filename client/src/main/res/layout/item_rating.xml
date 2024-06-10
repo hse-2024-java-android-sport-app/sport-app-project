@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/one_item_background"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/cupFirstImageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/cup_first"
+        android:contentDescription="@string/todo" />
+
+    <ImageView
+        android:id="@+id/cupSecondImageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/cup_second"
+        android:contentDescription="@string/todo" />
+
+    <ImageView
+        android:id="@+id/cupThirdImageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/cup_third"
+        android:contentDescription="@string/todo" />
+
+    <TextView
+        android:id="@+id/positionTextView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/todo"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/friendNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="6dp"
+        android:text="@string/user_name"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/friendAgeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/user_age"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="italic" />
+
+</RelativeLayout>

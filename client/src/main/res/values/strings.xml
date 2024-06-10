@@ -95,7 +95,7 @@
     <string name="enter_training_s_name">Enter training\'s name</string>
     <string name="add_training" />
     <string name="user_name">User\'s Name</string>
-    <string name="user_age">Coach\'s age</string>
+    <string name="user_age">User\'s age</string>
     <string name="add_to_friend">+</string>
     <string name="enter_plan_name">Enter plan name</string>
     <string name="create_training_event">2. Create training event</string>
@@ -112,6 +112,9 @@
     <string name="my_friends">My friends</string>
     <string name="menu_find_friends">Find friends</string>
     <string name="creation_time">Creation time</string>
+    <string name="menu_rating">Rating</string>
+    <string name="rating">Rating</string>
+    <string name="user_position">position</string>
 
 
 </resources>

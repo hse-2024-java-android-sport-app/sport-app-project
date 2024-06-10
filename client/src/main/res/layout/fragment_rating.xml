@@ -13,12 +13,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/my_trainings"
+        android:text="@string/rating"
         android:textSize="24sp"
         android:layout_marginTop="15dp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/trainingRecyclerView"
+        android:id="@+id/ratingRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/trainingLabel"
@@ -30,25 +30,5 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/findTrainingSaveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/trainingRecyclerView"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="135dp"
-        android:layout_marginTop="664dp"
-        android:layout_marginEnd="135dp"
-        android:backgroundTint="@color/violet"
-        android:text="@string/save_changes"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
