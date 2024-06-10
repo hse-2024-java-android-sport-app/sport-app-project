@@ -61,6 +61,6 @@ public class TypeSelectionWindow extends AppCompatActivity {
                 .exceptionally(e -> {
                     Toast.makeText(TypeSelectionWindow.this, "Registration failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     return null;
-                });
+                }).join();
     }
 }

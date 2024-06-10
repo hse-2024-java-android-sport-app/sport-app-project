@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 import org.sportApp.dto.ExerciseDto;
 import org.sportApp.dto.PlanDto;
@@ -20,15 +21,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-
 public class BackendService {
     static OkHttpClient client = new OkHttpClient();
     static Gson gson = new Gson();
@@ -37,6 +29,16 @@ public class BackendService {
     @FunctionalInterface
     interface ResponseHandler<T> {
         void handleResponse(Response response, T result) throws IOException;
+    }
+
+    private static OkHttpClient createAuthenticatedClient(final String username, final String password) {
+        return new OkHttpClient.Builder().authenticator(
+                        (route, response) -> response
+                                .request()
+                                .newBuilder()
+                                .header("Authorization", Credentials.basic(username, password))
+                                .build())
+                .build();
     }
 
     @NonNull
@@ -49,13 +51,17 @@ public class BackendService {
     @NonNull
     public static CompletableFuture<Long> registerUser(UserDto userDto) {
         String msg = "Registration failed: no response from server";
-        return sendRequestAndHandleResponse(BASE_URL + "/register", userDto, Long.class, msg);
+        CompletableFuture<Long> ans = sendRequestAndHandleResponse(BASE_URL + "/register", userDto, Long.class, msg);
+        client = createAuthenticatedClient(userDto.getLogin(), userDto.getPassword());
+        return ans;
     }
 
     @NonNull
     public static CompletableFuture<Long> signInUser(UserDto userDto) {
         String msg = "Authorization failed: no response from server";
-        return sendRequestAndHandleResponse(BASE_URL + "/authorization", userDto, Long.class, msg);
+        CompletableFuture<Long> ans = sendRequestAndHandleResponse(BASE_URL + "/authorization", userDto, Long.class, msg);
+        client = createAuthenticatedClient(userDto.getLogin(), userDto.getPassword());
+        return ans;
     }
 
     @NonNull
@@ -136,12 +142,6 @@ public class BackendService {
     public static CompletableFuture<Long> addEventByPlan(TrainingEventDto eventDto, Long planId) {
         String msg = "Saving exercise failed: no response from server";
         return sendRequestAndHandleResponse(BASE_URL + "/addEvent/" + planId, eventDto, Long.class, msg);
-    }
-
-    @NonNull
-    public static CompletableFuture<Long> addEvent(TrainingEventDto trainingEventDto, Long planId) {
-        String msg = "Failed adding Event: no response from server";
-        return sendRequestAndHandleResponse(BASE_URL + "/addEvent/" + planId, trainingEventDto, Long.class, msg);
     }
 
     @NonNull

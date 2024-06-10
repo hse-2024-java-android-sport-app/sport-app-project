@@ -48,7 +48,7 @@ public class AuthorizationWindow extends AppCompatActivity {
                         .exceptionally(e -> {
                             Toast.makeText(AuthorizationWindow.this, "Authorization failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             return null;
-                        });
+                        }).join();
                 if (userDto.getType().equals(UserDto.Kind.sportsman)) {
                     Intent sportsmanIntent = new Intent(AuthorizationWindow.this, org.sportApp.userInterface.sportsman.MainActivity.class);
                     sportsmanIntent.putExtra("userDto", userDto);
