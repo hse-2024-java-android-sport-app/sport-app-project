@@ -31,20 +31,13 @@ public abstract class BaseActivity<T, R> extends AppCompatActivity {
     protected abstract BaseAdapter<T, ? extends BaseAdapter.BaseViewHolder<T>> createAdapter();
 
 
-    @SuppressWarnings("unchecked")
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         int layout = getLayout();
         setContentView(layout);
-
-        Intent intent = getIntent();
-        String entityName = getName();
-        if (intent != null && intent.hasExtra(entityName)) {
-            entity = (R) intent.getSerializableExtra(entityName);
-            items = getItems();
-        }
-
+        initializeEntity();
         int recyclerView = getRecyclerView();
         RecyclerView currentRecyclerView = findViewById(recyclerView);
         BaseAdapter<T, ? extends BaseAdapter.BaseViewHolder<T>> currentAdapter = createAdapter();
@@ -59,6 +52,16 @@ public abstract class BaseActivity<T, R> extends AppCompatActivity {
             Intent intent = new Intent(this, showClass);
             intent.putExtra(dto, (Serializable) item);
             startActivity(intent);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    protected void initializeEntity() {
+        Intent intent = getIntent();
+        String entityName = getName();
+        if (intent != null && intent.hasExtra(entityName)) {
+            entity = (R) intent.getSerializableExtra(entityName);
+            items = getItems();
         }
     }
 

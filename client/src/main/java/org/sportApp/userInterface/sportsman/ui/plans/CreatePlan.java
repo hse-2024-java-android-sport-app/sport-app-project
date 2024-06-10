@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class EditPlanWindow extends AppCompatActivity {
+public class CreatePlan extends AppCompatActivity {
     private final PlanDto planDto = new PlanDto();
     private final List<TrainingEventDto> events = new ArrayList<>();
     private ActivityResultLauncher<Intent> addEventLauncher;
@@ -61,7 +61,7 @@ public class EditPlanWindow extends AppCompatActivity {
 
         Button addEvent = findViewById(R.id.buttonAddTraining);
         addEvent.setOnClickListener(v -> {
-            Intent intent = new Intent(EditPlanWindow.this, TypeSelection.class);
+            Intent intent = new Intent(CreatePlan.this, TypeSelection.class);
             addEventLauncher.launch(intent);
         });
         saveChangesButton.setOnClickListener(v -> {

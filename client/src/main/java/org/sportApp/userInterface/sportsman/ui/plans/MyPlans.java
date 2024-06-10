@@ -29,7 +29,7 @@ public class MyPlans extends FragmentWithAddButton<PlanDto> {
 
     @Override
     protected Class<?> getAddWindowClass() {
-        return EditPlanWindow.class;
+        return CreatePlan.class;
     }
 
     @Override
