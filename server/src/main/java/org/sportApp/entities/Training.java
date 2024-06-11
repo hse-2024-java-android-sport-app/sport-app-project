@@ -15,10 +15,6 @@ public class Training {
     private List<Exercise> exercises;
     private long userId;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="eventId")
-    private TrainingEvent event;
-
 
     protected Training() {}
 
@@ -38,14 +34,6 @@ public class Training {
         this.exercises = exercises;
     }
 
-    public TrainingEvent getEvent() {
-        return event;
-    }
-
-    public void setEvent(TrainingEvent event) {
-        this.event = event;
-    }
-
     public long getUserId() {
         return userId;
     }
@@ -60,7 +48,11 @@ public class Training {
                 "trainId=" + trainId +
                 ", exercises=" + exercises +
                 ", userId=" + userId +
-                ", event=" + event +
                 '}';
+    }
+
+    public Training(long userId){
+        this.userId = userId;
+        this.exercises = List.of();
     }
 }

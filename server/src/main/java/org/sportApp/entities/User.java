@@ -40,6 +40,9 @@ public class User {
     @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Subscriber> subscriptions = new ArrayList<>();
 
+//    @OneToMany(mappedBy = "", cascade = CascadeType.ALL)
+//    private List<User> notifications = new ArrayList<>();
+
 
     protected User() {}
 

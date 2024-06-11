@@ -18,14 +18,15 @@ public class TrainingEvent {
     private Date date;
     private boolean completed;
     private String comment;
-    @OneToOne(mappedBy = "event", cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="trainId")
     private Training training;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="planId", nullable=false)
     private Plan plan;
 
-    public int getEventId() {
+    public long getEventId() {
         return eventId;
     }
 
@@ -81,7 +82,7 @@ public class TrainingEvent {
                 ", completed=" + completed +
                 ", comment='" + comment + '\'' +
                 ", training=" + (training==null) +
-                ", planId=" + plan.getPlanId() +
+                ", planId=" + ((plan == null) ? null : plan.getPlanId()) +
                 '}';
     }
 }

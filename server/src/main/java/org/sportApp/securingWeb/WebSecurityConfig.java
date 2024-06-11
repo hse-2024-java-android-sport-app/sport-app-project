@@ -42,6 +42,7 @@ public class WebSecurityConfig  {
     private String[] getOpenedResources() {
         return new String[]{
                 "/sport_app/register",
+                "sport_app/authorization",
                 "/sport_app/isLoginExist/**"
         };
     }

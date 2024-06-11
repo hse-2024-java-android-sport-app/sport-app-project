@@ -1,10 +1,7 @@
 package org.sportApp.services;
 
 import org.modelmapper.ModelMapper;
-import org.sportApp.entities.Exercise;
-import org.sportApp.entities.Plan;
-import org.sportApp.entities.Training;
-import org.sportApp.entities.TrainingEvent;
+import org.sportApp.entities.*;
 import org.sportApp.repo.TrainingEventRepository;
 import org.sportApp.repo.TrainingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,17 +24,26 @@ public class EventService {
 
     public TrainingEvent saveEvent(TrainingEvent event) {
         Training training = event.getTraining();
-        training.setEvent(event);
         training.getExercises().forEach(exr -> exr.setTraining(training));
-        TrainingEvent savedEvent = eventRepository.save(event);
-        trainingService.saveTraining(training);
-        return savedEvent;
+        if (trainingService.findById(training.getTrainId()).isEmpty()) {
+            trainingService.saveTraining(training);
+        }
+        return eventRepository.save(event);
     }
 
     public Optional<Exercise> addExercise(long eventId, Exercise exercise) {
         Optional<TrainingEvent> optionalEvent = eventRepository.findById(eventId);
         if (optionalEvent.isPresent()) {
             return trainingService.addExercise(optionalEvent.get().getTraining().getTrainId(), exercise);
+        }
+        return Optional.empty();
+    }
+
+    public Optional<Long> editEventCompleted(long eventId, boolean completed) {
+        Optional<TrainingEvent> event = eventRepository.findById(eventId);
+        if(event.isPresent()){
+            event.get().setCompleted(completed);
+            return Optional.of(eventRepository.save(event.get()).getEventId());
         }
         return Optional.empty();
     }

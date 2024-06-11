@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class TrainingEventDto {
     private int eventId;
-    @JsonFormat(pattern = "dd/mm/yyyy")
+    @JsonFormat(pattern = "MMM dd, yyyy hh:mm:ss a")
     private Date date;
     private boolean completed;
     private String comment;

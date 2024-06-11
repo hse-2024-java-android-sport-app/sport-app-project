@@ -113,8 +113,8 @@ public class Controller {
                         () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required sportsmanId doesn't found")));
     }
 
-    @GetMapping("searchCoaches")
-    public @ResponseBody CompletableFuture<ResponseEntity<?>> searchCoaches(@RequestBody String searchString) {
+    @GetMapping("searchCoaches/{searchString}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> searchCoaches(@PathVariable(value = "searchString") String searchString) {
         //TODO filter only coaches
         return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.OK).body(
                 userService.searchCoaches(searchString).stream()
@@ -145,7 +145,7 @@ public class Controller {
                 ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required userId or followToId doesn't found"));
     }
 
-    @GetMapping("getFollowings/{userId}")
+    @GetMapping("getFollowers/{userId}")
     public @ResponseBody CompletableFuture<ResponseEntity<?>> getFollowings(@PathVariable(value = "userId") long userId) {
         if (userService.notExistsById(userId)) {
             return CompletableFuture.supplyAsync(() ->
@@ -165,8 +165,8 @@ public class Controller {
                         .toList()));
     }
 
-    @GetMapping("searchSportsman")
-    public @ResponseBody CompletableFuture<ResponseEntity<?>> searchSportsman(@RequestBody String searchString) {
+    @GetMapping("searchSportsman/{searchString}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> searchSportsman(@PathVariable(value = "searchString") String searchString) {
         return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.OK).body(
                 userService.searchSportsman(searchString).stream()
                         .map(user -> mapper.map(user, UserDto.class))
@@ -245,10 +245,14 @@ public class Controller {
         return future.thenApply(result -> ResponseEntity.status(HttpStatus.CREATED).body(addedExercise.get().getId()));
     }
 
-//    @PostMapping("setCompleted/{eventId}")
-//    public @ResponseBody CompletableFuture<ResponseEntity<?>> setCompleted(@PathVariable(value = "eventId") long eventId) {
-//        return ;
-//    }
+    @PostMapping("/markEventCompleted/{eventId}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> editCompleted(@PathVariable(value = "eventId") long eventId, @RequestBody boolean completed) {
+        return eventService.editEventCompleted(eventId, completed)
+                .<CompletableFuture<ResponseEntity<?>>>map(idEvent -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.OK).body(idEvent)))
+                .orElseGet(() -> CompletableFuture.supplyAsync(
+                        () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required eventId doesn't found")));
+    }
 
     @GetMapping("getTrainingByEvent/{eventId}")
     public @ResponseBody CompletableFuture<ResponseEntity<?>> getTrainingByEventId(@PathVariable(value = "eventId") long eventId) {

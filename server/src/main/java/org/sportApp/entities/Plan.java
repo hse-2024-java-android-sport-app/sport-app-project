@@ -60,4 +60,15 @@ public class Plan {
     public void setTrainings(List<TrainingEvent> trainings) {
         this.trainings = trainings;
     }
+
+    @Override
+    public String toString() {
+        return "Plan{" +
+                "planId=" + planId +
+                ", name=" + name +
+                ", trainings=" + trainings +
+                ", coachId='" + coachId +
+                ", sportsmanId=" + (sportsmanId) +
+                '}';
+    }
 }

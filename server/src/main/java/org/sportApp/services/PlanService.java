@@ -9,6 +9,7 @@ import org.sportApp.repo.TrainingEventRepository;
 import org.sportApp.repo.TrainingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.events.Event;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +32,15 @@ public class PlanService {
         if (plan.getTrainings() == null) {
             return planRepository.save(plan);
         }
-        plan.getTrainings().forEach(train -> train.setPlan(plan));
+        List<TrainingEvent> events = plan.getTrainings();
+        plan.setTrainings(List.of());
         Plan savedPlan = planRepository.save(plan);
-        plan.getTrainings().forEach(eventService::saveEvent);
+        System.out.println("savedPlan: \n" + savedPlan);
+        events.forEach(event -> {
+            event.setPlan(savedPlan);
+            System.out.println("events: \n" + event);
+            eventService.saveEvent(event);
+        });
         return savedPlan;
     }
 
