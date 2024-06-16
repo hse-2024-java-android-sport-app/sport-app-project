@@ -1,17 +1,10 @@
 package org.sportApp.services;
 
-import org.sportApp.entities.Exercise;
-import org.sportApp.entities.Plan;
-import org.sportApp.entities.Training;
-import org.sportApp.entities.TrainingEvent;
+import org.sportApp.entities.*;
 import org.sportApp.repo.PlanRepository;
-import org.sportApp.repo.TrainingEventRepository;
-import org.sportApp.repo.TrainingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.events.Event;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,11 +13,13 @@ public class PlanService {
 
     private final PlanRepository planRepository;
     private final EventService eventService;
+    private final NotificationService notifService;
 
     @Autowired
-    public PlanService(PlanRepository planRepository, EventService eventService) {
+    public PlanService(PlanRepository planRepository, EventService eventService, NotificationService notifService) {
         this.planRepository = planRepository;
         this.eventService = eventService;
+        this.notifService = notifService;
     }
 
 
@@ -41,6 +36,7 @@ public class PlanService {
             System.out.println("events: \n" + event);
             eventService.saveEvent(event);
         });
+        notifService.sendPlan(savedPlan, "New plan \"" + savedPlan.getName() + "\" was created!");
         return savedPlan;
     }
 
@@ -48,6 +44,7 @@ public class PlanService {
         Optional<Plan> optionalPlan = planRepository.findById(planId);
         if (optionalPlan.isPresent()) {
             event.setPlan(optionalPlan.get());
+            notifService.sendPlan(optionalPlan.get(), "New training event was added to plan \"" + optionalPlan.get().getName() + "\"");
             return Optional.of(eventService.saveEvent(event));
         }
         return Optional.empty();

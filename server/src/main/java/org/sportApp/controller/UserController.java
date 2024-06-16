@@ -10,25 +10,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.modelmapper.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/sport_app")
-public class Controller {
+public class UserController {
     private final UserService userService;
     private final TrainingService trainingService;
     private final EventService eventService;
     private final PlanService planService;
+    private final NotificationService notifService;
     private final ModelMapper mapper = new ModelMapper();
 
     @Autowired
-    public Controller(UserService userService, TrainingService trainingService, EventService eventService, PlanService planService) {
+    public UserController(UserService userService, TrainingService trainingService, EventService eventService, PlanService planService, NotificationService notifService) {
         this.userService = userService;
         this.trainingService = trainingService;
         this.eventService = eventService;
         this.planService = planService;
+        this.notifService = notifService;
     }
+
+    //todo mapper user -> null for password
 
     @GetMapping("http://10.0.2.2:8080/sportApp/getAllUsers")
     public @ResponseBody Iterable<User> getAllUsers() {
@@ -131,6 +136,17 @@ public class Controller {
                 .orElseGet(() -> CompletableFuture.supplyAsync(
                         () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Required sportsmanId or coachId doesn't found")));
 
+    }
+
+
+    // NOTIFICATIONS
+    @GetMapping("getNotifications/{userId}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> getAllNotifications(@PathVariable(value = "userId") long userId) {
+        return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.OK).body(
+                notifService.getNotificationsByUserId(userId).stream()
+                        .map(notification -> mapper.map(notification, Notification.class))
+                        .toList()
+        ));
     }
 
 

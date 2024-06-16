@@ -7,6 +7,10 @@ public class TrainingDto {
     private List<ExerciseDto> exercises;
     private long userId;
 
+    private int hours;
+    private int minutes;
+    private int seconds;
+
     public TrainingDto() {
     }
 
@@ -32,5 +36,29 @@ public class TrainingDto {
 
     public void setExercises(List<ExerciseDto> exercises) {
         this.exercises = exercises;
+    }
+
+    public int getHours() {
+        return hours;
+    }
+
+    public void setHours(int hours) {
+        this.hours = hours;
+    }
+
+    public int getMinutes() {
+        return minutes;
+    }
+
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
+    }
+
+    public int getSeconds() {
+        return seconds;
+    }
+
+    public void setSeconds(int seconds) {
+        this.seconds = seconds;
     }
 }

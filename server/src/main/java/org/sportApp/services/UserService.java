@@ -1,5 +1,6 @@
 package org.sportApp.services;
 
+import org.sportApp.entities.Notification;
 import org.sportApp.entities.Subscriber;
 import org.sportApp.entities.User;
 import org.sportApp.repo.SubscriberRepository;

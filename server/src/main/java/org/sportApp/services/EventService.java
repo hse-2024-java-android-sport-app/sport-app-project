@@ -1,12 +1,9 @@
 package org.sportApp.services;
 
-import org.modelmapper.ModelMapper;
 import org.sportApp.entities.*;
 import org.sportApp.repo.TrainingEventRepository;
-import org.sportApp.repo.TrainingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.events.Event;
 
 import java.util.Optional;
 
@@ -14,11 +11,13 @@ import java.util.Optional;
 public class EventService {
     private final TrainingEventRepository eventRepository;
     private final TrainingService trainingService;
+    private final NotificationService notifService;
 
     @Autowired
-    public EventService(TrainingEventRepository eventRepository, TrainingService trainingService) {
+    public EventService(TrainingEventRepository eventRepository, TrainingService trainingService, NotificationService notifService) {
         this.eventRepository = eventRepository;
         this.trainingService = trainingService;
+        this.notifService = notifService;
     }
 
 
@@ -43,6 +42,7 @@ public class EventService {
         Optional<TrainingEvent> event = eventRepository.findById(eventId);
         if(event.isPresent()){
             event.get().setCompleted(completed);
+            notifService.sendEventCompleted(event.get());
             return Optional.of(eventRepository.save(event.get()).getEventId());
         }
         return Optional.empty();

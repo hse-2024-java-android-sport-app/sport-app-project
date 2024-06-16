@@ -1,5 +1,6 @@
 package org.sportApp.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -40,8 +41,9 @@ public class User {
     @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Subscriber> subscriptions = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "", cascade = CascadeType.ALL)
-//    private List<User> notifications = new ArrayList<>();
+    @OneToMany(mappedBy = "userTo", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private List<Notification> notifications = new ArrayList<>();
 
 
     protected User() {}
@@ -137,5 +139,13 @@ public class User {
 
     public void setSubscriptions(List<Subscriber> subscriptions) {
         this.subscriptions = subscriptions;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
     }
 }

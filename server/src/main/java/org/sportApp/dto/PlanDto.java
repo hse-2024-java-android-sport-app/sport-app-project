@@ -2,6 +2,7 @@ package org.sportApp.dto;
 
 import org.sportApp.entities.TrainingEvent;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ public class PlanDto {
     private List<TrainingEventDto> trainings = new ArrayList<>();
     private long coachId;
     private long sportsmanId;
+    private LocalDate creationTime;
 
     public PlanDto(long id, String name, long coachId, long sportsmanId) {
         this.planId = id;
@@ -71,5 +73,13 @@ public class PlanDto {
 
     public void setTrainings(List<TrainingEventDto> trainings) {
         this.trainings = trainings;
+    }
+
+    public LocalDate getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(LocalDate creationTime) {
+        this.creationTime = creationTime;
     }
 }
