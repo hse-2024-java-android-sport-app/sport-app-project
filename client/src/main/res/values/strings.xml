@@ -115,6 +115,9 @@
     <string name="menu_rating">Rating</string>
     <string name="rating">Rating</string>
     <string name="user_position">position</string>
+    <string name="notifications">Notifications</string>
+    <string name="message">Message</string>
+    <string name="user">User</string>
 
 
 </resources>
