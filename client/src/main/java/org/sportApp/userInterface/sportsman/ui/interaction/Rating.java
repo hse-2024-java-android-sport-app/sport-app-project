@@ -53,19 +53,20 @@ public class Rating extends BaseFragment<UserDto> {
             userDto.setSecondName("Friend");
             if (i == 4) {
                 userDto.setId(UserManager.getInstance().getId());
+                UserManager.myPosition = 4;
             }
             friends.add(userDto);
         }
     }
 
-    private void getSortedFriends(int type) {
-        BackendService.getFollowers(UserManager.getInstance().getId()).thenAccept(resultDto -> {
-        if (resultDto != null) {
-            friends = resultDto;
-        } else {
-            Toast.makeText(getContext(), "Coach not found", Toast.LENGTH_SHORT).show();
-        }
-    }).exceptionally(e -> null);
-
-    }
+//    private void getRating(int type) {
+//        BackendService.getRating(UserManager.getInstance().getId()).thenAccept(resultDto -> {
+//        if (resultDto != null) {
+//            friends = resultDto;
+//        } else {
+//            Toast.makeText(getContext(), "Coach not found", Toast.LENGTH_SHORT).show();
+//        }
+//    }).exceptionally(e -> null);
+//
+//    }
 }

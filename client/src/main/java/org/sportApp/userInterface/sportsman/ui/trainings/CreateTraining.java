@@ -136,32 +136,16 @@ public class CreateTraining extends BaseCreateActivity<ExerciseDto, TrainingDto>
     }
 
     private void createTraining(TrainingDto trainingDto) {
+        Log.d("myTag", "password: " + org.sportApp.utils.UserManager.getInstance().getPassword());
         BackendService.createTraining(trainingDto)
-                .thenCompose(resultDto -> {
+                .thenAccept(resultDto -> {
                     trainingDto.setTrainId(resultDto);
                     Log.d("myTag", "training's id: " + resultDto);
-
-                    List<CompletableFuture<Long>> futures = new ArrayList<>();
-                    for (ExerciseDto exercise : trainingDto.getExercises()) {
-                        CompletableFuture<Long> future = addExerciseByTrain(exercise, resultDto);
-                        futures.add(future);
-                    }
-                    return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
                 })
-                .thenAccept(voidResult -> Log.d("myTag", "All exercises added successfully."))
                 .exceptionally(e -> {
                     Log.e("myTag", "Failed to create training or exercises.", e);
                     return null;
                 }).join();
-    }
-
-    private CompletableFuture<Long> addExerciseByTrain(@NonNull ExerciseDto exerciseDto, Long trainId) {
-        return BackendService.addExerciseByTrain(exerciseDto, trainId)
-                .thenApply(resultDto -> {
-                    Log.d("myTag", "exercise's id: " + resultDto);
-                    exerciseDto.setId(resultDto);
-                    return resultDto;
-                }).exceptionally(e -> null);
     }
 
 }

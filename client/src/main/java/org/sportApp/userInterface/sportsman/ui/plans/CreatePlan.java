@@ -80,41 +80,12 @@ public class CreatePlan extends AppCompatActivity {
         finish();
     }
 
-
     private void createPlan(@NonNull PlanDto planDto) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            planDto.setCreationTime(LocalDate.now());
-        }
-        Log.d("myTag", String.valueOf(planDto.getTrainings().size()));
-        BackendService.createPlan(planDto)
-                .thenCompose(resultDto -> {
+        Log.d("myTag", "TrainingDto " + (planDto.getTrainings().get(0).getTrainingDto() != null));
+        BackendService.createPlan(planDto).thenAccept(resultDto -> {
                     planDto.setPlanId(resultDto);
-                    Log.d("myTag", "training's id: " + resultDto);
-
-                    List<CompletableFuture<Long>> futures = new ArrayList<>();
-                    for (TrainingEventDto event : planDto.getTrainings()) {
-                        CompletableFuture<Long> future = addEventByPlan(event, resultDto);
-                        futures.add(future);
-                    }
-                    return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+                    Log.d("myTag", "planId: " + resultDto);
                 })
-                .thenAccept(voidResult -> Log.d("myTag", "All exercises added successfully."))
-                .exceptionally(e -> {
-                    Log.d("myTag", planDto.getTrainings().toString());
-                    Log.e("myTag", "Failed to create plan.", e);
-                    return null;
-                }).join();
-    }
-
-    private CompletableFuture<Long> addEventByPlan(TrainingEventDto event, Long planId) {
-        return BackendService.addEventByPlan(event, planId)
-                .thenApply(resultDto -> {
-                    Log.d("myTag", "exercise's id: " + resultDto);
-                    event.setEventId(resultDto);
-                    return resultDto;
-                }).exceptionally(e -> {
-                    //Toast.makeText(AuthorizationWindow.this, "Authorization failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    return null;
-                });
+                .exceptionally(e -> null).join();
     }
 }

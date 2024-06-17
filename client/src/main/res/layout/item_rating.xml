@@ -39,6 +39,7 @@
         android:src="@drawable/cup_third"
         android:contentDescription="@string/todo" />
 
+
     <TextView
         android:id="@+id/positionTextView"
         android:layout_width="30dp"

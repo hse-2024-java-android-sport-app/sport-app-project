@@ -5,6 +5,8 @@ import org.sportApp.dto.UserDto;
 public class UserManager {
     private static UserDto instance;
 
+    public static int myPosition;
+
     private UserManager() {
     }
 
@@ -30,4 +32,5 @@ public class UserManager {
     public UserDto.Kind getUserType() {
         return getInstance().getType();
     }
+
 }

@@ -55,12 +55,11 @@ public class TypeSelectionWindow extends AppCompatActivity {
                 .thenAccept(resultDto -> {
                     userDto.setId(resultDto);
                     UserManager.getInstance().setId(resultDto);
+                    UserManager.getInstance().setType(userDto.getType());
                     Log.d("myTag", "id" + resultDto.toString());
-                    Toast.makeText(TypeSelectionWindow.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
                 })
                 .exceptionally(e -> {
-                    Toast.makeText(TypeSelectionWindow.this, "Registration failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     return null;
-                });
+                }).join();
     }
 }

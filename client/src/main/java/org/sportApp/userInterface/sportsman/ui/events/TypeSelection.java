@@ -34,7 +34,7 @@ public class TypeSelection extends AppCompatActivity {
 
         DatePicker datePicker = findViewById(R.id.datePicker);
 
-        eventDto.setDate(getSelectedDate(datePicker));
+        //eventDto.setDate(getSelectedDate(datePicker));
 
         createEvent.setOnClickListener(v -> {
             Log.d("myTag", "create Event");
