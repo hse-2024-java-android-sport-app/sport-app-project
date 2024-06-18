@@ -3,10 +3,19 @@ package org.sportApp.userInterface.sportsman.ui.interaction;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.sportApp.dto.UserDto;
 import org.sportApp.requests.BackendService;
+import org.sportApp.userInterface.adapters.BaseAdapter;
+import org.sportApp.userInterface.adapters.FindUserAdapter;
 
 
 public class FindFriends extends FindUser {
+
+    @Override
+    protected BaseAdapter<UserDto, ? extends BaseAdapter.BaseViewHolder<UserDto>> createAdapter() {
+        return new FindUserAdapter(users, new BaseAdapter.OnItemClickListener<UserDto>() {
+        });
+    }
 
     @Override
     protected void searchUsers(String userName) {

@@ -1,11 +1,14 @@
 package org.sportApp.utils;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import org.sportApp.dto.UserDto;
 
 public class UserManager {
     private static UserDto instance;
-
-    public static int myPosition;
+    private Long userId = (long) -1;
+    private static UserDto lastUser;
 
     private UserManager() {
     }
@@ -17,20 +20,19 @@ public class UserManager {
         return instance;
     }
 
+    public static void setLastUser(UserDto user) {
+        lastUser = user;
+    }
+
+    public static UserDto getLastUser() {
+        return lastUser;
+    }
+
     public void setUserId(Long userId) {
-        getInstance().setId(userId);
+        this.userId = userId;
     }
 
     public Long getUserId() {
-        return getInstance().getId();
+        return userId;
     }
-
-    public void setUserType(UserDto.Kind type) {
-        getInstance().setType(type);
-    }
-
-    public UserDto.Kind getUserType() {
-        return getInstance().getType();
-    }
-
 }

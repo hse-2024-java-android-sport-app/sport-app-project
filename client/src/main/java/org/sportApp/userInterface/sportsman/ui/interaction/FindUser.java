@@ -58,27 +58,27 @@ public abstract class FindUser extends BaseFragment<UserDto> {
         int searchButton = getSearchButton();
         Button buttonSearch = view.findViewById(searchButton);
         editSearchField(view, buttonSearch);
-        buttonSearch.setOnClickListener(v -> {
-            if (name != null) {
-                searchUsers(name.getText().toString());
-                for (int i = 0; i < 10; i++) {
-                    UserDto fakeCoach = new UserDto();
-                    fakeCoach.setFirstName("Fake");
-                    fakeCoach.setSecondName("Coach");
-                    users.add(fakeCoach);
-                }
-                name.setText("");
-                super.onViewCreated(view, savedInstanceState);
-            } else {
-                Toast.makeText(getContext(), "Enter the coach's first name and second name or login", Toast.LENGTH_SHORT).show();
-            }
-            buttonSearch.setVisibility(View.GONE);
-        });
+//        buttonSearch.setOnClickListener(v -> {
+//            if (name != null) {
+//                searchUsers(name.getText().toString());
+//                for (int i = 0; i < 10; i++) {
+//                    UserDto fakeCoach = new UserDto();
+//                    fakeCoach.setFirstName("Fake");
+//                    fakeCoach.setSecondName("Coach");
+//                    users.add(fakeCoach);
+//                }
+//                name.setText("");
+//                super.onViewCreated(view, savedInstanceState);
+//            } else {
+//                Toast.makeText(getContext(), "Enter the coach's first name and second name or login", Toast.LENGTH_SHORT).show();
+//            }
+//            buttonSearch.setVisibility(View.GONE);
+//        });
     }
 
     protected abstract void searchUsers(String userName);
 
-    private void editSearchField(@NonNull View view, Button buttonSearch) {
+    void editSearchField(@NonNull View view, Button buttonSearch) {
         name = view.findViewById(R.id.editTextSearch);
         name.addTextChangedListener(new TextWatcher() {
             @Override
