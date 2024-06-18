@@ -2,7 +2,7 @@ package org.sportApp.model;
 
 public class User {
     private static int idCount = 0;
-    private int id;
+    private long id;
     private final String name;
     private final int type; //TODO : replace int with enum
 
@@ -17,5 +17,8 @@ public class User {
     }
     public int getType() {
         return type;
+    }
+    public long getId() {
+        return id;
     }
 }

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/one_training_background"
+    android:background="@drawable/one_item_background"
     android:gravity="center_horizontal">
 
     <TextView
@@ -24,7 +24,7 @@
         android:text="@string/total_number_of_exercises"
         android:textSize="16sp"
         android:textStyle="italic"
-        android:textColor="@android:color/black"
+        android:textColor="@color/black"
         android:padding="8dp" />
 
     <TextView
@@ -34,7 +34,7 @@
         android:text="@string/total_duration"
         android:textSize="16sp"
         android:textStyle="italic"
-        android:textColor="@android:color/black"
+        android:textColor="@color/black"
         android:padding="8dp" />
 
 </LinearLayout>

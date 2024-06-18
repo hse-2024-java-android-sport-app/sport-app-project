@@ -2,8 +2,8 @@ package org.sportApp.testData;
 
 import androidx.annotation.NonNull;
 
-import org.sportApp.training.ExerciseDto;
-import org.sportApp.training.TrainingDto;
+import org.sportApp.dto.ExerciseDto;
+import org.sportApp.dto.TrainingDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +20,4 @@ public class TestData {
         return exercises1;
     }
 
-    public static List<TrainingDto> getTrainings() {
-        List<TrainingDto> trainings = new ArrayList<>();
-        trainings.add(new TrainingDto("Leg workout", getExercises()));
-        trainings.add(new TrainingDto("Arm workout", getExercises()));
-        trainings.add(new TrainingDto("Abs workout", getExercises()));
-        return trainings;
-    }
 }

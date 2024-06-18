@@ -3,25 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation_coach"
-    app:startDestination="@+id/nav_home">
-
-    <fragment
-        android:id="@+id/nav_home"
-        android:name="org.sportApp.userInterface.coach.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/nav_gallery"
-        android:name="org.sportApp.userInterface.coach.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="org.sportApp.userInterface.coach.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+    app:startDestination="@+id/nav_coachListOfSportsmen">
 
     <fragment
         android:id="@+id/nav_coachListOfSportsmen"
@@ -42,6 +24,15 @@
     <fragment
         android:id="@+id/nav_account"
         android:name="org.sportApp.userInterface.coach.ui.account.AccountFragment"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/action_nav_account_to_nav_allPlans"
+            app:destination="@id/nav_allPlans" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_allPlans"
+        android:name="org.sportApp.userInterface.sportsman.ui.plans.MyPlans"
+        tools:layout="@layout/fragment_plans" />
 
 </navigation>

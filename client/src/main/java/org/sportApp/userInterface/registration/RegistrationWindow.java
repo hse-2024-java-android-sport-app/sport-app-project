@@ -1,7 +1,5 @@
 package org.sportApp.userInterface.registration;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +8,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.sportApp.registration.UserRegistrationDto;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import org.sportApp.dto.UserDto;
 import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
 
@@ -41,7 +42,7 @@ public class RegistrationWindow extends AppCompatActivity {
         bRegister.setOnClickListener(v -> {
             isAllFieldsChecked = CheckAllFields();
             if (isAllFieldsChecked) {
-                UserRegistrationDto userDto = new UserRegistrationDto();
+                UserDto userDto = new UserDto();
                 registerUser(userDto);
             }
         });
@@ -52,7 +53,7 @@ public class RegistrationWindow extends AppCompatActivity {
         });
     }
 
-    private void registerUser(UserRegistrationDto userDto) {
+    private void registerUser(@NonNull UserDto userDto) {
         String fName = firstName.getText().toString();
         String sName = lastName.getText().toString();
         String uName = userName.getText().toString();
@@ -111,7 +112,7 @@ public class RegistrationWindow extends AppCompatActivity {
         return true;
     }
 
-    public static boolean isValid(EditText password) {
+    public static boolean isValid(@NonNull EditText password) {
         String regex = "[a-zA-Z0-9]+";
         String passwordString = password.getText().toString();
         Pattern pattern = Pattern.compile(regex);

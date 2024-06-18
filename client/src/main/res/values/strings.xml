@@ -68,19 +68,19 @@
     <string name="menu_add_training">Add training</string>
     <string name="menu_notifications">Notifications</string>
     <string name="menu_plans">Plans</string>
-    <string name="menu_search">Search</string>
-    <string name="enter_coach_s_login">Enter coach\'s  login or coach\'s surname and firstname</string>
+    <string name="menu_add_coach">Add coach</string>
+    <string name="enter_user_s_login">Enter user\'s  login or name</string>
     <string name="search">Search</string>
     <string name="menu_one_training">One training</string>
     <string name="current_training">Current training</string>
     <string name="exercise_title">Exercise title</string>
     <string name="exercise_description">Exercise description</string>
     <string name="exercise_repetitions">Exercise repetitions</string>
-    <string name="exercise">Exercise</string>
+    <string name="exercise">Information about the exercise</string>
     <string name="choose_an_existing_exercise">Choose an existing exercise</string>
     <string name="my_training_events">My training events</string>
     <string name="menu_training_events">My training Events</string>
-    <string name="training_title">Training Title</string>
+    <string name="training_title">Training</string>
     <string name="total_number_of_exercises">Total number of exercises</string>
     <string name="total_duration">Total duration</string>
     <string name="enter_training_name">Enter training name</string>
@@ -93,6 +93,31 @@
     <string name="_2_choose_a_way_to_create_a_training">2. Choose a way to create a training</string>
     <string name="or">or</string>
     <string name="enter_training_s_name">Enter training\'s name</string>
+    <string name="add_training" />
+    <string name="user_name">User\'s Name</string>
+    <string name="user_age">User\'s age</string>
+    <string name="add_to_friend">+</string>
+    <string name="enter_plan_name">Enter plan name</string>
+    <string name="create_training_event">2. Create training event</string>
+    <string name="add">Add</string>
+    <string name="plan_name">1. Plan name</string>
+    <string name="total_number_of_training_events">Total number of training events</string>
+    <string name="first_training_event">First training event</string>
+    <string name="last_training_event">Last training event</string>
+    <string name="training_date">Training Date</string>
+    <string name="event_title">Training Event</string>
+    <string name="subscribers">Subscribers</string>
+    <string name="subscriptions">Subscriptions</string>
+    <string name="PlanTrain">Plan Train</string>
+    <string name="my_friends">My friends</string>
+    <string name="menu_find_friends">Find friends</string>
+    <string name="creation_time">Creation time</string>
+    <string name="menu_rating">Rating</string>
+    <string name="rating">Rating</string>
+    <string name="user_position">position</string>
+    <string name="notifications">Notifications</string>
+    <string name="message">Message</string>
+    <string name="user">User</string>
 
 
 </resources>

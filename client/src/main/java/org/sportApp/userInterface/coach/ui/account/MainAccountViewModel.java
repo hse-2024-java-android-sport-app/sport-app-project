@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import org.sportApp.dto.UserDto;
 import org.sportApp.userInterface.coach.MainActivity;
+import org.sportApp.utils.UserManager;
 
 public class MainAccountViewModel extends ViewModel {
     private final MutableLiveData<String> mUserName;
@@ -12,8 +14,8 @@ public class MainAccountViewModel extends ViewModel {
     public MainAccountViewModel() {
         mUserName = new MutableLiveData<>();
         mUserType = new MutableLiveData<>();
-        mUserName.setValue(MainActivity.mainUser.getName());
-        if (MainActivity.mainUser.getType() == 0) {
+        mUserName.setValue(UserManager.getInstance().getLogin());
+        if (UserManager.getInstance().getType() == UserDto.Kind.coach) {
             mUserType.setValue("Coach");
         } else {
             mUserType.setValue("Sportsman");

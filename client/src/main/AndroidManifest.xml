@@ -26,23 +26,20 @@
         </activity>
         <activity android:name=".registration.TypeSelectionWindow" />
         <activity android:name=".registration.BirthDateWindow" />
-        <activity android:name=".sportsman.SportsmanWindow" />
-        <activity android:name=".trainings.AddTrainingWindow" />
-        <activity android:name=".sportsman.ui.plans.EditPlanWindow" />
+        <activity android:name=".sportsman.ui.plans.CreatePlan" />
         <activity android:name=".sportsman.ui.exercise.AddExerciseWindow" />
         <activity android:name=".registration.AuthorizationWindow" />
         <activity android:name=".sportsman.ui.exercise.ExerciseWindow" />
-        <activity android:name=".sportsman.ui.trainings.OneTrainingWindow" />
-        <activity android:name=".sportsman.ui.trainingEvents.AddTrainingEventWindow" />
-        <activity android:name=".sportsman.ui.trainings.AddTrainingWindow" />
-        <activity android:name=".sportsman.ui.trainingEvents.CreatingTypeSelectionWindow" />
+        <activity android:name=".sportsman.ui.trainings.OneTraining" />
+        <activity android:name=".sportsman.ui.trainings.CreateTraining" />
+        <activity android:name=".sportsman.ui.events.TypeSelection" />
         <activity android:name=".sportsman.ui.trainings.FindTraining" />
-        <activity android:name=".sportsman.ui.plans.OnePlanWindow" />
-<!--        <activity-->
-<!--            android:name=".coach.MainActivity"-->
-<!--            android:exported="true"-->
-<!--            android:theme="@style/Theme.SportApp.NoActionBar">-->
-<!--        </activity>-->
+        <activity android:name=".sportsman.ui.plans.OnePlan" />
+        <activity
+            android:name=".coach.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.SportApp.NoActionBar">
+        </activity>
 
         <activity
             android:name=".sportsman.MainActivity"

@@ -10,11 +10,6 @@
             android:title="@string/menu_plans" />
 
         <item
-            android:id="@+id/nav_search"
-            android:icon="@drawable/search"
-            android:title="@string/menu_search" />
-
-        <item
             android:id="@+id/nav_trainings"
             android:icon="@drawable/trainings"
             android:title="@string/menu_my_trainings" />
@@ -23,5 +18,25 @@
             android:id="@+id/nav_training_events"
             android:icon="@drawable/trainings"
             android:title="@string/menu_training_events" />
+
+        <item
+            android:id="@+id/nav_friends"
+            android:icon="@drawable/profile"
+            android:title="@string/my_friends" />
+
+        <item
+            android:id="@+id/nav_add_coach"
+            android:icon="@drawable/ic_add"
+            android:title="@string/menu_add_coach" />
+
+        <item
+            android:id="@+id/nav_find_friends"
+            android:icon="@drawable/search"
+            android:title="@string/menu_find_friends" />
+
+        <item
+            android:id="@+id/nav_rating"
+            android:icon="@drawable/cup"
+            android:title="@string/menu_rating" />
     </group>
 </menu>
