@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 
 import org.sportApp.dto.ExerciseDto;
 import org.sportApp.dto.TrainingDto;
+import org.sportApp.dto.UserDto;
 import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.adapters.BaseAdapter;
@@ -66,7 +67,14 @@ public class CreateTraining extends BaseCreateActivity<ExerciseDto, TrainingDto>
     protected void save() {
         TrainingDto trainingDto = new TrainingDto();
         trainingDto.setExercises(exercises);
-        trainingDto.setUserId(UserManager.getInstance().getId());
+        UserDto currentUser;
+        if (UserManager.getInstance().getType().equals(UserDto.Kind.coach)) {
+            currentUser = UserManager.getLastUser();
+        }
+        else {
+            currentUser = UserManager.getInstance();
+        }
+        trainingDto.setUserId(currentUser.getId());
         createTraining(trainingDto);
         Intent resultIntent = new Intent();
         resultIntent.putExtra("trainingDto", trainingDto);

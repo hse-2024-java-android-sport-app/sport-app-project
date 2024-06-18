@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.sportApp.dto.UserDto;
 import org.sportApp.requests.BackendService;
 import org.sportApp.dto.PlanDto;
 import org.sportApp.dto.TrainingEventDto;
@@ -64,8 +65,15 @@ public class CreatePlan extends AppCompatActivity {
             Intent intent = new Intent(CreatePlan.this, TypeSelection.class);
             addEventLauncher.launch(intent);
         });
+        UserDto currentUser;
+        if (UserManager.getInstance().getType().equals(UserDto.Kind.coach)) {
+            currentUser = UserManager.getLastUser();
+        }
+        else {
+            currentUser = UserManager.getInstance();
+        }
         saveChangesButton.setOnClickListener(v -> {
-            planDto.setSportsmanId(UserManager.getInstance().getId());
+            planDto.setSportsmanId(currentUser.getId());
             planDto.setName(nameEditText.getText().toString());
             saveChanges(planDto);
         });

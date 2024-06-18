@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.sportApp.dto.UserDto;
 import org.sportApp.requests.BackendService;
 import org.sportApp.dto.TrainingDto;
 import org.sportApp.userInterface.R;
@@ -29,7 +30,14 @@ public class FindTraining extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_training);
         RecyclerView recyclerView = findViewById(R.id.trainingRecyclerView);
-        getAllTrainings(UserManager.getInstance().getId());
+        UserDto currentUser;
+        if (UserManager.getInstance().getType().equals(UserDto.Kind.coach)) {
+            currentUser = UserManager.getLastUser();
+        }
+        else {
+            currentUser = UserManager.getInstance();
+        }
+        getAllTrainings(currentUser.getId());
         currentAdapter = new FindTrainingAdapter(trainings, new BaseAdapter.OnItemClickListener<TrainingDto>() {
             @Override
             public void onItemClick(int position) {

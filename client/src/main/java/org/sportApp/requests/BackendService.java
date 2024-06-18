@@ -85,13 +85,6 @@ public class BackendService {
     }
 
     @NonNull
-    public static CompletableFuture<List<UserDto>> getSportsmenByCoachId(Long id) {
-        String url = BASE_URL + "/getSportsmenByCoachId/" + id;
-        Type type = new TypeToken<List<UserDto>>(){}.getType();
-        return sendAsyncGetRequest(url, type, "Failed to get sportsmen list by coach id.");
-    }
-
-    @NonNull
     public static CompletableFuture<List<TrainingDto>> getAllTrainings(Long userId) {
         String url = BASE_URL + "/getAllTrainings/" + userId;
         Type type = new TypeToken<List<TrainingDto>>() {
@@ -108,11 +101,11 @@ public class BackendService {
     }
 
     @NonNull
-    public static CompletableFuture<List<UserDto>> getSportsmen(Long userId) {
-        String url = BASE_URL + "/getSportsmen/" + userId;
+    public static CompletableFuture<List<UserDto>> getSportsmenByCoachId(Long userId) {
+        String url = BASE_URL + "/getSportsmenByCoachId/" + userId;
         Type type = new TypeToken<List<UserDto>>() {
         }.getType();
-        return sendAsyncGetRequest(url, type, "Failed to get all plans.");
+        return sendAsyncGetRequest(url, type, "Failed to get coach's sportsman.");
     }
 
     @NonNull
@@ -168,9 +161,9 @@ public class BackendService {
     }
 
     @NonNull
-    public static CompletableFuture<Long> addCoach(UserDto userDto, Long planId) {
+    public static CompletableFuture<Long> editCoach(Long userId, Long coachId) {
         String msg = "Failed adding coach: no response from server";
-        return sendRequestAndHandleResponse(BASE_URL + "/editCoach/" + planId, userDto, Long.class, msg);
+        return sendRequestAndHandleResponse(BASE_URL + "/editCoach/" + userId, coachId, Long.class, msg);
     }
 
     @NonNull
@@ -183,8 +176,8 @@ public class BackendService {
 
     // maybe we can combine with the method to find a trainer
     @NonNull
-    public static CompletableFuture<List<UserDto>> searchFriends(String name) {
-        String url = BASE_URL + "/searchFriends/" + name;
+    public static CompletableFuture<List<UserDto>> addSubscription(String name) {
+        String url = BASE_URL + "/addSubscription/" + name;
         Type type = new TypeToken<List<UserDto>>() {
         }.getType();
         return sendAsyncGetRequest(url, type, "Failed to find friends by name: " + name);

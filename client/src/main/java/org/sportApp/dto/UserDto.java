@@ -91,13 +91,14 @@ public class UserDto implements Serializable {
     }
 
     public int getAge() {
-        Calendar birthCalendar = Calendar.getInstance();
-        birthCalendar.setTime(dateOfBirth);
-        Calendar today = Calendar.getInstance();
-        int age = today.get(Calendar.YEAR) - birthCalendar.get(Calendar.YEAR);
-        if (today.get(Calendar.DAY_OF_YEAR) < birthCalendar.get(Calendar.DAY_OF_YEAR)) {
-            age--;
-        }
-        return age;
+//        Calendar birthCalendar = Calendar.getInstance();
+//        birthCalendar.setTime(dateOfBirth);
+//        Calendar today = Calendar.getInstance();
+//        int age = today.get(Calendar.YEAR) - birthCalendar.get(Calendar.YEAR);
+//        if (today.get(Calendar.DAY_OF_YEAR) < birthCalendar.get(Calendar.DAY_OF_YEAR)) {
+//            age--;
+//        }
+//        return age;
+        return 20;
     }
 }

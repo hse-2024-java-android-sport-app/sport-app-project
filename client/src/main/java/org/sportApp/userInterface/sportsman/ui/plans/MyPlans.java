@@ -66,15 +66,22 @@ public class MyPlans extends FragmentWithAddButton<PlanDto> {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        UserDto currentUser = UserManager.getInstance();
-        if (currentUser.getType().equals(UserDto.Kind.sportsman)) {
-            getAllPlans(UserManager.getInstance().getId());
+        UserDto currentUser;
+        if (UserManager.getInstance().getType().equals(UserDto.Kind.coach)) {
+            currentUser = UserManager.getLastUser();
         }
         else {
-            //getAllPlans(UserManager.getInstance().getLastId());
+            currentUser = UserManager.getInstance();
+        }
+        Log.d("myTag", "Plans: " + currentUser.getId());
+        if (currentUser.getType().equals(UserDto.Kind.sportsman)) {
+            getAllPlans(currentUser.getId());
+        }
+        else {
+            getAllPlans(currentUser.getId());
         }
         PlanDto planDto = new PlanDto();
-        planDto.setSportsmanId(UserManager.getInstance().getId());
+        planDto.setSportsmanId(currentUser.getId());
         super.startAddButton(view);
         currentPlans = allPlans.stream().filter(plan -> !plan.isCompleted()).collect(Collectors.toList());
         completedPlans = allPlans.stream().filter(PlanDto::isCompleted).collect(Collectors.toList());
@@ -106,6 +113,7 @@ public class MyPlans extends FragmentWithAddButton<PlanDto> {
     }
 
     private void getAllPlans(Long userId) {
+        Log.d("myTag", "UserId " + userId);
         BackendService.getAllPlans(userId).thenAccept(resultDto -> {
                     allPlans = resultDto;
                     Log.d("UserType", "resultDto: " + resultDto);

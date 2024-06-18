@@ -29,7 +29,7 @@ public class CoachListOfSportsmenViewModel extends ViewModel {
 //            user.setId((long) (i + 1));
 //            userList.add(user);
 //        }
-        BackendService.getSportsmen(UserManager.getInstance().getId()).thenAccept(resultDto -> {
+        BackendService.getSportsmenByCoachId(UserManager.getInstance().getId()).thenAccept(resultDto -> {
             userList = resultDto;
             Log.d("UserType", "resultDto: " + resultDto);
         }).exceptionally(e -> null).join();

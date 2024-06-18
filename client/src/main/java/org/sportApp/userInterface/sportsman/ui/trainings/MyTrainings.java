@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.sportApp.dto.TrainingDto;
+import org.sportApp.dto.UserDto;
 import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.adapters.BaseAdapter;
@@ -68,7 +69,14 @@ public class MyTrainings extends FragmentWithAddButton<TrainingDto> {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        getAllTrainings(UserManager.getInstance().getId());
+        UserDto currentUser;
+        if (UserManager.getInstance().getType().equals(UserDto.Kind.coach)) {
+            currentUser = UserManager.getLastUser();
+        }
+        else {
+            currentUser = UserManager.getInstance();
+        }
+        getAllTrainings(currentUser.getId());
         super.onViewCreated(view, savedInstanceState);
         super.startAddButton(view);
     }
