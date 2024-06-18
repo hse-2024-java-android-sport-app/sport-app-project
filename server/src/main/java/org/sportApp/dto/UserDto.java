@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class UserDto implements Serializable {
+    private long id;
     private String firstName;
     private String secondName;
     private String login;
@@ -17,6 +18,14 @@ public class UserDto implements Serializable {
 
     @JsonFormat(pattern = "MMM dd, yyyy hh:mm:ss a")
     private Date dateOfBirth;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public Kind getType() {
         return type;

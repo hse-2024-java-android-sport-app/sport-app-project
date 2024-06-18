@@ -129,8 +129,8 @@ public class UserController {
     }
 
     @PostMapping("editCoach/{sportsmanId}")
-    public @ResponseBody CompletableFuture<ResponseEntity<?>> editCoach(@PathVariable(value = "sportsmanId") long sportsmanId, @RequestBody String coachId) {
-        return userService.editCoach(sportsmanId, Long.parseLong(coachId))
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> editCoach(@PathVariable(value = "sportsmanId") long sportsmanId, @RequestBody long coachId) {
+        return userService.editCoach(sportsmanId, coachId)
                 .<CompletableFuture<ResponseEntity<?>>>map(userId -> CompletableFuture.supplyAsync(
                         () -> ResponseEntity.status(HttpStatus.OK).body(userId)))
                 .orElseGet(() -> CompletableFuture.supplyAsync(
@@ -304,7 +304,12 @@ public class UserController {
     // PLAN
     @PostMapping("createPlan")
     public @ResponseBody CompletableFuture<ResponseEntity<?>> createPlan(@RequestBody PlanDto planDto) {
+        System.out.println("PlanDto size: " + planDto.getTrainings().size());
+        System.out.println("PlanDto event-1: " + planDto.getTrainings().getFirst());
+
         Plan plan = this.mapper.map(planDto, Plan.class);
+        System.out.println("Plan size: " + plan.getTrainings().size());
+        System.out.println("Plan event-1: " + plan.getTrainings().getFirst());
 
         Plan savedPlan = planService.savePlan(plan);
         CompletableFuture<Plan> future = CompletableFuture.supplyAsync(() -> savedPlan);

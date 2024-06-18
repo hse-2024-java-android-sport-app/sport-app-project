@@ -2,7 +2,6 @@ package org.sportApp.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 public class TrainingEventDto {
@@ -11,14 +10,14 @@ public class TrainingEventDto {
     private Date date;
     private boolean completed;
     private String comment;
-    private TrainingDto training;
+    private TrainingDto trainingDto;
 
-    public TrainingEventDto(int id, Date date, boolean completed, String comment, TrainingDto trainingDto){
+    public TrainingEventDto(int id, Date date, boolean completed, String comment, TrainingDto trainingDto) {
         this.eventId = id;
         this.date = date;
         this.completed = completed;
         this.comment = comment;
-        this.training = trainingDto;
+        this.trainingDto = trainingDto;
     }
 
     protected TrainingEventDto() {
@@ -56,11 +55,23 @@ public class TrainingEventDto {
         this.comment = comment;
     }
 
-    public TrainingDto getTraining() {
-        return training;
+    public TrainingDto getTrainingDto() {
+        return trainingDto;
     }
 
-    public void setTraining(TrainingDto trainingDto) {
-        this.training = trainingDto;
+    public void setTrainingDto(TrainingDto trainingDto) {
+        this.trainingDto = trainingDto;
+    }
+
+    @Override
+    public String toString() {
+        return "TrainingEventDto{" +
+                "eventId=" + eventId +
+                ", date=" + date +
+                ", completed=" + completed +
+                ", comment='" + comment + '\'' +
+                ", training=" + trainingDto +
+                '}';
     }
 }
+

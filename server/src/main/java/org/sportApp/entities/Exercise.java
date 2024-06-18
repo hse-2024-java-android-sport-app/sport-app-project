@@ -2,9 +2,6 @@ package org.sportApp.entities;
 
 import jakarta.persistence.*;
 
-import java.time.Duration;
-import java.util.Locale;
-
 @Entity
 @Table(name="Exercises")
 public class Exercise {
@@ -19,7 +16,7 @@ public class Exercise {
     private String videoUrl;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="trainId", nullable=false)
-    private Training training;
+    private Training trainingDto;
 
     public Exercise(String name, String description, int repetitions, int duration, int sets, String videoUrl, Training training) {
         this.name = name;
@@ -28,7 +25,7 @@ public class Exercise {
         this.duration = duration;
         this.sets = sets;
         this.videoUrl = videoUrl;
-        this.training = training;
+        this.trainingDto = training;
     }
 
     protected Exercise() {}
@@ -77,12 +74,12 @@ public class Exercise {
         this.videoUrl = videoUrl;
     }
 
-    public Training getTraining() {
-        return training;
+    public Training getTrainingDto() {
+        return trainingDto;
     }
 
-    public void setTraining(Training training) {
-        this.training = training;
+    public void setTrainingDto(Training training) {
+        this.trainingDto = training;
     }
 
     public String getName() {

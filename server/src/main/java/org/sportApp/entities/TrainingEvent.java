@@ -1,12 +1,9 @@
 package org.sportApp.entities;
 
 import jakarta.persistence.*;
-import org.sportApp.dto.TrainingDto;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
 import java.util.Date;
-import java.util.Locale;
 
 @Entity
 @Table(name="TrainingEvents")
@@ -81,7 +78,7 @@ public class TrainingEvent {
                 ", date=" + date +
                 ", completed=" + completed +
                 ", comment='" + comment + '\'' +
-                ", training=" + (training==null) +
+                ", training=" + (training ==null) +
                 ", planId=" + ((plan == null) ? null : plan.getPlanId()) +
                 '}';
     }

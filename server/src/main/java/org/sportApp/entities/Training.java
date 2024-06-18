@@ -11,7 +11,7 @@ public class Training {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long trainId;
-    @OneToMany(mappedBy="training", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="trainingDto", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Exercise> exercises;
     private long userId;
     private int hours;
