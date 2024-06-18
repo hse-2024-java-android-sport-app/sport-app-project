@@ -41,32 +41,16 @@ public class Rating extends BaseFragment<UserDto> {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        fulfillSubscribers();
+        getSortedFriends();
         super.onViewCreated(view, savedInstanceState);
     }
 
 
-    private void fulfillSubscribers() {
-        for (int i = 0; i < 5; i++) {
-            UserDto userDto = new UserDto();
-            userDto.setFirstName("Fake");
-            userDto.setSecondName("Friend");
-            if (i == 4) {
-                userDto.setId(UserManager.getInstance().getId());
-                UserManager.myPosition = 4;
+    private void getSortedFriends() {
+        BackendService.getFollowers(UserManager.getInstance().getId()).thenAccept(resultDto -> {
+            if (resultDto != null) {
+                friends = resultDto;
             }
-            friends.add(userDto);
-        }
+        }).exceptionally(e -> null).join();
     }
-
-//    private void getRating(int type) {
-//        BackendService.getRating(UserManager.getInstance().getId()).thenAccept(resultDto -> {
-//        if (resultDto != null) {
-//            friends = resultDto;
-//        } else {
-//            Toast.makeText(getContext(), "Coach not found", Toast.LENGTH_SHORT).show();
-//        }
-//    }).exceptionally(e -> null);
-//
-//    }
 }

@@ -7,11 +7,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 
 import org.sportApp.dto.UserDto;
 import org.sportApp.userInterface.R;
-import org.sportApp.utils.UserManager;
 
 import java.util.List;
 
@@ -20,7 +18,6 @@ public class RatingAdapter extends BaseAdapter<UserDto, BaseAdapter.BaseViewHold
     public RatingAdapter(List<UserDto> items, OnItemClickListener<UserDto> listener) {
         super(items, R.layout.item_rating, listener, RatingAdapter.RatingViewHolder::new);
     }
-
     public static class RatingViewHolder extends BaseViewHolder<UserDto> {
         private final TextView friendNameTextView;
         private final TextView friendAgeTextView;
@@ -32,6 +29,7 @@ public class RatingAdapter extends BaseAdapter<UserDto, BaseAdapter.BaseViewHold
         private final ImageView cupThirdImageView;
 
         private final TextView positionTextView;
+
 
         public RatingViewHolder(View itemView) {
             super(itemView);
@@ -53,27 +51,23 @@ public class RatingAdapter extends BaseAdapter<UserDto, BaseAdapter.BaseViewHold
                 cupSecondImageView.setVisibility(View.GONE);
                 cupThirdImageView.setVisibility(View.GONE);
                 positionTextView.setText(String.valueOf(position + 1));
-            } else if (position == 0) {
+            }
+            else if (position == 0){
                 cupSecondImageView.setVisibility(View.GONE);
                 cupThirdImageView.setVisibility(View.GONE);
-                positionTextView.setVisibility(View.GONE);
-            } else if (position == 1) {
-                cupFirstImageView.setVisibility(View.GONE);
-                cupThirdImageView.setVisibility(View.GONE);
-                positionTextView.setVisibility(View.GONE);
-            } else {
-                cupFirstImageView.setVisibility(View.GONE);
-                cupSecondImageView.setVisibility(View.GONE);
                 positionTextView.setVisibility(View.GONE);
             }
-
-            if (UserManager.myPosition == position) {
-                friendNameTextView.setText(user.getFirstName() + " " + user.getSecondName() + " (me)");
+            else if (position == 1) {
+                cupFirstImageView.setVisibility(View.GONE);
+                cupThirdImageView.setVisibility(View.GONE);
+                positionTextView.setVisibility(View.GONE);
             }
             else {
-
-                friendNameTextView.setText(user.getFirstName() + " " + user.getSecondName());
+                cupFirstImageView.setVisibility(View.GONE);
+                cupSecondImageView.setVisibility(View.GONE);
+                positionTextView.setVisibility(View.GONE);
             }
+            friendNameTextView.setText(user.getFirstName() + " " + user.getSecondName());
             friendAgeTextView.setText(32 + " years.");
         }
 
