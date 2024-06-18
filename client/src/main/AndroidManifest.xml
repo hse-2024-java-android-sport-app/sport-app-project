@@ -35,12 +35,11 @@
         <activity android:name=".sportsman.ui.trainings.CreateTraining" />
         <activity android:name=".sportsman.ui.events.TypeSelection" />
         <activity android:name=".sportsman.ui.trainings.FindTraining" />
-        <activity android:name=".sportsman.ui.plans.OnePlan" />
-<!--        <activity-->
-<!--            android:name=".coach.MainActivity"-->
-<!--            android:exported="true"-->
-<!--            android:theme="@style/Theme.SportApp.NoActionBar">-->
-<!--        </activity>-->
+        <activity
+            android:name=".coach.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.SportApp.NoActionBar">
+        </activity>
 
         <activity
             android:name=".sportsman.MainActivity"

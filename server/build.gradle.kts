@@ -13,17 +13,17 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-security")
 
     implementation("org.modelmapper:modelmapper:3.2.0")
     runtimeOnly("org.postgresql:postgresql")
     implementation(libs.gson)
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+//    compileOnly("org.projectlombok:lombok")
+//    annotationProcessor("org.projectlombok:lombok")
 
-//    implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE")
-//    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-//    implementation("org.springframework.boot:spring-boot-starter-security")
-//    testImplementation("org.springframework.security:spring-security-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.security:spring-security-test")
 }
 
 tasks.test {

@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         org.sportApp.userInterface.databinding.ActivityMainSportsmanBinding binding = ActivityMainSportsmanBinding.inflate(getLayoutInflater());
+
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMainSportsman.toolbar);

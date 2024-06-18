@@ -42,6 +42,15 @@
     <fragment
         android:id="@+id/nav_account"
         android:name="org.sportApp.userInterface.coach.ui.account.AccountFragment"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/action_nav_account_to_nav_allPlans"
+            app:destination="@id/nav_allPlans" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_allPlans"
+        android:name="org.sportApp.userInterface.sportsman.ui.plans.AllPlansWindow"
+        tools:layout="@layout/fragment_plans" />
 
 </navigation>

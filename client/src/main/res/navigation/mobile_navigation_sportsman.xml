@@ -48,5 +48,4 @@
         android:label="@string/menu_rating"
         tools:layout="@layout/fragment_rating" />
 
-
 </navigation>

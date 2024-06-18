@@ -91,3 +91,4 @@ public class PlanAdapter extends BaseAdapter<PlanDto, BaseAdapter.BaseViewHolder
         return plan.isCompleted() ? 1 : 0;
     }
 }
+
