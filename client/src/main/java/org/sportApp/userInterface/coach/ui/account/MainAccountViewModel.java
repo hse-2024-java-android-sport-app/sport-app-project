@@ -14,7 +14,7 @@ public class MainAccountViewModel extends ViewModel {
     public MainAccountViewModel() {
         mUserName = new MutableLiveData<>();
         mUserType = new MutableLiveData<>();
-        mUserName.setValue(UserManager.getInstance().getFullName());
+        mUserName.setValue(UserManager.getInstance().getLogin());
         if (UserManager.getInstance().getType() == UserDto.Kind.coach) {
             mUserType.setValue("Coach");
         } else {

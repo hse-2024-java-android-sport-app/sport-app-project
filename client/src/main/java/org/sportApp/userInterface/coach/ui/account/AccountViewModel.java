@@ -14,11 +14,13 @@ public class AccountViewModel extends ViewModel {
     public AccountViewModel() {
         mUserName = new MutableLiveData<>();
         mUserType = new MutableLiveData<>();
-        mUserName.setValue(UserManager.getLastUser().getFullName());
-        if (UserManager.getLastUser().getType() == UserDto.Kind.coach) {
-            mUserType.setValue("Coach");
-        } else {
-            mUserType.setValue("Sportsman");
+        if (UserManager.getLastUser() != null) {
+            mUserName.setValue(UserManager.getLastUser().getFullName());
+            if (UserManager.getLastUser().getType() == UserDto.Kind.coach) {
+                mUserType.setValue("Coach");
+            } else {
+                mUserType.setValue("Sportsman");
+            }
         }
     }
 

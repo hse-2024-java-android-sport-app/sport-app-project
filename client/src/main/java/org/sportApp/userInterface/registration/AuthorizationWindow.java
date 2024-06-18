@@ -108,6 +108,7 @@ public class AuthorizationWindow extends AppCompatActivity {
         BackendService.getType(id).thenAccept(resultDto -> {
                     userDto.setType(resultDto);
                     UserManager.getInstance().setType(resultDto);
+                    UserManager.getInstance().setLogin(userDto.getLogin());
                     Log.d("UserType", "resultDto: " + resultDto);
                 })
                 .exceptionally(e -> {
