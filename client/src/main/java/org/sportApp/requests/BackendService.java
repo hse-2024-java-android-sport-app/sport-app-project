@@ -20,11 +20,13 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
 public class BackendService {
     static OkHttpClient client = new OkHttpClient();
     static Gson gson = new Gson();
     static String BASE_URL = "http://10.0.2.2:8080/sport_app";
+
 
     @FunctionalInterface
     interface ResponseHandler<T> {
@@ -106,6 +108,14 @@ public class BackendService {
     }
 
     @NonNull
+    public static CompletableFuture<List<UserDto>> getSportsmen(Long userId) {
+        String url = BASE_URL + "/getSportsmen/" + userId;
+        Type type = new TypeToken<List<UserDto>>() {
+        }.getType();
+        return sendAsyncGetRequest(url, type, "Failed to get all plans.");
+    }
+
+    @NonNull
     public static CompletableFuture<List<UserDto>> getFollowers(Long userId) {
         String url = BASE_URL + "/getFollowers/" + userId;
         Type type = new TypeToken<List<UserDto>>() {
@@ -160,7 +170,7 @@ public class BackendService {
     @NonNull
     public static CompletableFuture<Long> addCoach(UserDto userDto, Long planId) {
         String msg = "Failed adding coach: no response from server";
-        return sendRequestAndHandleResponse(BASE_URL + "/addCoach/" + planId, userDto, Long.class, msg);
+        return sendRequestAndHandleResponse(BASE_URL + "/editCoach/" + planId, userDto, Long.class, msg);
     }
 
     @NonNull

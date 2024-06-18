@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import org.sportApp.registration.UserDto;
+import org.sportApp.dto.UserDto;
 import org.sportApp.userInterface.coach.MainActivity;
 import org.sportApp.utils.UserManager;
 

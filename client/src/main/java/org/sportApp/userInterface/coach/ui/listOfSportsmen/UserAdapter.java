@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.sportApp.registration.UserDto;
+import org.sportApp.dto.UserDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.utils.UserManager;
 
