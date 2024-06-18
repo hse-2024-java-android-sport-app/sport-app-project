@@ -51,7 +51,6 @@ public class Friends extends BaseFragment<UserDto> {
         Button buttonSubscribers = view.findViewById(R.id.buttonSubscribers);
         buttonSubscribers.setOnClickListener(v -> {
             typeOfButton = 0;
-            //fulfillSubscribers();
             getFriends(typeOfButton);
             super.onViewCreated(view, savedInstanceState);
         });
@@ -59,30 +58,11 @@ public class Friends extends BaseFragment<UserDto> {
         Button buttonSubscriptions = view.findViewById(R.id.buttonSubscriptions);
         buttonSubscriptions.setOnClickListener(v -> {
             typeOfButton = 1;
-            //fulfillSubscriptions();
             getFriends(typeOfButton);
             super.onViewCreated(view, savedInstanceState);
         });
     }
 
-
-    private void fulfillSubscribers() {
-        for (int i = 0; i < 5; i++) {
-            UserDto userDto = new UserDto();
-            userDto.setFirstName("Fake");
-            userDto.setSecondName("Subscriber");
-            subscribers.add(userDto);
-        }
-    }
-
-    private void fulfillSubscriptions() {
-        for (int i = 0; i < 5; i++) {
-            UserDto userDto = new UserDto();
-            userDto.setFirstName("Fake");
-            userDto.setSecondName("Subscription");
-            subscriptions.add(userDto);
-        }
-    }
 
     private void getFriends(int type) {
         if (type == 0) {

@@ -29,8 +29,7 @@ public class FriendAdapter extends BaseAdapter<UserDto, BaseAdapter.BaseViewHold
         public void bind(@NonNull UserDto user, OnItemClickListener<UserDto> listener) {
             super.bind(user, listener);
             friendNameTextView.setText(user.getFirstName() + " " + user.getSecondName());
-            friendAgeTextView.setText(32 + " years.");
+            friendAgeTextView.setText(user.getAge() + " years.");
         }
-
     }
 }

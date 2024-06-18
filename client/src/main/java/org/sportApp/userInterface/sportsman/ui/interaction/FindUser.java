@@ -1,9 +1,11 @@
 package org.sportApp.userInterface.sportsman.ui.interaction;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -29,11 +31,14 @@ public abstract class FindUser extends BaseFragment<UserDto> {
     private EditText name;
     List<UserDto> users = new ArrayList<>();
 
+    private FindUserAdapter adapter;
+
 
     @Override
     protected BaseAdapter<UserDto, ? extends BaseAdapter.BaseViewHolder<UserDto>> createAdapter() {
-        return new FindUserAdapter(users, new BaseAdapter.OnItemClickListener<UserDto>() {
+        adapter = new FindUserAdapter(users, new BaseAdapter.OnItemClickListener<UserDto>() {
         });
+        return adapter;
     }
 
     @Override
@@ -51,31 +56,28 @@ public abstract class FindUser extends BaseFragment<UserDto> {
         return R.id.buttonSearch;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         int searchButton = getSearchButton();
         Button buttonSearch = view.findViewById(searchButton);
         editSearchField(view, buttonSearch);
-//        buttonSearch.setOnClickListener(v -> {
-//            if (name != null) {
-//                searchUsers(name.getText().toString());
-//                for (int i = 0; i < 10; i++) {
-//                    UserDto fakeCoach = new UserDto();
-//                    fakeCoach.setFirstName("Fake");
-//                    fakeCoach.setSecondName("Coach");
-//                    users.add(fakeCoach);
-//                }
-//                name.setText("");
-//                super.onViewCreated(view, savedInstanceState);
-//            } else {
-//                Toast.makeText(getContext(), "Enter the coach's first name and second name or login", Toast.LENGTH_SHORT).show();
-//            }
-//            buttonSearch.setVisibility(View.GONE);
-//        });
+        buttonSearch.setOnClickListener(v -> {
+            if (name != null) {
+                searchUsers(name.getText().toString());
+                Log.d("Search", String.valueOf(name.getText()));
+                assert users != null;
+                adapter.notifyDataSetChanged();
+                name.setText("");
+            } else {
+                Toast.makeText(getContext(), "Enter the coach's first name and second name or login", Toast.LENGTH_SHORT).show();
+            }
+            buttonSearch.setVisibility(View.GONE);
+        });
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     protected abstract void searchUsers(String userName);
 
     void editSearchField(@NonNull View view, Button buttonSearch) {

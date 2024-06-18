@@ -27,7 +27,6 @@ public class BackendService {
     static Gson gson = new Gson();
     static String BASE_URL = "http://10.0.2.2:8080/sport_app";
 
-
     @FunctionalInterface
     interface ResponseHandler<T> {
         void handleResponse(Response response, T result) throws IOException;
@@ -174,13 +173,20 @@ public class BackendService {
         return sendAsyncGetRequest(url, type, "Failed to find coaches by name: " + name);
     }
 
-    // maybe we can combine with the method to find a trainer
     @NonNull
-    public static CompletableFuture<List<UserDto>> addSubscription(String name) {
-        String url = BASE_URL + "/addSubscription/" + name;
+    public static CompletableFuture<List<UserDto>> searchSportsman(String name) {
+        String url = BASE_URL + "/searchSportsman/" + name;
         Type type = new TypeToken<List<UserDto>>() {
         }.getType();
-        return sendAsyncGetRequest(url, type, "Failed to find friends by name: " + name);
+        return sendAsyncGetRequest(url, type, "Failed to find sportsmen by name: " + name);
+    }
+
+
+    // maybe we can combine with the method to find a trainer
+    @NonNull
+    public static  CompletableFuture<Void> addSubscription(Long userId, Long friendId) {
+        String msg = "Failed adding coach: no response from server";
+        return sendRequestAndHandleResponse(BASE_URL + "/addSubscription/" + userId, friendId, Void.class, msg);
     }
 
 

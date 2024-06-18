@@ -1,133 +1,25 @@
 package org.sportApp.userInterface.sportsman.ui.interaction;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import org.sportApp.dto.UserDto;
 import org.sportApp.requests.BackendService;
-import org.sportApp.userInterface.R;
-import org.sportApp.userInterface.adapters.BaseAdapter;
-import org.sportApp.userInterface.adapters.FindUserAdapter;
-import org.sportApp.userInterface.sportsman.ui.overview.BaseFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
-public class FindCoach extends BaseFragment<UserDto> {
-
-    private EditText name;
-    List<UserDto> users = new ArrayList<>();
-
-    private FindUserAdapter adapter;
-
+public class FindCoach extends FindUser {
 
     @Override
-    protected BaseAdapter<UserDto, ? extends BaseAdapter.BaseViewHolder<UserDto>> createAdapter() {
-        adapter = new FindUserAdapter(users, new BaseAdapter.OnItemClickListener<UserDto>() {
-        });
-        return adapter;
-    }
-
-    @Override
-    protected int getLayout() {
-        return R.layout.fragment_find_user;
-    }
-
-    @Override
-    protected int getRecyclerView() {
-        return R.id.recyclerViewCoaches;
-    }
-
-
-    protected int getSearchButton() {
-        return R.id.buttonSearch;
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        int searchButton = getSearchButton();
-        Button buttonSearch = view.findViewById(searchButton);
-        editSearchField(view, buttonSearch);
-        buttonSearch.setOnClickListener(v -> {
-            if (name != null) {
-                searchUsers(name.getText().toString());
-                Log.d("Search", String.valueOf(name.getText()));
-                assert users != null;
-                adapter.notifyDataSetChanged();
-//                for (int i = 0; i < 10; i++) {
-//                    UserDto fakeCoach = new UserDto();
-//                    fakeCoach.setFirstName("Fake");
-//                    fakeCoach.setSecondName("Coach");
-//                    users.add(fakeCoach);
-//                }
-                name.setText("");
-            } else {
-                Toast.makeText(getContext(), "Enter the coach's first name and second name or login", Toast.LENGTH_SHORT).show();
-            }
-            buttonSearch.setVisibility(View.GONE);
-        });
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
     protected void searchUsers(String userName) {
-        BackendService.searchCoaches(userName).thenAccept(resultDto -> {
-            if (resultDto != null) {
-                users.clear();
-                users.addAll(resultDto); // maybe doesn't work, in this case should implement method for getting users
-                Log.d("myTag", users.toString());
-            } else {
-            }
-        }).exceptionally(e -> {
-            Log.d("SearchWindow", "Search failed: " + e.getMessage(), e);
-            return null;
-        }).join();
-    }
-
-    void editSearchField(@NonNull View view, Button buttonSearch) {
-        name = view.findViewById(R.id.editTextSearch);
-        name.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                buttonSearch.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-        name.setOnEditorActionListener((textView, actionId, keyEvent) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
-                String trainingName = textView.getText().toString().trim();
-                if (!trainingName.isEmpty()) {
-                    textView.setEnabled(false);
-                    buttonSearch.requestFocus();
-                    return true;
+        {
+            BackendService.searchCoaches(userName).thenAccept(resultDto -> {
+                if (resultDto != null) {
+                    users.clear();
+                    users.addAll(resultDto); // maybe doesn't work, in this case should implement method for getting users
+                    Log.d("myTag", users.toString());
                 }
-                buttonSearch.setVisibility(View.VISIBLE);
-            }
-            return false;
-        });
+            }).exceptionally(e -> {
+                Log.d("SearchWindow", "Search failed: " + e.getMessage(), e);
+                return null;
+            }).join();
+        }
     }
 }
