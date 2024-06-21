@@ -29,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.appBarMainSportsman.toolbar);
         DrawerLayout drawer = binding.drawerLayout2;
         NavigationView navigationView = binding.navView;
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_coachListOfSportsmen, R.id.nav_mainAccount)
                 .setOpenableLayout(drawer)
                 .build();
@@ -41,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_coach, menu);
         return true;
     }

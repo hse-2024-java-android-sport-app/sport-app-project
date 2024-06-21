@@ -5,10 +5,10 @@ import java.util.Date;
 
 public class TrainingEventDto implements Serializable {
     private long eventId;
+    //    @JsonFormat(pattern = "MMM dd, yyyy hh:mm:ss a")
     private Date date;
     private boolean completed;
-    private String comment;
-    private TrainingDto trainingDto;
+    private TrainingDto training;
 
     public TrainingEventDto(){}
 
@@ -32,23 +32,15 @@ public class TrainingEventDto implements Serializable {
         this.completed = completed;
     }
 
-    public boolean getCompleted() {
+    public boolean isCompleted() {
         return completed;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setTraining(TrainingDto training) {
+        this.training = training;
     }
 
-    public String getComment() {
-        return comment;
-    }
-
-    public void setTrainingDto(TrainingDto trainingDto) {
-        this.trainingDto = trainingDto;
-    }
-
-    public TrainingDto getTrainingDto() {
-        return trainingDto;
+    public TrainingDto getTraining() {
+        return training;
     }
 }

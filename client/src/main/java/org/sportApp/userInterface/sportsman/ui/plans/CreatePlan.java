@@ -1,7 +1,6 @@
 package org.sportApp.userInterface.sportsman.ui.plans;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
@@ -14,18 +13,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.sportApp.dto.UserDto;
-import org.sportApp.requests.BackendService;
 import org.sportApp.dto.PlanDto;
 import org.sportApp.dto.TrainingEventDto;
+import org.sportApp.dto.UserDto;
+import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.sportsman.ui.events.TypeSelection;
 import org.sportApp.utils.UserManager;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 public class CreatePlan extends AppCompatActivity {
     private final PlanDto planDto = new PlanDto();
@@ -89,11 +86,14 @@ public class CreatePlan extends AppCompatActivity {
     }
 
     private void createPlan(@NonNull PlanDto planDto) {
-        Log.d("myTag", "TrainingDto " + (planDto.getTrainings().get(0).getTrainingDto() != null));
+        Log.d("ApplicationTag", "CreatePlan: trainingsDto " + (planDto.getTrainings()));
         BackendService.createPlan(planDto).thenAccept(resultDto -> {
                     planDto.setPlanId(resultDto);
-                    Log.d("myTag", "planId: " + resultDto);
+                    Log.d("ApplicationTag", "CreatePlanWindow: planId is " + resultDto);
                 })
-                .exceptionally(e -> null).join();
+                .exceptionally(e -> {
+                    Log.e("ApplicationTag", "CreatePlanWindow: " + e.getMessage(), e);
+                    return null;
+                }).join();
     }
 }

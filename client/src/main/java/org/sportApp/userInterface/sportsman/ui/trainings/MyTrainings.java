@@ -15,7 +15,6 @@ import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.adapters.BaseAdapter;
 import org.sportApp.userInterface.adapters.TrainingsAdapter;
-import org.sportApp.userInterface.sportsman.ui.overview.BaseFragment;
 import org.sportApp.userInterface.sportsman.ui.overview.FragmentWithAddButton;
 import org.sportApp.utils.UserManager;
 
@@ -63,7 +62,6 @@ public class MyTrainings extends FragmentWithAddButton<TrainingDto> {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        return inflater.inflate(R.layout.fragment_trainings, container, false);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -82,14 +80,18 @@ public class MyTrainings extends FragmentWithAddButton<TrainingDto> {
     }
 
     private void showTraining(int position) {
+        Log.d("ApplicationTag", "MyTrainingsWindow: show training");
         super.showItem(position, trainings, "trainingDto");
     }
 
     private void getAllTrainings(Long userId) {
         BackendService.getAllTrainings(userId).thenAccept(resultDto -> {
                     trainings = resultDto;
-                    Log.d("UserType", "resultDto: " + resultDto);
-                })
-                .exceptionally(e -> null).join();
+            trainings.remove(1);
+            Log.d("ApplicationTag", "MyTrainingsWindow: resultDto is " + resultDto);
+        }).exceptionally(e -> {
+            Log.e("ApplicationTag", "MyTrainingsWindow " + e.getMessage(), e);
+            return null;
+        }).join();
     }
 }

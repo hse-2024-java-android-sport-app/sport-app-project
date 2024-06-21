@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.sportApp.dto.UserDto;
@@ -15,9 +13,8 @@ import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
 import org.sportApp.utils.UserManager;
 
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class AuthorizationWindow extends AppCompatActivity {
     Button bSignIn;
@@ -46,7 +43,7 @@ public class AuthorizationWindow extends AppCompatActivity {
                 signInUser(userDto)
                         .thenAccept(resultDto -> getType(userDto.getId(), userDto))
                         .exceptionally(e -> {
-                            Toast.makeText(AuthorizationWindow.this, "Authorization failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Log.e("ApplicationTag", "Authorization: " + Objects.requireNonNull(e.getMessage()));
                             return null;
                         }).join();
                 if (userDto.getType().equals(UserDto.Kind.sportsman)) {
@@ -73,22 +70,8 @@ public class AuthorizationWindow extends AppCompatActivity {
         if (password.length() == 0) {
             password.setError("Password is required");
             return false;
-        } else if (password.length() < 8) {
-            password.setError("Password must be minimum 8 characters");
-            return false;
-        } else if (!isValid(password)) {
-            password.setError("Password must contain only Latin letters and digits, and should not contain \\");
-            return false;
         }
         return true;
-    }
-
-    public static boolean isValid(@NonNull EditText password) {
-        String regex = "[a-zA-Z0-9]+";
-        String passwordString = password.getText().toString();
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(passwordString);
-        return matcher.matches() && !passwordString.contains("\\");
     }
 
     private CompletableFuture<Void> signInUser(UserDto userDto) {
@@ -96,10 +79,10 @@ public class AuthorizationWindow extends AppCompatActivity {
                 .thenAccept(resultDto -> {
                     userDto.setId(resultDto);
                     UserManager.getInstance().setId(resultDto);
-                    Log.d("Authorization", "resultDto: " + resultDto);
+                    Log.d("ApplicationTag", "Authorization: resultDto is " + resultDto);
                 })
                 .exceptionally(e -> {
-                    //Toast.makeText(AuthorizationWindow.this, "Authorization failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e("ApplicationTag", "Authorization: " + Objects.requireNonNull(e.getMessage()));
                     return null;
                 });
     }
@@ -108,11 +91,12 @@ public class AuthorizationWindow extends AppCompatActivity {
         BackendService.getType(id).thenAccept(resultDto -> {
                     userDto.setType(resultDto);
                     UserManager.getInstance().setType(resultDto);
+                    Log.d("ApplicationTag", "Authorization " + UserManager.getInstance().getType());
                     UserManager.getInstance().setLogin(userDto.getLogin());
-                    Log.d("UserType", "resultDto: " + resultDto);
+                    Log.d("ApplicationTag", "Authorization: resultDto is " + resultDto);
                 })
                 .exceptionally(e -> {
-                    Toast.makeText(AuthorizationWindow.this, "Authorization failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e("ApplicationTag", "Authorization: " + Objects.requireNonNull(e.getMessage()));
                     return null;
                 }).join();
     }

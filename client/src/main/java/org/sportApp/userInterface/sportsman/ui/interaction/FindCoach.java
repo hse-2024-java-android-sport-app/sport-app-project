@@ -13,11 +13,11 @@ public class FindCoach extends FindUser {
             BackendService.searchCoaches(userName).thenAccept(resultDto -> {
                 if (resultDto != null) {
                     users.clear();
-                    users.addAll(resultDto); // maybe doesn't work, in this case should implement method for getting users
-                    Log.d("myTag", users.toString());
+                    users.addAll(resultDto);
+                    Log.d("ApplicationTag", "FindCoachWindow: users " + users.toString());
                 }
             }).exceptionally(e -> {
-                Log.d("SearchWindow", "Search failed: " + e.getMessage(), e);
+                Log.e("ApplicationTag", "FindCoachWindow: search failed " + e.getMessage(), e);
                 return null;
             }).join();
         }

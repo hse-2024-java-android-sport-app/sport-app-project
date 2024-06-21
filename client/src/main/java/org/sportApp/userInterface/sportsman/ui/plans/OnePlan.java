@@ -54,11 +54,11 @@ public class OnePlan extends BaseActivity<TrainingEventDto, PlanDto> {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("planDto", entity.toString());
+        Log.d("ApplicationTag", "OnePlanWindow: entity is" + entity);
     }
 
     private void showTrainings(int position) {
-        //super.showItem(position, "eventDto");
-        super.showItem(position, "trainingDto");
+        super.showItem(position, "eventDto");
+        Log.d("ApplicationTag", "OnePlanWindow: show item");
     }
 }

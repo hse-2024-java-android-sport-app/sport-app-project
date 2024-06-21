@@ -15,11 +15,6 @@
             android:title="@string/menu_my_trainings" />
 
         <item
-            android:id="@+id/nav_training_events"
-            android:icon="@drawable/trainings"
-            android:title="@string/menu_training_events" />
-
-        <item
             android:id="@+id/nav_friends"
             android:icon="@drawable/profile"
             android:title="@string/my_friends" />

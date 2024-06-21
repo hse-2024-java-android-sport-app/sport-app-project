@@ -35,9 +35,8 @@ public class ExercisesAdapter extends BaseAdapter<ExerciseDto, BaseAdapter.BaseV
         public void bind(@NonNull ExerciseDto exercise, OnItemClickListener<ExerciseDto> listener) {
             super.bind(exercise, listener);
             exerciseNameTextView.setText(exercise.getName());
-            exerciseDescriptionTextView.setText("In this training: " + exercise.getDescription() + " exercises.");
+            exerciseDescriptionTextView.setText("In this training: " + exercise.getDescription() + ".");
             exerciseRepetitionsTextView.setText("Number of repetitions: " + exercise.getRepetitions() + " times.");
-
         }
     }
 }

@@ -1,16 +1,16 @@
 package org.sportApp.userInterface.sportsman.ui.events;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.sportApp.dto.TrainingDto;
 import org.sportApp.dto.TrainingEventDto;
@@ -34,27 +34,27 @@ public class TypeSelection extends AppCompatActivity {
 
         DatePicker datePicker = findViewById(R.id.datePicker);
 
-        //eventDto.setDate(getSelectedDate(datePicker));
+        eventDto.setDate(getSelectedDate(datePicker));
 
         createEvent.setOnClickListener(v -> {
-            Log.d("myTag", "create Event");
+            Log.d("ApplicationTag", "TypeSelectionWindow: create Event");
             openAddTrainingWindow(0);
         });
         chooseEvent.setOnClickListener(v -> {
-            Log.d("myTag", "choose Event");
+            Log.d("ApplicationTag", "TypeSelectionWindow: choose Event");
             openAddTrainingWindow(1);
         });
 
         Button saveChanges = findViewById(R.id.saveChanges);
         saveChanges.setOnClickListener(v -> {
-            if (eventDto.getTrainingDto() != null) {
+            if (eventDto.getTraining() != null) {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("eventDto", eventDto);
-                //Log.d("myTag", "Returning EventDto: " + eventDto.getDate().toString());
+                //Log.d("ApplicationTag", "TypeSelectionWindow: eventDto Date " + eventDto.getDate().toString());
                 setResult(RESULT_OK, resultIntent);
                 finish();
             } else {
-                Log.d("myTag", "trainingDto is null, cannot return");
+                Log.d("ApplicationTag", "TypeSelectionWindow: trainingDto is null");
                 Toast.makeText(this, "Please select a training", Toast.LENGTH_SHORT).show();
             }
         });
@@ -78,12 +78,12 @@ public class TypeSelection extends AppCompatActivity {
 
     private final ActivityResultLauncher<Intent> addEventLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == RESULT_OK) {
-            Log.d("myTag", "Added training event");
+            Log.d("ApplicationTag", "TypeSelectionWindow: Added training event");
             assert result.getData() != null;
             TrainingDto trainingDto = (TrainingDto) result.getData().getSerializableExtra("trainingDto");
             assert trainingDto != null;
-            Log.d("myTag", "TrainingDto: " + trainingDto);
-            eventDto.setTrainingDto(trainingDto);
+            Log.d("ApplicationTag", "TypeSelectionWindow: TrainingDto: " + trainingDto);
+            eventDto.setTraining(trainingDto);
         }
     });
 }

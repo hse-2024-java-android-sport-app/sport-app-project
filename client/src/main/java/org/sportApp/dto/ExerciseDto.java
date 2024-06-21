@@ -8,16 +8,17 @@ public class ExerciseDto implements Serializable{
     private int duration;
     private int sets;
     private String videoUrl;
-    private Long id;
+    private long id;
 
     public ExerciseDto(){}
 
-    public ExerciseDto(String name, String description, int repetitions, int duration, int sets) {
+    public ExerciseDto(String name, String description, int repetitions, int duration, int sets, String videoUrl) {
         this.name = name;
         this.description = description;
         this.repetitions = repetitions;
         this.duration = duration;
         this.sets = sets;
+        this.videoUrl = videoUrl;
     }
 
 
@@ -70,11 +71,11 @@ public class ExerciseDto implements Serializable{
         return name;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Long getId(){
+    public long getId(){
         return id;
     }
 }

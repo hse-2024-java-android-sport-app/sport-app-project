@@ -14,17 +14,9 @@ public class PlanDto implements Serializable {
 
     private LocalDate creationTime;
 
-    private boolean isCompleted;
-    public PlanDto() {
-        //BackendService.createPlan(this);
-    }
 
-    public boolean isCompleted() {
-        return isCompleted;
-    }
-
-    public void setIsCompleted(boolean isCompleted) {
-        this.isCompleted = isCompleted;
+    public boolean isCompleted(){
+        return trainings.stream().allMatch(TrainingEventDto::isCompleted);
     }
 
     private void edit(){}
@@ -56,9 +48,6 @@ public class PlanDto implements Serializable {
         this.name = name;
     }
 
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
-    }
 
     public long getCoachId() {
         return coachId;

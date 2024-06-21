@@ -7,12 +7,10 @@ import androidx.annotation.NonNull;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import okhttp3.*;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import org.sportApp.dto.ExerciseDto;
 import org.sportApp.dto.PlanDto;
 import org.sportApp.dto.TrainingDto;
-import org.sportApp.dto.TrainingEventDto;
 import org.sportApp.dto.UserDto;
 
 import java.io.IOException;
@@ -20,7 +18,16 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Credentials;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class BackendService {
     static OkHttpClient client = new OkHttpClient();
@@ -32,6 +39,8 @@ public class BackendService {
         void handleResponse(Response response, T result) throws IOException;
     }
 
+    @NonNull
+    @Contract("_, _ -> new")
     private static OkHttpClient createAuthenticatedClient(final String username, final String password) {
         return new OkHttpClient.Builder().authenticator(
                         (route, response) -> response
@@ -78,9 +87,9 @@ public class BackendService {
     }
 
     @NonNull
-    public static CompletableFuture<UserDto> getUserById(Long id) {
-        String url = BASE_URL + "/getUserById/" + id;
-        return sendAsyncGetRequest(url, UserDto.class, "Failed to find user by id.");
+    public static CompletableFuture<Boolean> getEventIsCompleted(Long id) {
+        String url = BASE_URL + "/getEventIsCompleted/" + id;
+        return sendAsyncGetRequest(url, Boolean.class, "Failed to check is Completed type.");
     }
 
     @NonNull
@@ -130,16 +139,11 @@ public class BackendService {
     }
 
     @NonNull
-    public static CompletableFuture<Void> markEventCompleted(@NonNull Long eventId) {
+    public static CompletableFuture<Long> markEventCompleted(@NonNull Long eventId, Boolean isCompleted) {
         String msg = "Failed to mark an event as completed: no response from server";
-        return sendRequestAndHandleResponse(BASE_URL + "/markEventCompleted", eventId, Void.class, msg);
+        return sendRequestAndHandleResponse(BASE_URL + "/markEventCompleted/" + eventId, isCompleted, Long.class, msg);
     }
 
-    @NonNull
-    public static CompletableFuture<Boolean> addTrainingToPlan(long planId, TrainingDto trainingDto) {
-        String msg = "Failed to add training to plan: no response from server";
-        return sendRequestAndHandleResponse(BASE_URL + "/plans/" + planId + "/add-training", trainingDto, Boolean.class, msg);
-    }
 
     @NonNull
     public static CompletableFuture<Long> createTraining(TrainingDto trainingDto) {
@@ -147,17 +151,6 @@ public class BackendService {
         return sendRequestAndHandleResponse(BASE_URL + "/createTraining", trainingDto, Long.class, msg);
     }
 
-    @NonNull
-    public static CompletableFuture<Long> addExerciseByTrain(ExerciseDto exerciseDto, Long trainId) {
-        String msg = "Saving exercise failed: no response from server";
-        return sendRequestAndHandleResponse(BASE_URL + "/addExerciseByTrain/" + trainId, exerciseDto, Long.class, msg);
-    }
-
-    @NonNull
-    public static CompletableFuture<Long> addEventByPlan(TrainingEventDto eventDto, Long planId) {
-        String msg = "Saving exercise failed: no response from server";
-        return sendRequestAndHandleResponse(BASE_URL + "/addEvent/" + planId, eventDto, Long.class, msg);
-    }
 
     @NonNull
     public static CompletableFuture<Long> editCoach(Long userId, Long coachId) {
@@ -181,8 +174,6 @@ public class BackendService {
         return sendAsyncGetRequest(url, type, "Failed to find sportsmen by name: " + name);
     }
 
-
-    // maybe we can combine with the method to find a trainer
     @NonNull
     public static  CompletableFuture<Void> addSubscription(Long userId, Long friendId) {
         String msg = "Failed adding coach: no response from server";
@@ -293,5 +284,4 @@ public class BackendService {
 
         return future;
     }
-
 }

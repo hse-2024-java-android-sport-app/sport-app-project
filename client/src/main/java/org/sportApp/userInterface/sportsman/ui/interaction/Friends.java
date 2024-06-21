@@ -72,7 +72,7 @@ public class Friends extends BaseFragment<UserDto> {
                 } else {
                     Toast.makeText(getContext(), "Coach not found", Toast.LENGTH_SHORT).show();
                 }
-            }).exceptionally(e -> null);
+            }).exceptionally(e -> null).join();
         } else {
             BackendService.getSubscriptions(UserManager.getInstance().getId()).thenAccept(resultDto -> {
                 if (resultDto != null) {
@@ -80,7 +80,7 @@ public class Friends extends BaseFragment<UserDto> {
                 } else {
                     Toast.makeText(getContext(), "Coach not found", Toast.LENGTH_SHORT).show();
                 }
-            }).exceptionally(e -> null);
+            }).exceptionally(e -> null).join();
         }
     }
 }

@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import org.sportApp.userInterface.databinding.FragmentAccountBinding;
-import org.sportApp.userInterface.trainings.AddTrainingWindow;
 
 public class AccountFragment extends Fragment {
     private FragmentAccountBinding binding;
