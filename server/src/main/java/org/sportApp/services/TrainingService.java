@@ -26,7 +26,7 @@ public class TrainingService {
         if (training.getExercises() == null) {
             return trainingRepository.save(training);
         }
-        training.getExercises().forEach(exr -> exr.setTrainingDto(training));
+        training.getExercises().forEach(exr -> exr.setTraining(training));
         Training savedTraining = trainingRepository.save(training);
         exerciseRepository.saveAll(training.getExercises());
         return savedTraining;
@@ -43,7 +43,7 @@ public class TrainingService {
     public Optional<Exercise> addExercise(long trainId, Exercise exercise) {
         Optional<Training> optionalTraining = findById(trainId);
         if (optionalTraining.isPresent()) {
-            exercise.setTrainingDto(optionalTraining.get());
+            exercise.setTraining(optionalTraining.get());
             return Optional.of(exerciseRepository.save(exercise));
         }
         return Optional.empty();

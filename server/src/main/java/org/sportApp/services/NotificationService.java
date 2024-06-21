@@ -60,4 +60,10 @@ public class NotificationService {
         }
         return notifRepository.getNotificationByUserTo(user.get());
     }
+
+    public List<String> getNotificationMessagesByUserId(User user) {
+        return notifRepository.getNotificationByUserTo(user).stream()
+                .map(Notification::getMessage)
+                .toList();
+    }
 }

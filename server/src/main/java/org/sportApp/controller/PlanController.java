@@ -16,7 +16,7 @@
 //
 //@RestController
 //@RequestMapping("/sport_app")
-//public class TrainingController {
+//public class PlanController {
 //    private final UserService userService;
 //    private final TrainingService trainingService;
 //    private final EventService eventService;

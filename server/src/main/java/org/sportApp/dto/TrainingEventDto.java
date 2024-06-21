@@ -9,16 +9,7 @@ public class TrainingEventDto {
     @JsonFormat(pattern = "MMM dd, yyyy hh:mm:ss a")
     private Date date;
     private boolean completed;
-    private String comment;
-    private TrainingDto trainingDto;
-
-    public TrainingEventDto(int id, Date date, boolean completed, String comment, TrainingDto trainingDto) {
-        this.eventId = id;
-        this.date = date;
-        this.completed = completed;
-        this.comment = comment;
-        this.trainingDto = trainingDto;
-    }
+    private TrainingDto training;
 
     protected TrainingEventDto() {
     }
@@ -47,20 +38,12 @@ public class TrainingEventDto {
         this.completed = completed;
     }
 
-    public String getComment() {
-        return comment;
+    public TrainingDto getTraining() {
+        return training;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public TrainingDto getTrainingDto() {
-        return trainingDto;
-    }
-
-    public void setTrainingDto(TrainingDto trainingDto) {
-        this.trainingDto = trainingDto;
+    public void setTraining(TrainingDto training) {
+        this.training = training;
     }
 
     @Override
@@ -69,8 +52,7 @@ public class TrainingEventDto {
                 "eventId=" + eventId +
                 ", date=" + date +
                 ", completed=" + completed +
-                ", comment='" + comment + '\'' +
-                ", training=" + trainingDto +
+                ", training=" + training +
                 '}';
     }
 }

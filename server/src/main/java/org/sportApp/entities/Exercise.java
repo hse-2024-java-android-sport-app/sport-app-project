@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Exercise {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long id;
+    private long id;
     private String name;
     private String description;
     private int repetitions;
@@ -16,7 +16,7 @@ public class Exercise {
     private String videoUrl;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="trainId", nullable=false)
-    private Training trainingDto;
+    private Training training;
 
     public Exercise(String name, String description, int repetitions, int duration, int sets, String videoUrl, Training training) {
         this.name = name;
@@ -25,14 +25,10 @@ public class Exercise {
         this.duration = duration;
         this.sets = sets;
         this.videoUrl = videoUrl;
-        this.trainingDto = training;
+        this.training = training;
     }
 
     protected Exercise() {}
-
-    public Long getId() {
-        return this.id;
-    }
 
     public String getDescription() {
         return description;
@@ -74,12 +70,12 @@ public class Exercise {
         this.videoUrl = videoUrl;
     }
 
-    public Training getTrainingDto() {
-        return trainingDto;
+    public Training getTraining() {
+        return training;
     }
 
-    public void setTrainingDto(Training training) {
-        this.trainingDto = training;
+    public void setTraining(Training training) {
+        this.training = training;
     }
 
     public String getName() {
@@ -88,5 +84,13 @@ public class Exercise {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long exerciseId) {
+        this.id = exerciseId;
     }
 }

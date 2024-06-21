@@ -30,10 +30,8 @@ public class PlanService {
         List<TrainingEvent> events = plan.getTrainings();
         plan.setTrainings(List.of());
         Plan savedPlan = planRepository.save(plan);
-        System.out.println("savedPlan: \n" + savedPlan);
         events.forEach(event -> {
             event.setPlan(savedPlan);
-            System.out.println("events: \n" + event);
             eventService.saveEvent(event);
         });
         notifService.sendPlan(savedPlan, "New plan \"" + savedPlan.getName() + "\" was created!");

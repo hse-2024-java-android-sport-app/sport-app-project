@@ -23,7 +23,7 @@ public class EventService {
 
     public TrainingEvent saveEvent(TrainingEvent event) {
         Training training = event.getTraining();
-        training.getExercises().forEach(exr -> exr.setTrainingDto(training));
+        training.getExercises().forEach(exr -> exr.setTraining(training));
         training.setTrainId(0);
         Training savedTraining = trainingService.saveTraining(training);
         event.setTraining(savedTraining);

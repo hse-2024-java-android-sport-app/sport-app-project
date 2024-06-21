@@ -27,7 +27,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final SubscriberRepository subscriberRepository;
     private final PasswordEncoder passwordEncoder;
-    private final long notExist = -1;
 
     @Autowired
     public UserService (UserRepository userRepository, SubscriberRepository subscriberRepository, PasswordEncoder passwordEncoder) {
@@ -63,6 +62,10 @@ public class UserService {
         return userRepository.findById(userId);
     }
 
+    public Optional<User> getUserAndCheckType(long userId, User.Kind type) {
+        return userRepository.getByIdAndType(userId, type);
+    }
+
     public Iterable<User> findAll() {
         return userRepository.findAll();
     }
@@ -71,29 +74,13 @@ public class UserService {
         return userRepository.findAllByCoachId(coachId);
     }
 
-    public Optional<Boolean> getIsCoachSet(long sportsmanId) {
-        return userRepository.findById(sportsmanId).map(user -> user.getCoach() == null);
-    }
-
-    public List<User> searchCoaches(String searchString) {
-        return searchUser(searchString).stream()
-                .filter(u -> u.getType() == User.Kind.coach)
-                .toList();
-    }
-
-    public List<User> searchSportsman(String searchString) {
-        return searchUser(searchString).stream()
-                .filter(u -> u.getType() == User.Kind.sportsman)
-                .toList();
-    }
-
-    private List<User> searchUser(String searchString) {
+    public List<User> searchUser(String searchString, User.Kind type) {
         Stream<User> result = Stream.empty();
         for (String word : searchString.split("\\s+")) {
             List<User> foundCoaches = userRepository.findAllByFirstNameContainsIgnoreCaseOrSecondNameContainsIgnoreCaseOrLoginContainsIgnoreCase(word, word, word);
             result = Stream.concat(result, foundCoaches.stream());
         }
-        return result.toList();
+        return result.filter(u -> u.getType() == type).toList();
     }
 
     public Optional<Long> editCoach(long sportsmanId, long coachId) {
@@ -119,20 +106,19 @@ public class UserService {
         return false;
     }
 
-    public List<User> getFollowers(long userId) {
-        return getSubscribersByUser(userId, User::getFollowers, Subscriber::getFollower);
+    public List<User> getFollowers(User user) {
+        return user.getFollowers().stream()
+                .map(Subscriber::getFollower)
+                .toList();
     }
 
-    public List<User> getSubscriptions(long userId) {
-        return getSubscribersByUser(userId, User::getSubscriptions, Subscriber::getMainUser);
+    public List<User> getSubscriptions(User user) {
+       return user.getSubscriptions().stream()
+               .map(Subscriber::getMainUser)
+               .toList();
     }
 
-    private List<User> getSubscribersByUser(long userId, Function<User, List<Subscriber>> mapper, Function<Subscriber, User> convert) {
-        return userRepository.findById(userId)
-                .map(user -> mapper.apply(user)
-                        .stream()
-                        .map(convert)
-                        .toList())
-                .orElseGet(List::of);
-    }
+//    public List<?> getRating(User sportsman) {
+//
+//    }
 }

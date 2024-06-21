@@ -13,7 +13,7 @@ public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long notificationId;
-    private Long userfromId;
+    private long userfromId;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_to_id")
     @JsonBackReference
@@ -36,7 +36,7 @@ public class Notification {
         this.message = message;
     }
 
-    public Long getUserfromId() {
+    public long getUserfromId() {
         return userfromId;
     }
 

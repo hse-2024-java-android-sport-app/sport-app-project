@@ -16,6 +16,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     Optional<User> getByLogin(String login);
 
+    Optional<User> getByIdAndType(long id, User.Kind type);
+
     List<User> findAllByCoachId(long coach_id);
 
     List<User> findAllByFirstNameContainsIgnoreCaseOrSecondNameContainsIgnoreCaseOrLoginContainsIgnoreCase

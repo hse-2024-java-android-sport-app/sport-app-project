@@ -24,6 +24,14 @@ public class User {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateOfBirth;
 
+    public int getRatingScore() {
+        return ratingScore;
+    }
+
+    public void setRatingScore(int ratingScore) {
+        this.ratingScore = ratingScore;
+    }
+
     public enum Kind {sportsman, coach}
     @Enumerated(EnumType.STRING)
     private Kind type;
@@ -46,16 +54,11 @@ public class User {
     private List<Notification> notifications = new ArrayList<>();
 
 
-    protected User() {}
+    ///todo
+//    private int ratingScore;
 
-    public User(String fName, String sName, String login, String password, Date dateOfBirth, Kind type) {
-        this.firstName = fName;
-        this.secondName = sName;
-        this.login = login;
-        this.password = password;
-        this.dateOfBirth = dateOfBirth;
-        this.type = type;
-    }
+
+    protected User() {}
 
     public long getId() {
         return this.id;

@@ -15,7 +15,7 @@ public class TrainingEvent {
     private Date date;
     private boolean completed;
     private String comment;
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="trainId")
     private Training training;
 
@@ -78,7 +78,7 @@ public class TrainingEvent {
                 ", date=" + date +
                 ", completed=" + completed +
                 ", comment='" + comment + '\'' +
-                ", training=" + (training ==null) +
+                ", training=" + ((training == null) ? null : training) +
                 ", planId=" + ((plan == null) ? null : plan.getPlanId()) +
                 '}';
     }

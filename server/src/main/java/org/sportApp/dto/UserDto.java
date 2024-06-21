@@ -12,12 +12,22 @@ public class UserDto implements Serializable {
     private String login;
     private String password;
 
+    public long getCoachId() {
+        return coachId;
+    }
+
+    public void setCoachId(long coachId) {
+        this.coachId = coachId;
+    }
+
     public enum Kind {sportsman, coach}
 
     private Kind type;
 
     @JsonFormat(pattern = "MMM dd, yyyy hh:mm:ss a")
     private Date dateOfBirth;
+
+    private long coachId;
 
     public long getId() {
         return id;
