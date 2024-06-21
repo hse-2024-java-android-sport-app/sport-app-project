@@ -23,10 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MyPlans extends FragmentWithAddButton<PlanDto> {
-    private final List<PlanDto> currentPlans = new ArrayList<>();
+public class CompletedPlans extends FragmentWithAddButton<PlanDto> {
     private final List<PlanDto> completedPlans = new ArrayList<>();
-    private PlanAdapter currentAdapter;
     private PlanAdapter completedAdapter;
     private List<PlanDto> allPlans = new ArrayList<>();
 
@@ -39,17 +37,17 @@ public class MyPlans extends FragmentWithAddButton<PlanDto> {
 
     @Override
     protected int getLayout() {
-        return R.layout.fragment_plans;
+        return R.layout.fragment_common;
     }
 
     @Override
     protected int getRecyclerView() {
-        return R.id.currentPlanRecyclerView;
+        return R.id.commonRecyclerView;
     }
 
     @Override
     protected int getAddButtonId() {
-        return R.id.addTrainingButton;
+        return R.id.addCommonButton;
     }
 
     @Override
@@ -75,40 +73,25 @@ public class MyPlans extends FragmentWithAddButton<PlanDto> {
         Log.d("myTag", "My Plans " + UserManager.getInstance().getType());
         if (UserManager.getInstance().getType() == (UserDto.Kind.coach)) {
             currentUser = UserManager.getLastUser();
-        }
-        else {
+        } else {
             currentUser = UserManager.getInstance();
         }
-        Log.d("ApplicationTag", "MyPlansWindow: current User's id is " + currentUser.getId());
+        Log.d("ApplicationTag", "CompletedPlans: current User's id is " + currentUser.getId());
         getAllPlans(currentUser.getId());
 
         PlanDto planDto = new PlanDto();
         planDto.setSportsmanId(currentUser.getId());
         super.startAddButton(view);
-        Log.d("ApplicationTag", "MyPlansWindow: first plan is completed: " + allPlans.get(0).isCompleted());
-        currentPlans.clear();
-        completedPlans.clear();
-        currentPlans.addAll(allPlans.stream().filter(plan -> !plan.isCompleted()).collect(Collectors.toList()));
         completedPlans.addAll(allPlans.stream().filter(PlanDto::isCompleted).collect(Collectors.toList()));
-        currentAdapter = new PlanAdapter(currentPlans, R.layout.item_current_plan, new PlanAdapter.OnItemClickListener<PlanDto>() {
+        Log.d("ApplicationTag", "CompletedPlansWindow: completed plans are " + completedPlans);
+        completedAdapter = new PlanAdapter(completedPlans, R.layout.item_current_plan, new PlanAdapter.OnItemClickListener<PlanDto>() {
             @Override
             public void onItemClick(int position) {
-                showItem(position, 0);
+                showItem(position);
             }
         });
-        super.setUpAdapter(view, R.id.currentPlanRecyclerView, currentAdapter);
-        Log.d("ApplicationTag", "MyPlans: type is " + UserManager.getInstance().getType());
-        if (UserManager.getInstance().getType() == UserDto.Kind.sportsman) {
-            completedAdapter = new PlanAdapter(completedPlans, R.layout.item_completed_plan, new PlanAdapter.OnItemClickListener<PlanDto>() {
-
-                @Override
-                public void onItemClick(int position) {
-                    showItem(position, 1);
-                }
-            });
-            super.setUpAdapter(view, R.id.completedPlansRecyclerView, completedAdapter);
-        }
-
+        super.setUpAdapter(view, R.id.commonRecyclerView, completedAdapter);
+        Log.d("ApplicationTag", "CompletedPlans: type is " + UserManager.getInstance().getType());
     }
 
     @Override
@@ -121,41 +104,31 @@ public class MyPlans extends FragmentWithAddButton<PlanDto> {
     private void updateData() {
         getAllPlans(currentUser.getId());
         if (allPlans != null && !allPlans.isEmpty()) {
-            currentPlans.clear();
             completedPlans.clear();
-            currentPlans.addAll(allPlans.stream().filter(plan -> !plan.isCompleted()).collect(Collectors.toList()));
             completedPlans.addAll(allPlans.stream().filter(PlanDto::isCompleted).collect(Collectors.toList()));
-            if (currentAdapter != null) {
-                currentAdapter.notifyDataSetChanged();
-            }
             if (completedAdapter != null) {
                 completedAdapter.notifyDataSetChanged();
             }
         } else {
-            Log.d("ApplicationTag", "MyPlansWindow: allPlans is null or empty.");
+            Log.d("ApplicationTag", "CompletedPlans: allPlans is null or empty.");
         }
     }
 
-    private void showItem(int position, int type) {
+    private void showItem(int position) {
         if (UserManager.getInstance().getType() == UserDto.Kind.sportsman) {
-            if (type == 0) {
-                super.showItem(position, currentPlans, "planDto");
-                Log.d("ApplicationTag", "MyPlansWindow: current Plans " + currentPlans);
-            } else {
-                super.showItem(position, completedPlans, "planDto");
-                Log.d("ApplicationTag", "MyPlansWindow: completed Plans " + completedPlans);
-            }
+            super.showItem(position, completedPlans, "planDto");
+            Log.d("ApplicationTag", "CompletedPlans: current Plans " + completedPlans);
         } else {
-            super.showItem(position, currentPlans, "planDto");
+            super.showItem(position, completedPlans, "planDto");
         }
     }
 
     private void getAllPlans(Long userId) {
         BackendService.getAllPlans(userId).thenAccept(resultDto -> {
-                    allPlans = resultDto;
-            Log.d("ApplicationTag", "MyPlansWindow: resultDto is " + resultDto);
+            allPlans = resultDto;
+            Log.d("ApplicationTag", "CompletedPlans: resultDto is " + resultDto);
         }).exceptionally(e -> {
-            Log.e("ApplicationTag", "MyPlansWindow " + e.getMessage(), e);
+            Log.e("ApplicationTag", "CompletedPlans " + e.getMessage(), e);
             return null;
         }).join();
     }

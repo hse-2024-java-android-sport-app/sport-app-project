@@ -31,17 +31,17 @@ public class MyTrainings extends FragmentWithAddButton<TrainingDto> {
 
     @Override
     protected int getLayout() {
-        return R.layout.fragment_trainings;
+        return R.layout.fragment_common;
     }
 
     @Override
     protected int getRecyclerView() {
-        return R.id.trainingRecyclerView;
+        return R.id.commonRecyclerView;
     }
 
     @Override
     protected int getAddButtonId() {
-        return R.id.addTrainingButton;
+        return R.id.addCommonButton;
     }
 
     @Override

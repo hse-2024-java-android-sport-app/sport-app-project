@@ -52,10 +52,6 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
     <string name="menu_coachListOfSportsmen">Coach list of sportsmen</string>
     <string name="menu_myAccount">My account</string>
     <string name="already_have_an_account">Already have an account?</string>
@@ -68,6 +64,7 @@
     <string name="menu_add_training">Add training</string>
     <string name="menu_notifications">Notifications</string>
     <string name="menu_plans">Plans</string>
+    <string name="menu_completed_plans">Completed plans</string>
     <string name="menu_add_coach">Add coach</string>
     <string name="enter_user_s_login">Enter user\'s  login or name</string>
     <string name="search">Search</string>
@@ -118,6 +115,7 @@
     <string name="notifications">Notifications</string>
     <string name="message">Message</string>
     <string name="user">User</string>
+    <string name="empty_plans">You don\'t have any plans yet.</string>
 
 
 </resources>

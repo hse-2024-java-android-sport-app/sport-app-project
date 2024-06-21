@@ -30,16 +30,7 @@ public class PlanAdapter extends BaseAdapter<PlanDto, BaseAdapter.BaseViewHolder
     @Override
     public PlanViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView;
-        if (UserManager.getInstance().getType() == UserDto.Kind.sportsman) {
-            if (viewType == 0) {
-                itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_current_plan, parent, false);
-            } else {
-                itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_completed_plan, parent, false);
-            }
-        }
-        else{
-            itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_current_plan, parent, false);
-        }
+        itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_current_plan, parent, false);
         return new PlanViewHolder(itemView);
     }
 

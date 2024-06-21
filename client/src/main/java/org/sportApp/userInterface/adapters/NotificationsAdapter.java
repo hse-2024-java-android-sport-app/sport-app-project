@@ -6,31 +6,26 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import org.sportApp.dto.UserDto;
-import org.sportApp.model.Notifications;
 import org.sportApp.userInterface.R;
 
 import java.util.List;
 
-public class NotificationsAdapter extends BaseAdapter<Notifications, BaseAdapter.BaseViewHolder<Notifications>> {
-    public NotificationsAdapter(List<Notifications> items, OnItemClickListener<Notifications> listener) {
+public class NotificationsAdapter extends BaseAdapter<String, BaseAdapter.BaseViewHolder<String>> {
+    public NotificationsAdapter(List<String> items, OnItemClickListener<String> listener) {
         super(items, R.layout.item_notifications, listener, NotificationsViewHolder::new);
     }
 
-    public static class NotificationsViewHolder extends BaseViewHolder<Notifications> {
+    public static class NotificationsViewHolder extends BaseViewHolder<String> {
         private final TextView messageTextView;
-        private final TextView userTextView;
         public NotificationsViewHolder(View itemView) {
             super(itemView);
             messageTextView = itemView.findViewById(R.id.messageTextView);
-            userTextView = itemView.findViewById(R.id.userTextView);
         }
 
         @SuppressLint("SetTextI18n")
-        public void bind(@NonNull Notifications notification, OnItemClickListener<Notifications> listener) {
-            super.bind(notification, listener);
-            messageTextView.setText(notification.getMessage());
-            userTextView.setText(notification.getUser());
+        public void bind(@NonNull String message, OnItemClickListener<String> listener) {
+            super.bind(message, listener);
+            messageTextView.setText(message);
         }
 
     }

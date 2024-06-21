@@ -18,6 +18,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -87,9 +88,24 @@ public class BackendService {
     }
 
     @NonNull
+    public static CompletableFuture<List<String>> getNotifications(Long userId) {
+        String url = BASE_URL + "/getNotifications/" + userId;
+        Type type = new TypeToken<List<String>>() {
+        }.getType();
+        return sendAsyncGetRequest(url, type, "Failed to get " + userId + " notifications");
+    }
+
+
+    @NonNull
     public static CompletableFuture<Boolean> getEventIsCompleted(Long id) {
         String url = BASE_URL + "/getEventIsCompleted/" + id;
         return sendAsyncGetRequest(url, Boolean.class, "Failed to check is Completed type.");
+    }
+
+    @NonNull
+    public static CompletableFuture<Boolean> getIsCoachSet(Long userId) {
+        String url = BASE_URL + "/getIsCoachSet/" + userId;
+        return sendAsyncGetRequest(url, Boolean.class, "Failed to check is coach set.");
     }
 
     @NonNull

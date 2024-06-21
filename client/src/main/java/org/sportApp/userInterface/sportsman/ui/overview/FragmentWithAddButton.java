@@ -9,6 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.sportApp.dto.UserDto;
+import org.sportApp.userInterface.R;
+import org.sportApp.utils.UserManager;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -32,7 +36,13 @@ public abstract class FragmentWithAddButton<T> extends BaseFragment<T> {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        startAddButton(view);
+        if (UserManager.getInstance().getType() == UserDto.Kind.sportsman) {
+            ImageButton addButton = view.findViewById(getAddButtonId());
+            addButton.setVisibility(View.GONE);
+        }
+        else {
+            startAddButton(view);
+        }
     }
 
     protected void showItem(int position, List<T> items, String dto) {

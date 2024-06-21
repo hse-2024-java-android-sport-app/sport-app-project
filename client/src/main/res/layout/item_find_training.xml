@@ -41,8 +41,7 @@
             android:padding="8dp"
             android:text="@string/total_number_of_exercises"
             android:textColor="@android:color/black"
-            android:textSize="16sp"
-            android:textStyle="italic" />
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/totalDuration"
@@ -52,8 +51,7 @@
             android:padding="8dp"
             android:text="@string/total_duration"
             android:textColor="@android:color/black"
-            android:textSize="16sp"
-            android:textStyle="italic" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 
