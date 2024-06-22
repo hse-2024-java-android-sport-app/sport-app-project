@@ -87,4 +87,18 @@ public class UserDto implements Serializable {
 
     public UserDto() {
     }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "id=" + id +
+                ", \nfirstName='" + firstName + '\'' +
+                ", \nsecondName='" + secondName + '\'' +
+                ", \nlogin='" + login + '\'' +
+                ", \npassword='" + password + '\'' +
+                ", \ntype=" + type +
+                ", \ndateOfBirth=" + dateOfBirth +
+                ", \ncoachId=" + coachId +
+                '}';
+    }
 }

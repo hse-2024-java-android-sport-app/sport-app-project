@@ -2,6 +2,7 @@ package org.sportApp.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -55,7 +56,8 @@ public class User {
 
 
     ///todo
-//    private int ratingScore;
+    @ColumnDefault("0")
+    private int ratingScore = 0;
 
 
     protected User() {}
@@ -150,5 +152,20 @@ public class User {
 
     public void setNotifications(List<Notification> notifications) {
         this.notifications = notifications;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id+
+                ", \nfirstName='" + ((firstName == null) ? null : firstName) + '\'' +
+                ", \nsecondName='" + ((secondName == null) ? null : secondName) + '\'' +
+                ", \nlogin='" + ((login == null) ? null : login) + '\'' +
+                ", \npassword='" + ((password == null) ? null : password) + '\'' +
+                ", \ndateOfBirth=" + ((dateOfBirth == null) ? null : dateOfBirth) +
+                ", \ntype=" + ((type == null) ? null : type) +
+                ", \ncoach=" + ((coach == null) ? null : coach.getId())+
+                ", \nratingScore=" + ratingScore +
+                '}';
     }
 }

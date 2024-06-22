@@ -39,6 +39,14 @@ public class UserController {
         this.eventService = eventService;
         this.planService = planService;
         this.notifService = notifService;
+        mapper.createTypeMap(User.class, UserDto.class)
+                .addMappings(m -> m.skip(UserDto::setCoachId)).setPostConverter(
+                        context -> {
+                            User source = context.getSource();
+                            context.getDestination().setCoachId(
+                                    (source == null || source.getCoach() == null) ? 0 : source.getCoach().getId());
+                            return context.getDestination();
+                        });
     }
 
     //todo mapper user -> null for password
@@ -148,15 +156,15 @@ public class UserController {
     }
 
 
-//    // NOTIFICATIONS
-//    @GetMapping("getRating/{sportsmanId}")
-//    public @ResponseBody CompletableFuture<ResponseEntity<?>> getRating(@PathVariable(value = "sportsmanId") long sportsmanId) {
-//        return checkIdExistAndConvertListToFuture(
-//                userService.getUserAndCheckType(sportsmanId, User.Kind.sportsman),
-//                userService::getRating,
-//                UserDto.class,
-//                "Required sportsman doesn't found");
-//    }
+    // RATING
+    @GetMapping("getRating/{sportsmanId}")
+    public @ResponseBody CompletableFuture<ResponseEntity<?>> getRating(@PathVariable(value = "sportsmanId") long sportsmanId) {
+        return checkIdExistAndConvertListToFuture(
+                userService.getUserAndCheckType(sportsmanId, User.Kind.sportsman),
+                userService::getRating,
+                UserDto.class,
+                "Required sportsman doesn't found");
+    }
 
 
     // FOLLOWERS
@@ -352,9 +360,9 @@ public class UserController {
         return optionalResult.map(result -> CompletableFuture.supplyAsync(
                         () -> {
                             if (result.getClass().equals(returnType)) {
-                                return ResponseEntity.status(HttpStatus.OK).body(mapper.map(result, returnType));
+                                return ResponseEntity.status(HttpStatus.OK).body(result);
                             }
-                            return ResponseEntity.status(HttpStatus.OK).body(result);
+                            return ResponseEntity.status(HttpStatus.OK).body(mapper.map(result, returnType));
                         }))
                 .orElseGet(() -> CompletableFuture.supplyAsync(
                         () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage)));

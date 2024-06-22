@@ -1,37 +1,50 @@
 package org.sportApp.services;
 
+import org.hibernate.annotations.Immutable;
 import org.sportApp.entities.Notification;
 import org.sportApp.entities.Subscriber;
+import org.sportApp.entities.TrainingEvent;
 import org.sportApp.entities.User;
 import org.sportApp.repo.SubscriberRepository;
+import org.sportApp.repo.TrainingEventRepository;
 import org.sportApp.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
+import java.sql.Time;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 @Service
+@EnableScheduling
 public class UserService {
 
     private final UserRepository userRepository;
     private final SubscriberRepository subscriberRepository;
+    private final TrainingEventRepository eventRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService (UserRepository userRepository, SubscriberRepository subscriberRepository, PasswordEncoder passwordEncoder) {
+    public UserService (UserRepository userRepository, SubscriberRepository subscriberRepository, TrainingEventRepository eventRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.subscriberRepository = subscriberRepository;
+        this.eventRepository = eventRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -59,6 +72,7 @@ public class UserService {
     }
 
     public Optional<User> getUser(long userId) {
+        System.out.println("AAAAA");
         return userRepository.findById(userId);
     }
 
@@ -84,13 +98,26 @@ public class UserService {
     }
 
     public Optional<Long> editCoach(long sportsmanId, long coachId) {
-        Optional<User> sportsman = getUser(sportsmanId).filter(sp -> sp.getType() == User.Kind.sportsman);
-        Optional<User> coach = getUser(coachId).filter(sp -> sp.getType() == User.Kind.coach);
-        if(sportsman.isPresent() && coach.isPresent()){
+        Optional<User> sportsman = getUserAndCheckType(sportsmanId, User.Kind.sportsman);
+        Optional<User> coach = getUserAndCheckType(coachId, User.Kind.coach);
+        if (sportsman.isPresent() && coach.isPresent()){
             sportsman.get().setCoach(coach.get());
             return Optional.of(userRepository.save(sportsman.get()).getId());
         }
         return Optional.empty();
+    }
+
+    public boolean editRating(long sportsmanId, int updateRatingScore) {
+        if (updateRatingScore == 0) {
+            return true;
+        }
+        Optional<User> sportsman = getUserAndCheckType(sportsmanId, User.Kind.sportsman);
+        if (sportsman.isPresent()){
+            sportsman.get().setRatingScore(sportsman.get().getRatingScore() + updateRatingScore);
+            userRepository.save(sportsman.get());
+            return true;
+        }
+        return false;
     }
 
     public boolean addSubscription(long userId, long followToId) {
@@ -118,7 +145,28 @@ public class UserService {
                .toList();
     }
 
-//    public List<?> getRating(User sportsman) {
-//
-//    }
+    public List<?> getRating(User sportsman) {
+        List<User> subscriptions = new ArrayList<>(getSubscriptions(sportsman));
+        System.out.println(subscriptions.size());
+        subscriptions.add(sportsman);
+        subscriptions.sort((userA, userB) -> (userB.getRatingScore() - userA.getRatingScore()));
+        return subscriptions;
+    }
+
+    @Scheduled(fixedRate = 1, timeUnit = TimeUnit.DAYS)
+    public void updateRating() {
+        LocalDate cur = LocalDate.now();
+        Date weekAgo = Date.from(cur.minusWeeks(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
+        System.out.println("TIME now: " + cur);
+        System.out.println("TIME week ago: " + weekAgo);
+        List<TrainingEvent> allCompletedWeekAgoEvents = eventRepository.getTrainingEventsByCompletedTrueAndDateIs(weekAgo);
+        System.out.println("TIME completedEventsSize: " + allCompletedWeekAgoEvents.size());
+        allCompletedWeekAgoEvents.stream()
+                .map(event -> {
+                    System.out.println(event.getTraining().getUserId());
+                    return event.getTraining().getUserId();
+                })
+                .distinct()
+                .forEach(userId -> editRating(userId, -10));
+    }
 }

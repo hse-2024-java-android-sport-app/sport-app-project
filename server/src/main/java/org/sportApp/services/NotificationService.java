@@ -33,8 +33,8 @@ public class NotificationService {
     public void sendEventCompleted(TrainingEvent event) {
         Notification notif = new Notification();
         long sportsmanId = event.getPlan().getSportsmanId();
-        Optional<User> sportsman = userService.getUser(sportsmanId);
-        Optional<User> coach = userService.getUser(event.getPlan().getCoachId());
+        Optional<User> sportsman = userService.getUserAndCheckType(sportsmanId, User.Kind.sportsman);
+        Optional<User> coach = userService.getUserAndCheckType(event.getPlan().getCoachId(), User.Kind.coach);
         if (sportsman.isEmpty() || coach.isEmpty()) {
             return;
         }
