@@ -311,11 +311,6 @@ public class UserController {
                         () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage)));
     }
 
-    private <T> Function<?, T> getConverter(Class<T> destination) {
-        return source -> mapper.map(source, destination);
-
-    }
-
 
     private <T> CompletableFuture<ResponseEntity<?>> checkIdExistAndConvertListToFuture(
             Optional<T> optional, Function<T, List<?>> func, Class<?> itemReturnType, String errorMessage) {

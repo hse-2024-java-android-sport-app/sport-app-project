@@ -52,15 +52,6 @@ public class NotificationService {
         notifRepository.save(notif);
     }
 
-
-    public List<Notification> getNotificationsByUserId(long userId) {
-        Optional<User> user = userService.getUser(userId);
-        if (user.isEmpty()) {
-            return List.of();
-        }
-        return notifRepository.getNotificationByUserTo(user.get());
-    }
-
     public List<String> getNotificationMessagesByUserId(User user) {
         return notifRepository.getNotificationByUserTo(user).stream()
                 .map(Notification::getMessage)

@@ -72,7 +72,6 @@ public class UserService {
     }
 
     public Optional<User> getUser(long userId) {
-        System.out.println("AAAAA");
         return userRepository.findById(userId);
     }
 
@@ -107,13 +106,13 @@ public class UserService {
         return Optional.empty();
     }
 
-    public boolean editRating(long sportsmanId, int updateRatingScore) {
-        if (updateRatingScore == 0) {
+    public boolean editRating(long sportsmanId, int addToRatingScore) {
+        if (addToRatingScore == 0) {
             return true;
         }
         Optional<User> sportsman = getUserAndCheckType(sportsmanId, User.Kind.sportsman);
         if (sportsman.isPresent()){
-            sportsman.get().setRatingScore(sportsman.get().getRatingScore() + updateRatingScore);
+            sportsman.get().setRatingScore(sportsman.get().getRatingScore() + addToRatingScore);
             userRepository.save(sportsman.get());
             return true;
         }
@@ -157,10 +156,7 @@ public class UserService {
     public void updateRating() {
         LocalDate cur = LocalDate.now();
         Date weekAgo = Date.from(cur.minusWeeks(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
-        System.out.println("TIME now: " + cur);
-        System.out.println("TIME week ago: " + weekAgo);
         List<TrainingEvent> allCompletedWeekAgoEvents = eventRepository.getTrainingEventsByCompletedTrueAndDateIs(weekAgo);
-        System.out.println("TIME completedEventsSize: " + allCompletedWeekAgoEvents.size());
         allCompletedWeekAgoEvents.stream()
                 .map(event -> {
                     System.out.println(event.getTraining().getUserId());

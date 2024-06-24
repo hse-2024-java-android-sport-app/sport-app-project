@@ -1,15 +1,18 @@
 package org.sportApp.services;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.sportApp.entities.Exercise;
 import org.sportApp.entities.Training;
 import org.sportApp.repo.ExerciseRepository;
 import org.sportApp.repo.TrainingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@DynamicUpdate
 @Service
 public class TrainingService {
 
@@ -22,7 +25,7 @@ public class TrainingService {
         this.exerciseRepository = exerciseRepository;
     }
 
-    public Training saveTraining(Training training) {
+    public Training saveTraining(@NonNull Training training) {
         if (training.getExercises() == null) {
             return trainingRepository.save(training);
         }

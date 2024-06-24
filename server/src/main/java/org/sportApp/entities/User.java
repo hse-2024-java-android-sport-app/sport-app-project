@@ -9,7 +9,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 @Entity
 @DynamicUpdate
@@ -54,8 +53,6 @@ public class User {
     @JsonManagedReference
     private List<Notification> notifications = new ArrayList<>();
 
-
-    ///todo
     @ColumnDefault("0")
     private int ratingScore = 0;
 

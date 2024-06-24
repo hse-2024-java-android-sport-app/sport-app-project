@@ -2,6 +2,7 @@ package org.sportApp.services;
 
 import org.sportApp.entities.*;
 import org.sportApp.repo.TrainingEventRepository;
+import org.sportApp.repo.TrainingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,25 +19,29 @@ import java.util.stream.Stream;
 public class EventService {
     private final TrainingEventRepository eventRepository;
     private final TrainingService trainingService;
+    private final TrainingRepository trainingRepository;
     private final NotificationService notifService;
     private final UserService userService;
 
     @Autowired
-    public EventService(TrainingEventRepository eventRepository, TrainingService trainingService, NotificationService notifService, UserService userService) {
+    public EventService(TrainingEventRepository eventRepository, TrainingService trainingService, TrainingRepository trainingRepository, NotificationService notifService, UserService userService) {
         this.eventRepository = eventRepository;
         this.trainingService = trainingService;
+        this.trainingRepository = trainingRepository;
         this.notifService = notifService;
         this.userService = userService;
     }
 
 
     public TrainingEvent saveEvent(TrainingEvent event) {
-        LocalDate localDate = event.getDate().toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate();
-        event.setDate(Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        if (event.getDate() != null) {
+            LocalDate localDate = event.getDate().toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate();
+            event.setDate(Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        }
+
         Training training = event.getTraining();
-        training.getExercises().forEach(exr -> exr.setTraining(training));
         training.setTrainId(0);
         Training savedTraining = trainingService.saveTraining(training);
         event.setTraining(savedTraining);
