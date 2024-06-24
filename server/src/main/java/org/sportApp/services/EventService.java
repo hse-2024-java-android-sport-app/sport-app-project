@@ -68,7 +68,7 @@ public class EventService {
         event.get().setCompleted(completed);
         notifService.sendEventCompleted(event.get());
         Date weekAgo = Date.from(LocalDate.now().minusWeeks(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
-        if (event.get().getDate().before(weekAgo)) {
+        if (event.get().getDate() == null || event.get().getDate().before(weekAgo)) {
             // training isn't from this week. No influence for rating
             System.out.println("TIME: not this week: Date: " + event.get().getDate());
             return Optional.of(eventRepository.save(event.get()).getEventId());
