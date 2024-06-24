@@ -2,15 +2,12 @@ package org.sportApp.entities;
 
 import jakarta.persistence.*;
 
-import java.time.Duration;
-import java.util.Locale;
-
 @Entity
 @Table(name="Exercises")
 public class Exercise {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long id;
+    private long id;
     private String name;
     private String description;
     private int repetitions;
@@ -32,10 +29,6 @@ public class Exercise {
     }
 
     protected Exercise() {}
-
-    public Long getId() {
-        return this.id;
-    }
 
     public String getDescription() {
         return description;
@@ -91,5 +84,13 @@ public class Exercise {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long exerciseId) {
+        this.id = exerciseId;
     }
 }

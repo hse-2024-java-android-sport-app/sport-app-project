@@ -3,6 +3,7 @@ package org.sportApp.dto;
 import java.util.Locale;
 
 public class ExerciseDto {
+    private long id;
     private String name;
     private String description;
     private int repetitions;
@@ -75,5 +76,13 @@ public class ExerciseDto {
         return String.format(Locale.GERMANY,
                 "Exercise[description='%s', repetitions='%d', duration='%s', sets='%d', videoUrl='%s', trainId='%s']",
                 this.description, this.repetitions, this.duration, this.sets, this.videoUrl, this.trainId);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

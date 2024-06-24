@@ -1,8 +1,13 @@
 package org.sportApp.securingWeb;
 
+import org.sportApp.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -19,7 +24,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class WebSecurityConfig  {
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsServiceImp;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -37,7 +42,7 @@ public class WebSecurityConfig  {
     private String[] getOpenedResources() {
         return new String[]{
                 "/sport_app/register",
-                "/sport_app/authorization",
+                "sport_app/authorization",
                 "/sport_app/isLoginExist/**"
         };
     }

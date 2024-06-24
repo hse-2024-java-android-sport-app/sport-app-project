@@ -1,6 +1,8 @@
 package org.sportApp.entities;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -14,6 +16,7 @@ public class Plan {
     private List<TrainingEvent> trainings;
     private long coachId;
     private long sportsmanId;
+    private LocalDate creationTime;
 
     protected Plan() {}
 
@@ -59,5 +62,24 @@ public class Plan {
 
     public void setTrainings(List<TrainingEvent> trainings) {
         this.trainings = trainings;
+    }
+
+    @Override
+    public String toString() {
+        return "Plan{" +
+                "planId=" + planId +
+                ", name=" + name +
+                ", trainings=" + trainings +
+                ", coachId='" + coachId +
+                ", sportsmanId=" + (sportsmanId) +
+                '}';
+    }
+
+    public LocalDate getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(LocalDate creationTime) {
+        this.creationTime = creationTime;
     }
 }

@@ -6,10 +6,19 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class UserDto implements Serializable {
+    private long id;
     private String firstName;
     private String secondName;
     private String login;
     private String password;
+
+    public long getCoachId() {
+        return coachId;
+    }
+
+    public void setCoachId(long coachId) {
+        this.coachId = coachId;
+    }
 
     public enum Kind {sportsman, coach}
 
@@ -17,6 +26,16 @@ public class UserDto implements Serializable {
 
     @JsonFormat(pattern = "MMM dd, yyyy hh:mm:ss a")
     private Date dateOfBirth;
+
+    private long coachId;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public Kind getType() {
         return type;
@@ -67,5 +86,19 @@ public class UserDto implements Serializable {
     }
 
     public UserDto() {
+    }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "id=" + id +
+                ", \nfirstName='" + firstName + '\'' +
+                ", \nsecondName='" + secondName + '\'' +
+                ", \nlogin='" + login + '\'' +
+                ", \npassword='" + password + '\'' +
+                ", \ntype=" + type +
+                ", \ndateOfBirth=" + dateOfBirth +
+                ", \ncoachId=" + coachId +
+                '}';
     }
 }

@@ -1,13 +1,14 @@
 package org.sportApp.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 @Entity
 @DynamicUpdate
@@ -23,20 +24,12 @@ public class User {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateOfBirth;
 
-    public User getCoach() {
-        return coach;
+    public int getRatingScore() {
+        return ratingScore;
     }
 
-    public void setCoach(User coach) {
-        this.coach = coach;
-    }
-
-    public List<User> getSportsmen() {
-        return sportsmen;
-    }
-
-    public void setSportsmen(List<User> sportsmen) {
-        this.sportsmen = sportsmen;
+    public void setRatingScore(int ratingScore) {
+        this.ratingScore = ratingScore;
     }
 
     public enum Kind {sportsman, coach}
@@ -50,16 +43,21 @@ public class User {
     @OneToMany(mappedBy = "coach", cascade = CascadeType.ALL)
     private List<User> sportsmen = new ArrayList<>();
 
-    protected User() {}
+    @OneToMany(mappedBy = "mainUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Subscriber> followers = new ArrayList<>();
 
-    public User(String fName, String sName, String login, String password, Date dateOfBirth, Kind type) {
-        this.firstName = fName;
-        this.secondName = sName;
-        this.login = login;
-        this.password = password;
-        this.dateOfBirth = dateOfBirth;
-        this.type = type;
-    }
+    @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Subscriber> subscriptions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "userTo", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private List<Notification> notifications = new ArrayList<>();
+
+    @ColumnDefault("0")
+    private int ratingScore = 0;
+
+
+    protected User() {}
 
     public long getId() {
         return this.id;
@@ -111,5 +109,60 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public User getCoach() {
+        return coach;
+    }
+
+    public void setCoach(User coach) {
+        this.coach = coach;
+    }
+
+    public List<User> getSportsmen() {
+        return sportsmen;
+    }
+
+    public void setSportsmen(List<User> sportsmen) {
+        this.sportsmen = sportsmen;
+    }
+
+    public List<Subscriber> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<Subscriber> followers) {
+        this.followers = followers;
+    }
+
+    public List<Subscriber> getSubscriptions() {
+        return subscriptions;
+    }
+
+    public void setSubscriptions(List<Subscriber> subscriptions) {
+        this.subscriptions = subscriptions;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id+
+                ", \nfirstName='" + ((firstName == null) ? null : firstName) + '\'' +
+                ", \nsecondName='" + ((secondName == null) ? null : secondName) + '\'' +
+                ", \nlogin='" + ((login == null) ? null : login) + '\'' +
+                ", \npassword='" + ((password == null) ? null : password) + '\'' +
+                ", \ndateOfBirth=" + ((dateOfBirth == null) ? null : dateOfBirth) +
+                ", \ntype=" + ((type == null) ? null : type) +
+                ", \ncoach=" + ((coach == null) ? null : coach.getId())+
+                ", \nratingScore=" + ratingScore +
+                '}';
     }
 }

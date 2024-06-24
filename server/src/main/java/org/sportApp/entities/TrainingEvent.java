@@ -1,12 +1,9 @@
 package org.sportApp.entities;
 
 import jakarta.persistence.*;
-import org.sportApp.dto.TrainingDto;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
 import java.util.Date;
-import java.util.Locale;
 
 @Entity
 @Table(name="TrainingEvents")
@@ -18,14 +15,15 @@ public class TrainingEvent {
     private Date date;
     private boolean completed;
     private String comment;
-    @OneToOne(mappedBy = "event", cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="trainId")
     private Training training;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="planId", nullable=false)
     private Plan plan;
 
-    public int getEventId() {
+    public long getEventId() {
         return eventId;
     }
 
@@ -80,8 +78,8 @@ public class TrainingEvent {
                 ", date=" + date +
                 ", completed=" + completed +
                 ", comment='" + comment + '\'' +
-                ", training=" + (training==null) +
-                ", planId=" + plan.getPlanId() +
+                ", training=" + ((training == null) ? null : training) +
+                ", planId=" + ((plan == null) ? null : plan.getPlanId()) +
                 '}';
     }
 }

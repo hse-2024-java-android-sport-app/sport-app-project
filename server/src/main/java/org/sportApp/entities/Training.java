@@ -14,10 +14,9 @@ public class Training {
     @OneToMany(mappedBy="training", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Exercise> exercises;
     private long userId;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="eventId")
-    private TrainingEvent event;
+    private int hours;
+    private int minutes;
+    private int seconds;
 
 
     protected Training() {}
@@ -38,14 +37,6 @@ public class Training {
         this.exercises = exercises;
     }
 
-    public TrainingEvent getEvent() {
-        return event;
-    }
-
-    public void setEvent(TrainingEvent event) {
-        this.event = event;
-    }
-
     public long getUserId() {
         return userId;
     }
@@ -60,7 +51,35 @@ public class Training {
                 "trainId=" + trainId +
                 ", exercises=" + exercises +
                 ", userId=" + userId +
-                ", event=" + event +
                 '}';
+    }
+
+    public Training(long userId){
+        this.userId = userId;
+        this.exercises = List.of();
+    }
+
+    public int getHours() {
+        return hours;
+    }
+
+    public void setHours(int hours) {
+        this.hours = hours;
+    }
+
+    public int getMinutes() {
+        return minutes;
+    }
+
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
+    }
+
+    public int getSeconds() {
+        return seconds;
+    }
+
+    public void setSeconds(int seconds) {
+        this.seconds = seconds;
     }
 }
