@@ -120,7 +120,7 @@ public class UserService {
         return false;
     }
 
-    public boolean addSubscription(long userId, long followToId) {
+    public Optional<?> addSubscription(long userId, long followToId) {
         Optional<User> user = getUser(userId);
         Optional<User> followToUser = getUser(followToId);
         if (user.isPresent() && followToUser.isPresent()) {
@@ -128,9 +128,9 @@ public class UserService {
             subscriber.setFollower(user.get());
             subscriber.setMainUser(followToUser.get());
             subscriberRepository.save(subscriber);
-            return true;
+            return Optional.of(true);
         }
-        return false;
+        return Optional.empty();
     }
 
     public List<User> getFollowers(User user) {
