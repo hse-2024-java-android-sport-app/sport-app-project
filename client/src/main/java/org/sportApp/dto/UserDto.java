@@ -105,4 +105,14 @@ public class UserDto implements Serializable {
             return 20;
         }
     }
+
+    public void setInfo(UserDto info) {
+        this.id = info.getId();
+        this.login = info.getLogin();
+        this.firstName = info.getFirstName();
+        this.secondName = info.getSecondName();
+        this.type = info.getType();
+        this.dateOfBirth = info.getDateOfBirth();
+        this.coachId = info.getCoachId();
+    }
 }

@@ -35,7 +35,7 @@ public class CurrentPlan extends FragmentWithAddButton<TrainingEventDto> {
 
     @Override
     protected Class<?> getAddWindowClass() {
-        return TypeSelection.class;
+        return CreatePlan.class;
     }
 
     @Override

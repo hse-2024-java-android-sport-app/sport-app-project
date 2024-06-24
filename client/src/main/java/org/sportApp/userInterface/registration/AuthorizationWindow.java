@@ -41,11 +41,12 @@ public class AuthorizationWindow extends AppCompatActivity {
             if (isAllFieldsChecked) {
                 userDto.setType(UserDto.Kind.sportsman);
                 signInUser(userDto)
-                        .thenAccept(resultDto -> getType(userDto.getId(), userDto))
+                        .thenAccept(resultDto -> getUser(userDto.getId(), userDto))
                         .exceptionally(e -> {
                             Log.e("ApplicationTag", "Authorization: " + Objects.requireNonNull(e.getMessage()));
                             return null;
                         }).join();
+                Log.d("ApplicationTag", "User type: " + userDto.getType());
                 if (userDto.getType().equals(UserDto.Kind.sportsman)) {
                     Intent sportsmanIntent = new Intent(AuthorizationWindow.this, org.sportApp.userInterface.sportsman.MainActivity.class);
                     sportsmanIntent.putExtra("userDto", userDto);
@@ -87,12 +88,11 @@ public class AuthorizationWindow extends AppCompatActivity {
                 });
     }
 
-    private void getType(Long id, UserDto userDto){
-        BackendService.getType(id).thenAccept(resultDto -> {
-                    userDto.setType(resultDto);
-                    UserManager.getInstance().setType(resultDto);
+    private void getUser(Long id, UserDto userDto){
+        BackendService.getUser(id).thenAccept(resultDto -> {
+                    userDto.setInfo(resultDto);
+                    UserManager.getInstance().setInfo(resultDto);
                     Log.d("ApplicationTag", "Authorization " + UserManager.getInstance().getType());
-                    UserManager.getInstance().setLogin(userDto.getLogin());
                     Log.d("ApplicationTag", "Authorization: resultDto is " + resultDto);
                 })
                 .exceptionally(e -> {

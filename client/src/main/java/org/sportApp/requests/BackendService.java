@@ -88,6 +88,13 @@ public class BackendService {
     }
 
     @NonNull
+    public static CompletableFuture<UserDto> getUser(Long id) {
+        String url = BASE_URL + "/getUserById/" + id;
+        return sendAsyncGetRequest(url, UserDto.class, "Failed to find user's info.");
+    }
+
+
+    @NonNull
     public static CompletableFuture<List<String>> getNotifications(Long userId) {
         String url = BASE_URL + "/getNotifications/" + userId;
         Type type = new TypeToken<List<String>>() {

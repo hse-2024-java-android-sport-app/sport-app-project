@@ -101,7 +101,7 @@ public class UserController {
         return checkIdExistAndConvertListToFuture(
                 userService.getUserAndCheckType(coachId, User.Kind.coach),
                 coach -> userService.getAllSportsmenByCoachId(coach.getId()),
-                String.class,
+                UserDto.class,
                 "Required coach doesn't found");
     }
 
