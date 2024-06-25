@@ -47,7 +47,7 @@ public class AddExerciseWindow extends AppCompatActivity {
             Toast.makeText(this, "Please fill in all required fields", Toast.LENGTH_SHORT).show();
             return;
         }
-        int repetitions = 0, duration = 0, sets = 0;
+        int repetitions, duration, sets;
         try {
             repetitions = Integer.parseInt(repetitionsText);
             duration = Integer.parseInt(durationText);
@@ -63,29 +63,12 @@ public class AddExerciseWindow extends AppCompatActivity {
             return;
         }
 
-        ExerciseDto exerciseDto = new ExerciseDto();
-        exerciseDto.setName(name);
-        exerciseDto.setDescription(description);
-        exerciseDto.setRepetitions(repetitions);
-        exerciseDto.setDuration(duration);
-        exerciseDto.setSets(sets);
-        exerciseDto.setVideoUrl(videoUrl);
+        ExerciseDto exerciseDto = new ExerciseDto(name, description, repetitions, duration, sets, videoUrl);
 
         Intent resultIntent = new Intent();
         resultIntent.putExtra("exerciseDto",  exerciseDto);
 
         setResult(RESULT_OK, resultIntent);
-//        BackendService.addExercise(exerciseDto)
-//                .thenAccept(resultDto -> {
-//                    exerciseDto.setId(resultDto);
-//
-//                    Log.d("id", resultDto.toString());
-//                    Toast.makeText(AddExerciseWindow.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
-//                })
-//                .exceptionally(e -> {
-//                    Toast.makeText(AddExerciseWindow.this, "Registration failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                    return null;
-//                });
         finish();
     }
 }

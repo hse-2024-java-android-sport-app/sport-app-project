@@ -3,21 +3,26 @@ package org.sportApp.userInterface.sportsman.ui.events;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 
+import android.widget.ImageButton;
 import androidx.annotation.Nullable;
 
 import org.sportApp.dto.ExerciseDto;
 import org.sportApp.dto.TrainingEventDto;
+import org.sportApp.dto.UserDto;
 import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.adapters.BaseAdapter;
 import org.sportApp.userInterface.adapters.ExercisesAdapter;
 import org.sportApp.userInterface.sportsman.ui.exercise.ExerciseWindow;
 import org.sportApp.userInterface.sportsman.ui.overview.BaseActivity;
+import org.sportApp.utils.UserManager;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class OneEvent extends BaseActivity<ExerciseDto, TrainingEventDto> {
     @Override
@@ -27,7 +32,13 @@ public class OneEvent extends BaseActivity<ExerciseDto, TrainingEventDto> {
 
     @Override
     protected List<ExerciseDto> getItems() {
-        return entity.getTrainingDto().getExercises();
+        Log.d("ApplicationTag", "OneEvent window: trainingDto is " + entity.getTraining());
+        if (entity != null && entity.getTraining() != null) {
+            Log.d("ApplicationTag", "OneEventWindow: exercises " + entity.getTraining().getExercises());
+            return entity.getTraining().getExercises();
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -59,21 +70,31 @@ public class OneEvent extends BaseActivity<ExerciseDto, TrainingEventDto> {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("trainingDto", entity.toString());
-
+        Log.d("ApplicationTag", "OneEvent: entity is " + entity.toString());
+        Log.d("ApplicationTag", "OneEvent: entity is Completed" + entity.isCompleted());
         CheckBox isCompleted = findViewById(R.id.isCompleted);
-        isCompleted.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            entity.setCompleted(isChecked);
-            markEventCompleted();
-        });
+        Boolean result = getEventIsCompleted();
+        if (result != null) {
+            isCompleted.setChecked(result);
+        } else {
+            Log.d("ApplicationTag", "OneEvent: isCompleted is null");
+        }
+//        isCompleted.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        //entity.setCompleted(isChecked);
+//        });
 
         Button saveChangesButton = findViewById(R.id.buttonSaveChanges);
-        saveChangesButton.setOnClickListener(v -> saveChanges());
+        saveChangesButton.setOnClickListener(v -> saveChanges(isCompleted.isChecked()));
+        if (UserManager.getInstance().getType() == UserDto.Kind.coach) {
+            saveChangesButton.setVisibility(View.GONE);
+            isCompleted.setVisibility(View.GONE);
+        }
     }
 
-    private void saveChanges() {
+    private void saveChanges(Boolean isChecked) {
         Intent resultIntent = new Intent();
         resultIntent.putExtra("eventDto", entity);
+        markEventCompleted(isChecked);
         setResult(RESULT_OK, resultIntent);
         finish();
     }
@@ -81,8 +102,17 @@ public class OneEvent extends BaseActivity<ExerciseDto, TrainingEventDto> {
         super.showItem(position, "exerciseDto");
     }
 
-    private void markEventCompleted() {
-        BackendService.markEventCompleted(entity.getEventId()).thenAccept(resultDto -> {
-        }).exceptionally(e -> null);
+    private void markEventCompleted(Boolean isChecked) {
+        BackendService.markEventCompleted(entity.getEventId(), isChecked).thenAccept(resultDto -> {
+        }).exceptionally(e -> null).join();
+    }
+
+    private Boolean getEventIsCompleted() {
+        try {
+            return BackendService.getEventIsCompleted(entity.getEventId()).get();
+        } catch (ExecutionException | InterruptedException e) {
+            Log.e("ApplicationTag", "OneEventClass " + e.getMessage(), e);
+        }
+        return null;
     }
 }

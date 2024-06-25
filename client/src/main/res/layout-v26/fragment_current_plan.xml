@@ -3,50 +3,31 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/currentPlanLabel"
+        android:id="@+id/currentPlan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/current_plan"
+        android:text="@string/plan_title"
         android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/purple_500"
         android:layout_marginTop="15dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/currentPlanRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/currentPlanLabel"
+        android:layout_below="@id/currentPlan"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:gravity="center_vertical|center_horizontal"
         android:textAlignment="center"
         android:layout_marginBottom="16dp" />
 
-    <TextView
-        android:id="@+id/completedPlansLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/currentPlanRecyclerView"
-        android:layout_centerHorizontal="true"
-        android:textAlignment="center"
-        android:text="@string/completed_plans"
-        android:textSize="24sp"
-        android:layout_marginTop="50dp"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/completedPlansRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/completedPlansLabel"
-        android:textAlignment="center"
-        android:layout_marginTop="50dp"
-        android:layout_gravity="center"
-        android:gravity="center_vertical|center_horizontal"
-        android:layout_marginBottom="80dp" />
 
     <ImageButton
-        android:id="@+id/addTrainingButton"
+        android:id="@+id/addCurrentPlanButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

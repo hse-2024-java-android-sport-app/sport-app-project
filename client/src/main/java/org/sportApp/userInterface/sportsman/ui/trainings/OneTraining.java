@@ -1,28 +1,23 @@
 package org.sportApp.userInterface.sportsman.ui.trainings;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.CheckBox;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.sportApp.dto.ExerciseDto;
-import org.sportApp.dto.PlanDto;
 import org.sportApp.dto.TrainingDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.adapters.BaseAdapter;
 import org.sportApp.userInterface.adapters.ExercisesAdapter;
 import org.sportApp.userInterface.sportsman.ui.exercise.ExerciseWindow;
 import org.sportApp.userInterface.sportsman.ui.overview.BaseActivity;
-import org.sportApp.utils.UserManager;
 
 import java.util.List;
 
 public class OneTraining extends BaseActivity<ExerciseDto, TrainingDto> {
-    private CheckBox isCompleted;
+
     @Override
     protected int getLayout() {
         return R.layout.activity_one_training;
@@ -62,10 +57,11 @@ public class OneTraining extends BaseActivity<ExerciseDto, TrainingDto> {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("trainingDto", entity.toString());
+        Log.d("ApplicationTag", "OneTrainingWindow: training " + entity.toString());
     }
 
     private void showExercise(int position) {
+        Log.d("ApplicationTag", "OneTrainingWindow: show exercise");
         super.showItem(position, "exerciseDto");
     }
 }

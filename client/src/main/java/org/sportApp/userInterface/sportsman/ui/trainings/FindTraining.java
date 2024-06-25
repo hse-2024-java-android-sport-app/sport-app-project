@@ -10,9 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.sportApp.dto.TrainingDto;
 import org.sportApp.dto.UserDto;
 import org.sportApp.requests.BackendService;
-import org.sportApp.dto.TrainingDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.adapters.BaseAdapter;
 import org.sportApp.userInterface.adapters.FindTrainingAdapter;
@@ -60,10 +60,10 @@ public class FindTraining extends AppCompatActivity {
     private void getAllTrainings(Long userId) {
         BackendService.getAllTrainings(userId).thenAccept(resultDto -> {
                     trainings = resultDto;
-                    Log.d("UserType", "resultDto: " + resultDto);
+                    Log.d("ApplicationTag", "FindTrainingWindow: trainings " + resultDto);
                 })
                 .exceptionally(e -> {
-                    //Toast.makeText(TrainingsWindow.this, "Authorization failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e("ApplicationTag", "FindTrainingWindow" + e.getMessage(), e);
                     return null;
                 }).join();
     }
@@ -77,7 +77,7 @@ public class FindTraining extends AppCompatActivity {
             resultIntent.putExtra("trainingDto", trainingDto);
             setResult(RESULT_OK, resultIntent);
             Toast.makeText(this, "Your training saved!", Toast.LENGTH_SHORT).show();
-            Log.d("myTag", "user's id in training " + trainingDto.getUserId());
+            Log.d("ApplicationTag", "FindTrainingWindow: user's id in training " + trainingDto.getUserId());
         } else {
             Toast.makeText(this, "No training selected", Toast.LENGTH_SHORT).show();
         }

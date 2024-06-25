@@ -7,11 +7,13 @@ import androidx.annotation.Nullable;
 
 import org.sportApp.dto.PlanDto;
 import org.sportApp.dto.TrainingEventDto;
+import org.sportApp.dto.UserDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.adapters.BaseAdapter;
 import org.sportApp.userInterface.adapters.EventsAdapter;
 import org.sportApp.userInterface.sportsman.ui.events.OneEvent;
 import org.sportApp.userInterface.sportsman.ui.overview.BaseActivity;
+import org.sportApp.utils.UserManager;
 
 import java.util.List;
 
@@ -54,11 +56,11 @@ public class OnePlan extends BaseActivity<TrainingEventDto, PlanDto> {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("planDto", entity.toString());
+        Log.d("ApplicationTag", "OnePlanWindow: entity is" + entity);
     }
 
     private void showTrainings(int position) {
-        //super.showItem(position, "eventDto");
-        super.showItem(position, "trainingDto");
+        super.showItem(position, "eventDto");
+        Log.d("ApplicationTag", "OnePlanWindow: show item");
     }
 }

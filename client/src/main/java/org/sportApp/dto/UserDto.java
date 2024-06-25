@@ -5,35 +5,35 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class UserDto implements Serializable {
+    private long id;
     private String firstName;
     private String secondName;
     private String login;
     private String password;
 
-    private Long id;
-
-    private Long coachId;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getCoachId() {
-        return coachId;
-    }
-
-    public void setCoachId(Long coachId) {
-        this.coachId = coachId;
-    }
-
     public enum Kind {sportsman, coach}
 
     private Kind type;
+    //    @JsonFormat(pattern = "MMM dd, yyyy hh:mm:ss a")
     private Date dateOfBirth;
+
+    private long coachId;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getCoachId() {
+        return coachId;
+    }
+
+    public void setCoachId(long coachId) {
+        this.coachId = coachId;
+    }
 
     public Kind getType() {
         return type;
@@ -91,14 +91,28 @@ public class UserDto implements Serializable {
     }
 
     public int getAge() {
-//        Calendar birthCalendar = Calendar.getInstance();
-//        birthCalendar.setTime(dateOfBirth);
-//        Calendar today = Calendar.getInstance();
-//        int age = today.get(Calendar.YEAR) - birthCalendar.get(Calendar.YEAR);
-//        if (today.get(Calendar.DAY_OF_YEAR) < birthCalendar.get(Calendar.DAY_OF_YEAR)) {
-//            age--;
-//        }
-//        return age;
-        return 20;
+        if (dateOfBirth != null) {
+            Calendar birthCalendar = Calendar.getInstance();
+            birthCalendar.setTime(dateOfBirth);
+            Calendar today = Calendar.getInstance();
+            int age = today.get(Calendar.YEAR) - birthCalendar.get(Calendar.YEAR);
+            if (today.get(Calendar.DAY_OF_YEAR) < birthCalendar.get(Calendar.DAY_OF_YEAR)) {
+                age--;
+            }
+            return age;
+        }
+        else {
+            return 20;
+        }
+    }
+
+    public void setInfo(UserDto info) {
+        this.id = info.getId();
+        this.login = info.getLogin();
+        this.firstName = info.getFirstName();
+        this.secondName = info.getSecondName();
+        this.type = info.getType();
+        this.dateOfBirth = info.getDateOfBirth();
+        this.coachId = info.getCoachId();
     }
 }

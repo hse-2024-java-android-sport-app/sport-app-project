@@ -35,6 +35,7 @@
         <activity android:name=".sportsman.ui.events.TypeSelection" />
         <activity android:name=".sportsman.ui.trainings.FindTraining" />
         <activity android:name=".sportsman.ui.plans.OnePlan" />
+        <activity android:name=".sportsman.ui.events.OneEvent" />
         <activity
             android:name=".coach.MainActivity"
             android:exported="true"

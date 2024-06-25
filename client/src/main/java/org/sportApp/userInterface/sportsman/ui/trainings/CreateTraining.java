@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.sportApp.dto.ExerciseDto;
@@ -25,7 +24,6 @@ import org.sportApp.utils.UserManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 public class CreateTraining extends BaseCreateActivity<ExerciseDto, TrainingDto> {
 
@@ -80,7 +78,7 @@ public class CreateTraining extends BaseCreateActivity<ExerciseDto, TrainingDto>
         resultIntent.putExtra("trainingDto", trainingDto);
         setResult(RESULT_OK, resultIntent);
         Toast.makeText(this, "Your training saved!", Toast.LENGTH_SHORT).show();
-        Log.d("myTag", "user's id in training " + trainingDto.getUserId());
+        Log.d("ApplicationTag", "CreateTrainingWindow: user's id in training " + trainingDto.getUserId());
         finish();
     }
 
@@ -137,21 +135,20 @@ public class CreateTraining extends BaseCreateActivity<ExerciseDto, TrainingDto>
             ExerciseDto exerciseDto = (ExerciseDto) data.getSerializableExtra("exerciseDto");
             if (exerciseDto != null) {
                 exercises.add(exerciseDto);
-                Log.d("myTag", String.valueOf(exercises.size()));
+                Log.d("ApplicationTag", "CreateTrainingWindow: exercises" + exercises);
                 adapter.notifyDataSetChanged();
             }
         }
     }
 
     private void createTraining(TrainingDto trainingDto) {
-        Log.d("myTag", "password: " + org.sportApp.utils.UserManager.getInstance().getPassword());
         BackendService.createTraining(trainingDto)
                 .thenAccept(resultDto -> {
                     trainingDto.setTrainId(resultDto);
-                    Log.d("myTag", "training's id: " + resultDto);
+                    Log.d("ApplicationTag", "CreateTrainingWindow: training's id is" + resultDto);
                 })
                 .exceptionally(e -> {
-                    Log.e("myTag", "Failed to create training or exercises.", e);
+                    Log.e("ApplicationTag", "CreateTrainingWindow" + e.getMessage(), e);
                     return null;
                 }).join();
     }

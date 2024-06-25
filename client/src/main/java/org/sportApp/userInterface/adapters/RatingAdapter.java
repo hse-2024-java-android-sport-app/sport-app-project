@@ -67,9 +67,8 @@ public class RatingAdapter extends BaseAdapter<UserDto, BaseAdapter.BaseViewHold
                 cupSecondImageView.setVisibility(View.GONE);
                 positionTextView.setVisibility(View.GONE);
             }
+            friendAgeTextView.setText(user.getAge() + " years.");
             friendNameTextView.setText(user.getFirstName() + " " + user.getSecondName());
-            friendAgeTextView.setText(32 + " years.");
         }
-
     }
 }

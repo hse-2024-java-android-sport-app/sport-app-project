@@ -15,9 +15,9 @@
             android:title="@string/menu_my_trainings" />
 
         <item
-            android:id="@+id/nav_training_events"
-            android:icon="@drawable/trainings"
-            android:title="@string/menu_training_events" />
+            android:id="@+id/nav_completed_plans"
+            android:icon="@drawable/ic_history"
+            android:title="@string/menu_completed_plans" />
 
         <item
             android:id="@+id/nav_friends"
@@ -38,5 +38,10 @@
             android:id="@+id/nav_rating"
             android:icon="@drawable/cup"
             android:title="@string/menu_rating" />
+
+        <item
+            android:id="@+id/nav_notifications"
+            android:icon="@drawable/notifications"
+            android:title="@string/menu_notifications" />
     </group>
 </menu>

@@ -32,7 +32,13 @@
 
     <fragment
         android:id="@+id/nav_allPlans"
-        android:name="org.sportApp.userInterface.sportsman.ui.plans.MyPlans"
-        tools:layout="@layout/fragment_plans" />
+        android:name="org.sportApp.userInterface.sportsman.ui.plans.CurrentPlan"
+        tools:layout="@layout/fragment_current_plan" />
+
+    <fragment
+            android:id="@+id/nav_notifications"
+            android:label="@string/menu_notifications"
+            android:name="org.sportApp.userInterface.sportsman.ui.interaction.Notifications"
+            tools:layout="@layout/fragment_common" />
 
 </navigation>

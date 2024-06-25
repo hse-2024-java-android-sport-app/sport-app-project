@@ -7,45 +7,51 @@
 
     <fragment
         android:id="@+id/nav_plans"
-        android:name="org.sportApp.userInterface.sportsman.ui.plans.MyPlans"
         android:label="@string/menu_plans"
-        tools:layout="@layout/fragment_plans" />
+        android:name="org.sportApp.userInterface.sportsman.ui.plans.CurrentPlan"
+        tools:layout="@layout/fragment_current_plan" />
 
     <fragment
         android:id="@+id/nav_trainings"
-        android:name="org.sportApp.userInterface.sportsman.ui.trainings.MyTrainings"
         android:label="@string/menu_my_trainings"
-        tools:layout="@layout/fragment_trainings" />
+        android:name="org.sportApp.userInterface.sportsman.ui.trainings.MyTrainings"
+        tools:layout="@layout/fragment_common" />
 
     <fragment
-        android:id="@+id/nav_training_events"
-        android:name="org.sportApp.userInterface.sportsman.ui.events.MyEvents"
-        android:label="@string/menu_training_events"
-        tools:layout="@layout/fragment_training_events" />
+        android:id="@+id/nav_completed_plans"
+        android:label="@string/menu_completed_plans"
+        android:name="org.sportApp.userInterface.sportsman.ui.plans.CompletedPlans"
+        tools:layout="@layout/fragment_completed_plans" />
 
 
     <fragment
         android:id="@+id/nav_add_coach"
-        android:name="org.sportApp.userInterface.sportsman.ui.interaction.FindCoach"
         android:label="@string/menu_add_coach"
+        android:name="org.sportApp.userInterface.sportsman.ui.interaction.FindCoach"
         tools:layout="@layout/fragment_find_user" />
 
     <fragment
         android:id="@+id/nav_friends"
-        android:name="org.sportApp.userInterface.sportsman.ui.interaction.Friends"
         android:label="@string/my_friends"
+        android:name="org.sportApp.userInterface.sportsman.ui.interaction.Friends"
         tools:layout="@layout/fragment_friends" />
 
     <fragment
         android:id="@+id/nav_find_friends"
-        android:name="org.sportApp.userInterface.sportsman.ui.interaction.FindFriends"
         android:label="@string/menu_find_friends"
+        android:name="org.sportApp.userInterface.sportsman.ui.interaction.FindFriends"
         tools:layout="@layout/fragment_find_user" />
 
     <fragment
         android:id="@+id/nav_rating"
-        android:name="org.sportApp.userInterface.sportsman.ui.interaction.Rating"
         android:label="@string/menu_rating"
-        tools:layout="@layout/fragment_rating" />
+        android:name="org.sportApp.userInterface.sportsman.ui.interaction.Rating"
+        tools:layout="@layout/fragment_common" />
+
+    <fragment
+        android:id="@+id/nav_notifications"
+        android:label="@string/menu_notifications"
+        android:name="org.sportApp.userInterface.sportsman.ui.interaction.Notifications"
+        tools:layout="@layout/fragment_common" />
 
 </navigation>

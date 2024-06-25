@@ -66,7 +66,7 @@ public abstract class FindUser extends BaseFragment<UserDto> {
         buttonSearch.setOnClickListener(v -> {
             if (name != null) {
                 searchUsers(name.getText().toString());
-                Log.d("Search", String.valueOf(name.getText()));
+                Log.d("ApplicationTag", "FindUser " + name.getText());
                 assert users != null;
                 adapter.notifyDataSetChanged();
                 name.setText("");

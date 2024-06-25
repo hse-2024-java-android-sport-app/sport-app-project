@@ -60,4 +60,7 @@ public class TrainingDto implements Serializable {
     }
 
 
+    public long getTrainId() {
+        return trainId;
+    }
 }

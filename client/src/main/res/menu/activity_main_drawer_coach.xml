@@ -12,6 +12,9 @@
             android:id="@+id/nav_mainAccount"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_myAccount" />
-
+        <item
+            android:id="@+id/nav_notifications"
+            android:icon="@drawable/notifications"
+            android:title="@string/menu_notifications" />
     </group>
 </menu>

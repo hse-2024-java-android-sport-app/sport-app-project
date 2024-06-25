@@ -1,6 +1,7 @@
 package org.sportApp.userInterface.adapters;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -33,22 +34,24 @@ public class EventsAdapter extends BaseAdapter<TrainingEventDto, BaseAdapter.Bas
 
         @SuppressLint("SetTextI18n")
         public void bind(@NonNull TrainingEventDto trainingEvent, OnItemClickListener<TrainingEventDto> listener) {
-            TrainingDto trainingDto = trainingEvent.getTrainingDto();
-            trainingDto.calculateDuration();
-            int hours = trainingDto.getHours();
+            super.bind(trainingEvent, listener);
+            TrainingDto trainingDto = trainingEvent.getTraining();
+            if (trainingDto != null) {
+                trainingDto.calculateDuration();
+                int hours = trainingDto.getHours();
 
-            int minutes = trainingDto.getMinutes();
+                int minutes = trainingDto.getMinutes();
 
-            int seconds = trainingDto.getSeconds();
+                int seconds = trainingDto.getSeconds();
 
-            numberOfExercisesTextView.setText("Total number of exercises: " + trainingDto.getExercises().size() + ".");
-            if (hours > 0) {
-                totalDurationTextView.setText("Total duration of training: " + hours + " h " + minutes + " min " + seconds + " sec ");
+                numberOfExercisesTextView.setText("Total number of exercises: " + trainingDto.getExercises().size() + ".");
+                if (hours > 0) {
+                    totalDurationTextView.setText("Total duration of training: " + hours + " h " + minutes + " min " + seconds + " sec ");
+                } else {
+                    totalDurationTextView.setText("Total duration of training: " + minutes + " min " + seconds + " sec ");
+                }
+                eventDate.setText("Date of training: " + trainingEvent.getDate());
             }
-            else {
-                totalDurationTextView.setText("Total duration of training: " + minutes + " min " + seconds + " sec ");
-            }
-            eventDate.setText("Date of training: " + trainingEvent.getDate());
         }
     }
 }

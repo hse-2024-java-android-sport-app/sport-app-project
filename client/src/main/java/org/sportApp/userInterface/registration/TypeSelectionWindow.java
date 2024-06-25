@@ -44,7 +44,7 @@ public class TypeSelectionWindow extends AppCompatActivity {
             assert userDto != null;
             userDto.setType(UserDto.Kind.coach);
             registerUser(userDto);
-            Intent coachIntent = new Intent(TypeSelectionWindow.this, org.sportApp.userInterface.sportsman.MainActivity.class);
+            Intent coachIntent = new Intent(TypeSelectionWindow.this, org.sportApp.userInterface.coach.MainActivity.class);
             coachIntent.putExtra("userDto", userDto);
             startActivity(coachIntent);
         });
