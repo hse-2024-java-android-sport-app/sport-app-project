@@ -7,11 +7,13 @@ import androidx.annotation.Nullable;
 
 import org.sportApp.dto.PlanDto;
 import org.sportApp.dto.TrainingEventDto;
+import org.sportApp.dto.UserDto;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.adapters.BaseAdapter;
 import org.sportApp.userInterface.adapters.EventsAdapter;
 import org.sportApp.userInterface.sportsman.ui.events.OneEvent;
 import org.sportApp.userInterface.sportsman.ui.overview.BaseActivity;
+import org.sportApp.utils.UserManager;
 
 import java.util.List;
 

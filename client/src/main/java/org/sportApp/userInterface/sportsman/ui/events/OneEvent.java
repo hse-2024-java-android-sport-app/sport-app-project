@@ -3,19 +3,23 @@ package org.sportApp.userInterface.sportsman.ui.events;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 
+import android.widget.ImageButton;
 import androidx.annotation.Nullable;
 
 import org.sportApp.dto.ExerciseDto;
 import org.sportApp.dto.TrainingEventDto;
+import org.sportApp.dto.UserDto;
 import org.sportApp.requests.BackendService;
 import org.sportApp.userInterface.R;
 import org.sportApp.userInterface.adapters.BaseAdapter;
 import org.sportApp.userInterface.adapters.ExercisesAdapter;
 import org.sportApp.userInterface.sportsman.ui.exercise.ExerciseWindow;
 import org.sportApp.userInterface.sportsman.ui.overview.BaseActivity;
+import org.sportApp.utils.UserManager;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -81,6 +85,10 @@ public class OneEvent extends BaseActivity<ExerciseDto, TrainingEventDto> {
 
         Button saveChangesButton = findViewById(R.id.buttonSaveChanges);
         saveChangesButton.setOnClickListener(v -> saveChanges(isCompleted.isChecked()));
+        if (UserManager.getInstance().getType() == UserDto.Kind.coach) {
+            saveChangesButton.setVisibility(View.GONE);
+            isCompleted.setVisibility(View.GONE);
+        }
     }
 
     private void saveChanges(Boolean isChecked) {

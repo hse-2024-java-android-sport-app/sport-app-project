@@ -48,7 +48,7 @@ public class FindUserAdapter extends BaseAdapter<UserDto, BaseAdapter.BaseViewHo
             addButton.setOnClickListener(v ->
             {
                 if (user.getType() == UserDto.Kind.coach) {
-                    Boolean res = getIsCoachSet(user);
+                    Boolean res = getIsCoachSet(UserManager.getInstance());
                     if (res == Boolean.TRUE) {
                         Toast.makeText(v.getContext(), "Your trainer exists, are you sure you want to overwrite?", Toast.LENGTH_SHORT).show();
                     }

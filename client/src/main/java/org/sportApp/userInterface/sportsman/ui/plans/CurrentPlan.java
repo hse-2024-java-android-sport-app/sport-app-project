@@ -102,7 +102,14 @@ public class CurrentPlan extends FragmentWithAddButton<TrainingEventDto> {
 
     @Nullable
     private PlanDto getCurrentPlan() {
-        BackendService.getAllPlans(UserManager.getInstance().getId()).thenAccept(resultDto -> {
+        UserDto currentUser;
+        if (UserManager.getInstance().getType().equals(UserDto.Kind.coach)) {
+            currentUser = UserManager.getLastUser();
+        }
+        else {
+            currentUser = UserManager.getInstance();
+        }
+        BackendService.getAllPlans(currentUser.getId()).thenAccept(resultDto -> {
             allPlans = resultDto;
             Log.d("ApplicationTag", "CurrentPlanWindow: resultDto is " + resultDto);
         }).exceptionally(e -> {
