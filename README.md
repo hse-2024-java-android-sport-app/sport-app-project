@@ -2,7 +2,7 @@
 Это проект, был реальзован тремя студентами 2-го курса НИУ ВШЭ СПБ:
 * Залилова Диана [@mediana105](https://github.com/mediana105)
 * Иванова Арина [@Arishkamu](https://github.com/Arishkamu)
-* Шевченко Будимир [@minmise](https://github.com/minmise)
+* Минаев Михаил [@minmise](https://github.com/minmise)
 
 Наш метор: Пьянников Николай
 
